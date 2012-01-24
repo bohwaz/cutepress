@@ -1,0 +1,6 @@
+cutepress (1.0.1) stable; urgency=normal
+
+  * AboutPage fix.
+  * Fix for Symbian crash.
+
+ -- Abhishek Kumar <abhishek.mrt22@gmail.com>  Tue, 23 Dec 2011 02:18:36 +0530
