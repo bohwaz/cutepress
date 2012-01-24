@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/images/pagebg.png</file>
+        <file>qml/symbian/CPPage.qml</file>
+        <file>qml/symbian/cutepress.qml</file>
+        <file>qml/symbian/NewBlogPage.qml</file>
+        <file>qml/symbian/HeadingText.qml</file>
+        <file>qml/symbian/BigHeadingText.qml</file>
+        <file>qml/symbian/SmallHeadingText.qml</file>
+        <file>qml/symbian/NewPostPage.qml</file>
+        <file>qml/symbian/NewPagePage.qml</file>
+        <file>qml/symbian/PagesViewPage.qml</file>
+        <file>qml/symbian/CommentsViewPage.qml</file>
+        <file>qml/symbian/PostsViewPage.qml</file>
+        <file>qml/symbian/BlogsViewPage.qml</file>
+        <file>qml/symbian/BlogOptionsPage.qml</file>
+        <file>qml/symbian/ListSectionDelegate.qml</file>
+        <file>qml/symbian/SinglePostPage.qml</file>
+        <file>qml/symbian/AboutPage.qml</file>
+        <file>qml/symbian/LinkDialog.qml</file>
+        <file>qml/symbian/AddCategoriesPage.qml</file>
+        <file>qml/symbian/AddMediaPage.qml</file>
+        <file>qml/symbian/InsertMediaPage.qml</file>
+        <file>qml/symbian/MediaViewPage.qml</file>
+        <file>qml/symbian/SingleMediaPage.qml</file>
+        <file>qml/symbian/NewMediaPage.qml</file>
+        <file>qml/symbian/AddCategoryDialog.qml</file>
+        <file>qml/symbian/HelpPage.qml</file>
+        <file>qml/symbian/SettingsPage.qml</file>
+    </qresource>
+</RCC>

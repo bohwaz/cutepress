@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/meego/AboutPage.qml</file>
+        <file>qml/meego/AddCategoriesPage.qml</file>
+        <file>qml/meego/AddCategoryDialog.qml</file>
+        <file>qml/meego/AddMediaPage.qml</file>
+        <file>qml/meego/BigHeadingText.qml</file>
+        <file>qml/meego/BlogOptionsPage.qml</file>
+        <file>qml/meego/BlogsViewPage.qml</file>
+        <file>qml/meego/CommentsViewPage.qml</file>
+        <file>qml/meego/CPPage.qml</file>
+        <file>qml/meego/cutepress.qml</file>
+        <file>qml/meego/HeadingText.qml</file>
+        <file>qml/meego/HelpPage.qml</file>
+        <file>qml/meego/InsertMediaPage.qml</file>
+        <file>qml/meego/LinkDialog.qml</file>
+        <file>qml/meego/ListSectionDelegate.qml</file>
+        <file>qml/meego/MediaViewPage.qml</file>
+        <file>qml/meego/NewBlogPage.qml</file>
+        <file>qml/meego/NewMediaPage.qml</file>
+        <file>qml/meego/NewPagePage.qml</file>
+        <file>qml/meego/NewPostPage.qml</file>
+        <file>qml/meego/PagesViewPage.qml</file>
+        <file>qml/meego/PostsViewPage.qml</file>
+        <file>qml/meego/SingleMediaPage.qml</file>
+        <file>qml/meego/SinglePostPage.qml</file>
+        <file>qml/meego/SmallHeadingText.qml</file>
+        <file>qml/meego/SettingsPage.qml</file>
+    </qresource>
+</RCC>

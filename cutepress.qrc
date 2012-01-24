@@ -1,0 +1,64 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/images/abort.png</file>
+        <file>qml/images/add.png</file>
+        <file>qml/images/back.png</file>
+        <file>qml/images/back_black.png</file>
+        <file>qml/images/close.png</file>
+        <file>qml/images/close_black.png</file>
+        <file>qml/images/dir.png</file>
+        <file>qml/images/error.png</file>
+        <file>qml/images/forward.png</file>
+        <file>qml/images/home.png</file>
+        <file>qml/images/img.png</file>
+        <file>qml/images/img[old].png</file>
+        <file>qml/images/info.png</file>
+        <file>qml/images/less.png</file>
+        <file>qml/images/mark.png</file>
+        <file>qml/images/menu.png</file>
+        <file>qml/images/more.png</file>
+        <file>qml/images/more[old].png</file>
+        <file>qml/images/quit.png</file>
+        <file>qml/images/reload.png</file>
+        <file>qml/images/reset.png</file>
+        <file>qml/images/search.png</file>
+        <file>qml/images/share.png</file>
+        <file>qml/images/share1.png</file>
+        <file>qml/images/user-avatar.png</file>
+        <file>qml/UIConstants.js</file>
+        <file>qml/images/ErrorThumb.png</file>
+        <file>qml/images/wp-logo.png</file>
+        <file>qml/images/comments.png</file>
+        <file>qml/images/green.png</file>
+        <file>qml/images/orange.png</file>
+        <file>qml/images/red.png</file>
+        <file>qml/images/blogs.png</file>
+        <file>qml/images/edit.png</file>
+        <file>qml/images/publish.png</file>
+        <file>qml/images/save.png</file>
+        <file>qml/images/comments - white.png</file>
+        <file>qml/images/edit - white.png</file>
+        <file>qml/images/close - white.png</file>
+        <file>qml/images/recycle bin.png</file>
+        <file>qml/images/delete - white.png</file>
+        <file>qml/images/delete.png</file>
+        <file>qml/images/CutePress-logo.png</file>
+        <file>qml/images/splash.png</file>
+        <file>qml/images/splash-inv.png</file>
+        <file>qml/images/comments - meego - white.png</file>
+        <file>qml/images/comments - meego.png</file>
+        <file>qml/images/comments - meego_black.png</file>
+        <file>qml/images/comments_black.png</file>
+        <file>qml/images/blogs_black.png</file>
+        <file>qml/images/reload_black.png</file>
+        <file>qml/images/menu_black.png</file>
+        <file>qml/images/recycle bin_black.png</file>
+        <file>qml/images/publish_black.png</file>
+        <file>qml/images/forward_black.png</file>
+        <file>qml/images/edit_black.png</file>
+        <file>qml/images/add_black.png</file>
+        <file>qml/images/abort_black.png</file>
+        <file>qml/images/delete_black.png</file>
+        <file>qml/images/save_black.png</file>
+    </qresource>
+</RCC>
