@@ -1615,10 +1615,8 @@
         <translation>Yorum yok</translation>
     </message>
     <message>
-        <location filename="qml/meego/SinglePostPage.qml" line="414"/>
-        <location filename="qml/symbian/SinglePostPage.qml" line="292"/>
         <source>%1 on &lt;strong&gt;&lt;/strong&gt;</source>
-        <translation>%1 üzerine &lt;strong&gt;&lt;/strong&gt;</translation>
+        <translation type="obsolete">%1 üzerine &lt;strong&gt;&lt;/strong&gt;</translation>
     </message>
     <message>
         <location filename="qml/meego/SinglePostPage.qml" line="505"/>

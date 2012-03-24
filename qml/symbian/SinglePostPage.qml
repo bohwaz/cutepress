@@ -289,7 +289,7 @@ CPPage {
 
                             Text {
                                 id: titleText
-                                text: qsTr("%1 on <strong></strong>").arg(authorName)
+                                text: authorName
                                 color: UI.LISTDELEGATE_TITLE_COLOR
                                 width: parent.width
                                 textFormat: Text.RichText
