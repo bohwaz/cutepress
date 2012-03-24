@@ -6,7 +6,6 @@
         <file>qml/images/back_black.png</file>
         <file>qml/images/close.png</file>
         <file>qml/images/close_black.png</file>
-        <file>qml/images/dir.png</file>
         <file>qml/images/error.png</file>
         <file>qml/images/forward.png</file>
         <file>qml/images/home.png</file>
@@ -60,5 +59,10 @@
         <file>qml/images/abort_black.png</file>
         <file>qml/images/delete_black.png</file>
         <file>qml/images/save_black.png</file>
+        <file>qml/images/close_big.png</file>
+        <file>qml/images/close_big_black.png</file>
+        <file>qml/images/dir_black.png</file>
+        <file>qml/images/dir.png</file>
+        <file>cutepress_tr.qm</file>
     </qresource>
 </RCC>

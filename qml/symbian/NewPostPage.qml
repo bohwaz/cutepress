@@ -69,7 +69,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 window.unmarkAllCategories()
                 pageStack.pop()
@@ -78,18 +78,18 @@ CPPage {
 //        ToolButton {
 //            id: button2
 //            flat: true
-//            iconSource: "qrc:/qml/images/reset.png"
+//            iconSource:"qrc:/qml/images/reset.png"
 //        }
         ToolButton {
             id: button3
             flat: true
-            iconSource: "qrc:/qml/images/save.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/save.png":"qrc:/qml/images/symbian/symbian_save.png"
             onClicked: saveMenu.open()
         }
         ToolButton {
             id: button4
             flat: true
-            iconSource: "qrc:/qml/images/publish.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/publish.png":"qrc:/qml/images/symbian/symbian_publish.png"
             onClicked: pubMenu.open()
         }
     }
@@ -98,7 +98,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Save as draft"
+                    text: qsTr("Save as draft")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -118,8 +118,8 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Save as local draft"
-                    visible: postPublishStatus=="Local Draft" || postPublishStatus==""
+                    text: qsTr("Save as local draft")
+                    visible: postPublishStatus==qsTr("Local Draft") || postPublishStatus==""
                     onClicked: {
                         window.addNewPost(postTitleText,
                                           postPageText,
@@ -138,7 +138,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Publish as public"
+                    text: qsTr("Publish as public")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -158,7 +158,7 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Publish as private"
+                    text: qsTr("Publish as private")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -260,7 +260,7 @@ CPPage {
 
             ListSectionDelegate {
                 id: section
-                sectionName: isEditingPost?"Edit Post":"Add Post"
+                sectionName: isEditingPost?qsTr("Edit Post"):qsTr("Add Post")
                 color: window.isThemeInverted?UI.PAGE_HEADER_TITLE_COLOR:UI.PAGE_HEADER_TITLE_COLOR
                 margins: 0
             }
@@ -271,17 +271,17 @@ CPPage {
                 height: publishStatus.height+4
                 visible: publishStatus.text!=""
                 color: {
-                    if(publishStatus.text == "Published")
+                    if(publishStatus.text == qsTr("Published"))
                         return "green";
-                    else if(publishStatus.text == "Private")
+                    else if(publishStatus.text == qsTr("Private"))
                         return "lightgreen";
-                    else if(publishStatus.text == "Scheduled in future")
+                    else if(publishStatus.text == qsTr("Scheduled in future"))
                         return "#5674b9";
-                    else if(publishStatus.text == "Pending review")
+                    else if(publishStatus.text == qsTr("Pending review"))
                         return "yellow";
-                    else if(publishStatus.text == "Draft"||publishStatus.text == "Local Draft" || publishStatus.text == "Busy")
+                    else if(publishStatus.text == qsTr("Draft")||publishStatus.text == qsTr("Local Draft") || publishStatus.text == qsTr("Busy"))
                         return "orange";
-                    else if(publishStatus.text == "Trashed"||publishStatus.text == "Orphaned")
+                    else if(publishStatus.text == qsTr("Trashed")||publishStatus.text == qsTr("Orphaned"))
                         return "red";
                 }
 
@@ -300,7 +300,7 @@ CPPage {
             }
 
             HeadingText {
-                text: "Title"
+                text: qsTr("Title")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
@@ -308,11 +308,11 @@ CPPage {
                 id: postTitle
                 width: parent.width
                 font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter title here"
+                placeholderText: qsTr("Enter title here")
             }
 
             HeadingText {
-                text: "Content"
+                text: qsTr("Content")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
@@ -503,7 +503,7 @@ CPPage {
             }
 
             HeadingText {
-                text: "Tags"
+                text: qsTr("Tags")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
@@ -511,7 +511,7 @@ CPPage {
                 id: tagsText
                 width: parent.width
                 font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter tags here"
+                placeholderText: qsTr("Enter tags here")
                 height: 72
             }
 
@@ -522,7 +522,7 @@ CPPage {
 
 
                 HeadingText {
-                    text: "Categories"
+                    text: qsTr("Categories")
                     width: 120
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
@@ -534,17 +534,17 @@ CPPage {
                     height: width
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    iconSource: "qrc:/qml/images/add.png"
+                    iconSource: window.isIconsMetro?"qrc:/qml/images/add.png":window.isThemeInverted?"qrc:/qml/images/symbian/symbian_add.png":"qrc:/qml/images/symbian/symbian_add_black.png"
                     onClicked: window.openFile("AddCategoriesPage.qml")
                 }
 //                Button {
-//                    text: "Add Categories"
+//                    text: qsTr("Add Categories")
 //                    font.pixelSize: window.appInputFontSize
 //                    width: (parent.width - parent.spacing)/2
 //                    onClicked: window.openFile("AddCategoriesPage.qml")
 //                }
 //                Button {
-//                    text: "Add Location"
+//                    text: qsTr("Add Location")
 //                    font.pixelSize: window.appInputFontSize
 //                    width: (parent.width - parent.spacing)/2
 //                }
@@ -565,20 +565,20 @@ CPPage {
                 HeadingText {
                     id: dateLabel
                     width: 100
-                    text: "Published on"
+                    text: qsTr("Published on")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
                 Button {
                     id: date
-                    text: "Date"
+                    text: qsTr("Date")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: postPage.launchDialogToToday()
                 }
                 Button {
                     id: time
-                    text: "Time"
+                    text: qsTr("Time")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: postPage.launchDialogToNow()
@@ -591,7 +591,7 @@ CPPage {
                 HeadingText {
                     id: pwdLabel
                     width: 120
-                    text: "Password"
+                    text: qsTr("Password")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
@@ -599,7 +599,7 @@ CPPage {
                     id: pwdText
                     width: parent.width - pwdLabel.width - parent.spacing
                     font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter password here"
+                    placeholderText: qsTr("Enter password here")
                 }
             }
         }
@@ -607,11 +607,11 @@ CPPage {
 
     LinkDialog {
         id: linkDialog
-        titleText: "Enter the destination URL"
+        titleText: qsTr("Enter the destination URL")
         linkUrlText: "http://"
         linkTitleText: ""
-        rejectButtonText: "Cancel"
-        acceptButtonText: "Add Link"
+        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr("Add Link")
         onRejected: postText.focus = true
         onAccepted: {
             var pre = "<a href=\'"+linkUrlText+"\'>"
@@ -626,17 +626,17 @@ CPPage {
 
     DatePickerDialog {
          id: tDialog
-         titleText: "Publish Date"
-         acceptButtonText: "Ok"
-         rejectButtonText: "Cancel"
+         titleText: qsTr("Publish Date")
+         acceptButtonText: qsTr("Ok")
+         rejectButtonText: qsTr("Cancel")
          onAccepted: date.text = tDialog.year + "/" + tDialog.month + "/" + tDialog.day
      }
 
     TimePickerDialog{
         id: timeDialog
-        titleText: "Publish Time"
-        acceptButtonText: "Ok"
-        rejectButtonText: "Cancel"
+        titleText: qsTr("Publish Time")
+        acceptButtonText: qsTr("Ok")
+        rejectButtonText: qsTr("Cancel")
         fields: DateTime.All
         onAccepted: time.text = timeDialog.hour + ":" + timeDialog.minute + ":" + timeDialog.second
     }

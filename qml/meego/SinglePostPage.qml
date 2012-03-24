@@ -40,15 +40,15 @@ CPPage {
         ToolIcon {
             id: button2
             iconSource: UI.DELETEBIGIMG
-            onClicked: showDialog("Doy you really want to delete post \"<strong>"+window.sppPostTitle+"</strong>\"?")
+            onClicked: showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg("+window.sppPostTitle+"))
         }
     }
 
     QueryDialog {
         id: query
-        acceptButtonText: "Yes"
-        rejectButtonText: "No"
-        titleText: "Delete post"
+        acceptButtonText: qsTr("Yes")
+        rejectButtonText: qsTr("No")
+        titleText: qsTr("Delete post")
         onAccepted: window.deletePost(window.sppPostId)
     }
 
@@ -93,7 +93,7 @@ CPPage {
                         anchors.rightMargin: 0
                         anchors.leftMargin: 0
                         margins: 0
-                        sectionName: "Post"
+                        sectionName: qsTr("Post")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -102,17 +102,17 @@ CPPage {
                         anchors.right: parent.right
                         height: pStatus.height+4
                         color: {
-                            if(pStatus.text == "Published")
+                            if(pStatus.text == qsTr("Published"))
                                 return "green";
-                            else if(pStatus.text == "Private")
+                            else if(pStatus.text == qsTr("Private"))
                                 return "lightgreen";
-                            else if(pStatus.text == "Scheduled in future")
+                            else if(pStatus.text == qsTr("Scheduled in future"))
                                 return "#5674b9";
-                            else if(pStatus.text == "Pending review")
+                            else if(pStatus.text == qsTr("Pending review"))
                                 return "yellow";
-                            else if(pStatus.text == "Draft"||pStatus.text == "Local Draft" || pStatus.text == "Busy")
+                            else if(pStatus.text == qsTr("Draft")||pStatus.text == qsTr("Local Draft") || pStatus.text == qsTr("Busy"))
                                 return "orange";
-                            else if(pStatus.text == "Trashed"||pStatus.text == "Orphaned")
+                            else if(pStatus.text == qsTr("Trashed")||pStatus.text == qsTr("Orphaned"))
                                 return "red";
                         }
 
@@ -132,9 +132,9 @@ CPPage {
 
                     BigHeadingText {
                         text: {
-                            var txt = "<strong>" + window.sppPostTitle + "</strong>"
+                            var txt = qsTr("<strong>%1</strong>").arg(window.sppPostTitle)
                             if(window.sppPostPassword!="")
-                                txt = "[Protected] <strong>" + window.sppPostTitle + "</strong>"
+                                txt = qsTr("[Protected] <strong>%1</strong>").arg(window.sppPostTitle)
                             return txt
                         }
                         font.pixelSize: window.appGeneralFontSize+2
@@ -144,7 +144,7 @@ CPPage {
                     }
 
                     Text {
-                        text: "by "+window.sppPostAuthor
+                        text: qsTr("by %1").arg(window.sppPostAuthor)
                         visible: window.sppPostAuthor!=""
                         textFormat: Text.RichText
                         font.pixelSize: window.appGeneralFontSize - 1
@@ -152,7 +152,7 @@ CPPage {
                     }
 
                     Text {
-                        text: "Categorized in <em>"+window.sppPostCategories+"</em>"
+                        text: qsTr("Categorized in <em>%1</em>").arg(window.sppPostCategories)
                         textFormat: Text.RichText
                         wrapMode: Text.Wrap
                         font.pixelSize: window.appGeneralFontSize - 1
@@ -162,7 +162,7 @@ CPPage {
                     }
 
                     Text {
-                        text: "on "+window.sppPostDate
+                        text: qsTr("on %1").arg(window.sppPostDate)
                         visible: window.sppPostDate!=""
                         textFormat: Text.RichText
                         font.pixelSize: window.appGeneralFontSize - 1
@@ -319,26 +319,26 @@ CPPage {
             }
 
             HeadingText {
-                text: "Add reply"
+                text: qsTr("Add reply")
                 color: UI.PAGE_HEADER_TITLE_COLOR
                 font.bold: false
-                visible: window.sppPostPublishStatus!="Local Draft"
+                visible: window.sppPostPublishStatus!=qsTr("Local Draft")
             }
 
             TextArea {
                 id: addCommentField
                 enabled: window.addCommentState != UI.ProgressState.Processing
                 width: parent.width
-                font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter your reply here"
+//                font.pixelSize: window.appInputFontSize
+                placeholderText: qsTr("Enter your reply here")
                 height: Math.max (100, implicitHeight)
-                visible: window.sppPostPublishStatus!="Local Draft"
+                visible: window.sppPostPublishStatus!=qsTr("Local Draft")
             }
 
             Row{
                 anchors.left: parent.left
                 anchors.right: parent.right
-                visible: window.sppPostPublishStatus!="Local Draft"
+                visible: window.sppPostPublishStatus!=qsTr("Local Draft")
 
                 BusyIndicator {
                     anchors.verticalCenter: parent.verticalCenter
@@ -349,7 +349,7 @@ CPPage {
                 }
 
                 Button{
-                    text: "Post"
+                    text: qsTr("Post")
                     enabled: window.addCommentState != UI.ProgressState.Processing
                     onClicked: window.addComment(window.sppPostId, addCommentField.text)
                     font.pixelSize: window.appInputFontSize
@@ -361,10 +361,10 @@ CPPage {
 
             HeadingText {
                 id: commentsHeading
-                text: commentList.count!=0?"Comments("+commentList.count+")":"No comments yet"
+                text: commentList.count!=0?qsTr("Comments(%1)").arg(commentList.count):qsTr("No comments yet")
                 color: UI.PAGE_HEADER_TITLE_COLOR
                 font.bold: false
-                visible: window.sppPostPublishStatus!="Local Draft"
+                visible: window.sppPostPublishStatus!=qsTr("Local Draft")
             }
 
             Component {
@@ -403,16 +403,15 @@ CPPage {
                             Text {
                                 text: dateCreated;
                                 width: parent.width
-                                font.pixelSize: titleText.font.pixelSize-1
+                                font.pixelSize: titleText.font.pixelSize-2
                                 elide: Text.ElideRight
                                 color: UI.LISTDELEGATE_TEXT_COLOR
-                                font.italic: true
                                 horizontalAlignment: Text.AlignRight
                             }
 
                             Text {
                                 id: titleText
-                                text: authorName+" on <strong>"+postTitle+"</strong>"
+                                text: qsTr("%1 on <strong></strong>").arg(authorName)
                                 color: UI.LISTDELEGATE_TITLE_COLOR
                                 width: parent.width
                                 textFormat: Text.RichText
@@ -488,7 +487,7 @@ CPPage {
                 enabled: !pageStack.busy
                 spacing: 5
                 interactive: false
-                visible: window.sppPostPublishStatus!="Local Draft"||count!=0
+                visible: window.sppPostPublishStatus!=qsTr("Local Draft")||count!=0
                 property int selectedComment: -1
                 onCountChanged: console.log("Helloooooo",window.sppPostPublishStatus,count,height)
 
@@ -503,9 +502,9 @@ CPPage {
                         MenuItem {
                             text:{
                                 if(contextMenu.commentStatus=="hold")
-                                    return "Approve";
+                                    return qsTr("Approve");
                                 else if(contextMenu.commentStatus=="approve")
-                                    return "Unapprove";
+                                    return qsTr("Unapprove");
                             }
                             onClicked: {
                                 if(contextMenu.commentStatus=="hold")
@@ -514,8 +513,8 @@ CPPage {
                                     window.unApproveComment(contextMenu.commentId);
                             }
                         }
-                        MenuItem { text: "Delete"; onClicked: { window.deleteComment(contextMenu.commentId) } }
-                        MenuItem { text: "Spam"; onClicked: { window.spamComment(contextMenu.commentId) } }
+                        MenuItem { text: qsTr("Delete"); onClicked: { window.deleteComment(contextMenu.commentId) } }
+                        MenuItem { text: qsTr("Spam"); onClicked: { window.spamComment(contextMenu.commentId) } }
                     }
                 }
 

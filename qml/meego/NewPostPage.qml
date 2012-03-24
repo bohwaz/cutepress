@@ -55,7 +55,7 @@ CPPage {
 
     function insertMedia(html)
     {
-        console.log("Insert Media",html,window.tempPostPos, window.tempPostText, mediaItemPosition)
+        console.log(qsTr("Insert Media"),html,window.tempPostPos, window.tempPostText, mediaItemPosition)
         postText.text = window.tempPostText.substring(0,window.tempPostPos)+
                        html+
                        window.tempPostText.substring(window.tempPostPos)
@@ -76,7 +76,7 @@ CPPage {
 //        ToolButton {
 //            id: button2
 //            flat: true
-//            iconSource: "qrc:/qml/images/reset.png"
+//            iconSource:"qrc:/qml/images/reset.png"
 //        }
         ToolIcon {
             id: button3
@@ -94,7 +94,7 @@ CPPage {
         visualParent: postPage
         content: MenuLayout {
                 MenuItem {
-                    text: "Save as draft"
+                    text: qsTr("Save as draft")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -114,8 +114,8 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Save as local draft"
-                    visible: postPublishStatus=="Local Draft" || postPublishStatus==""
+                    text: qsTr("Save as local draft")
+                    visible: postPublishStatus==qsTr("Local Draft") || postPublishStatus==""
                     onClicked: {
                         window.addNewPost(postTitleText,
                                           postPageText,
@@ -134,7 +134,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Publish as public"
+                    text: qsTr("Publish as public")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -154,7 +154,7 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Publish as private"
+                    text: qsTr("Publish as private")
                     onClicked: {
                         if(isEditingPost)
                             window.editPost(postLocalId,
@@ -260,7 +260,7 @@ CPPage {
 
             ListSectionDelegate {
                 id: section
-                sectionName: isEditingPost?"Edit Post":"Add Post"
+                sectionName: isEditingPost?qsTr("Edit Post"):qsTr("Add Post")
                 color: window.isThemeInverted?UI.PAGE_HEADER_TITLE_COLOR:UI.PAGE_HEADER_TITLE_COLOR
                 margins: 0
             }
@@ -271,17 +271,17 @@ CPPage {
                 height: publishStatus.height+4
                 visible: publishStatus.text!=""
                 color: {
-                    if(publishStatus.text == "Published")
+                    if(publishStatus.text == qsTr("Published"))
                         return "green";
-                    else if(publishStatus.text == "Private")
+                    else if(publishStatus.text == qsTr("Private"))
                         return "lightgreen";
-                    else if(publishStatus.text == "Scheduled in future")
+                    else if(publishStatus.text == qsTr("Scheduled in future"))
                         return "#5674b9";
-                    else if(publishStatus.text == "Pending review")
+                    else if(publishStatus.text == qsTr("Pending review"))
                         return "yellow";
-                    else if(publishStatus.text == "Draft"||publishStatus.text == "Local Draft" || publishStatus.text == "Busy")
+                    else if(publishStatus.text == qsTr("Draft")||publishStatus.text == qsTr("Local Draft") || publishStatus.text == qsTr("Busy"))
                         return "orange";
-                    else if(publishStatus.text == "Trashed"||publishStatus.text == "Orphaned")
+                    else if(publishStatus.text == qsTr("Trashed")||publishStatus.text == qsTr("Orphaned"))
                         return "red";
                 }
 
@@ -300,26 +300,26 @@ CPPage {
             }
 
             HeadingText {
-                text: "Title"
+                text: qsTr("Title")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
             TextField {
                 id: postTitle
                 width: parent.width
-                font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter title here"
+//                font.pixelSize: window.appInputFontSize
+                placeholderText: qsTr("Enter title here")
             }
 
             HeadingText {
-                text: "Content"
+                text: qsTr("Content")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
             TextArea {
                 id: postText
                 anchors.left: parent.left
                 textFormat: Text.PlainText
-                font.pixelSize: window.appInputFontSize
+//                font.pixelSize: window.appInputFontSize
                 width: parent.width
                 height: Math.max(225, implicitHeight)
                 onActiveFocusChanged: {
@@ -333,15 +333,15 @@ CPPage {
             }
 
             HeadingText {
-                text: "Tags"
+                text: qsTr("Tags")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
             TextArea {
                 id: tagsText
                 width: parent.width
-                font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter tags here"
+//                font.pixelSize: window.appInputFontSize
+                placeholderText: qsTr("Enter tags here")
                 height: 72
             }
 
@@ -352,7 +352,7 @@ CPPage {
 
 
                 HeadingText {
-                    text: "Categories"
+                    text: qsTr("Categories")
                     width: 120
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
@@ -365,13 +365,13 @@ CPPage {
                     onClicked: window.openFile("AddCategoriesPage.qml")
                 }
 //                Button {
-//                    text: "Add Categories"
+//                    text: qsTr("Add Categories")
 //                    font.pixelSize: window.appInputFontSize
 //                    width: (parent.width - parent.spacing)/2
 //                    onClicked: window.openFile("AddCategoriesPage.qml")
 //                }
 //                Button {
-//                    text: "Add Location"
+//                    text: qsTr("Add Location")
 //                    font.pixelSize: window.appInputFontSize
 //                    width: (parent.width - parent.spacing)/2
 //                }
@@ -392,20 +392,20 @@ CPPage {
                 HeadingText {
                     id: dateLabel
                     width: 150
-                    text: "Published on"
+                    text: qsTr("Published on")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
                 Button {
                     id: date
-                    text: "Date"
+                    text: qsTr("Date")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: postPage.launchDialogToToday()
                 }
                 Button {
                     id: time
-                    text: "Time"
+                    text: qsTr("Time")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: postPage.launchDialogToNow()
@@ -418,15 +418,15 @@ CPPage {
                 HeadingText {
                     id: pwdLabel
                     width: 120
-                    text: "Password"
+                    text: qsTr("Password")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
                 TextField {
                     id: pwdText
                     width: parent.width - pwdLabel.width - parent.spacing
-                    font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter password here"
+//                    font.pixelSize: window.appInputFontSize
+                    placeholderText: qsTr("Enter password here")
                 }
             }
         }
@@ -450,7 +450,7 @@ CPPage {
                 width: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: width
                 text: "b"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     console.log("Hell Yeah!")
                     var cPos = postText.cursorPosition
@@ -484,7 +484,7 @@ CPPage {
                 width: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: width
                 text: "i"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     var cPos = postText.cursorPosition
                     /*var selStart = postText.selectionStart
@@ -517,7 +517,7 @@ CPPage {
                 width: 1.75*(UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 text: "b-quote"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     var cPos = postText.cursorPosition
                     /*var selStart = postText.selectionStart
@@ -550,7 +550,7 @@ CPPage {
                 width: 1.1*(UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 text: "code"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     var cPos = postText.cursorPosition
                     /*var selStart = postText.selectionStart
@@ -581,7 +581,7 @@ CPPage {
                 width: 1.1*(UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 text: "link"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     linkDialog.linkTitleText = postText.selectedText
                     linkDialog.linkUrlText = "http://"
@@ -595,7 +595,7 @@ CPPage {
                 width: 1.1*(UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 text: "img"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     window.tempPostText = postText.text
                     window.tempPostPos = postText.cursorPosition
@@ -611,7 +611,7 @@ CPPage {
                 width: 1.1*(UI.TOOLBUTTON_SMALL_WIDTH+10)
                 height: (UI.TOOLBUTTON_SMALL_WIDTH+10)
                 text: "vid"
-                font.pixelSize: window.appGeneralFontSize - 3
+                font.pixelSize: window.appGeneralFontSize - 4
                 onClicked: {
                     window.tempPostText = postText.text
                     window.tempPostPos = postText.cursorPosition
@@ -634,11 +634,11 @@ CPPage {
 
     LinkDialog {
         id: linkDialog
-        titleText: "Enter the destination URL"
+        titleText: qsTr("Enter the destination URL")
         linkUrlText: "http://"
         linkTitleText: ""
-        rejectButtonText: "Cancel"
-        acceptButtonText: "Add Link"
+        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr("Add Link")
         onRejected: postText.focus = true
         onAccepted: {
             var pre = "<a href=\'"+linkUrlText+"\'>"
@@ -653,17 +653,17 @@ CPPage {
 
     DatePickerDialog {
          id: tDialog
-         titleText: "Publish Date"
-         acceptButtonText: "Ok"
-         rejectButtonText: "Cancel"
+         titleText: qsTr("Publish Date")
+         acceptButtonText: qsTr("Ok")
+         rejectButtonText: qsTr("Cancel")
          onAccepted: date.text = tDialog.year + "/" + tDialog.month + "/" + tDialog.day
      }
 
     TimePickerDialog{
         id: timeDialog
-        titleText: "Publish Time"
-        acceptButtonText: "Ok"
-        rejectButtonText: "Cancel"
+        titleText: qsTr("Publish Time")
+        acceptButtonText: qsTr("Ok")
+        rejectButtonText: qsTr("Cancel")
         fields: DateTime.All
         onAccepted: time.text = timeDialog.hour + ":" + timeDialog.minute + ":" + timeDialog.second
     }

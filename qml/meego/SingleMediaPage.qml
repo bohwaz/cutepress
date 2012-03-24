@@ -77,8 +77,8 @@ CPPage {
                     spacing: 15
 
                     HeadingText {
-                        text: "Title"
-                        color: UI.FONT_COLOR_BLUE
+                        text: qsTr("Title")
+                        color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
                     Text {
@@ -91,9 +91,9 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Description"
+                        text: qsTr("Description")
                         visible: descLabel.text!=""
-                        color: UI.FONT_COLOR_BLUE
+                        color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
                     Text {
@@ -107,9 +107,9 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Caption"
+                        text: qsTr("Caption")
                         visible: captionLabel.text!=""
-                        color: UI.FONT_COLOR_BLUE
+                        color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
                     Text {
@@ -123,8 +123,8 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "File type"
-                        color: UI.FONT_COLOR_BLUE
+                        text: qsTr("File type")
+                        color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
                     Text {
@@ -135,8 +135,8 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Upload date"
-                        color: UI.FONT_COLOR_BLUE
+                        text: qsTr("Upload date")
+                        color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
                     Text {
@@ -147,7 +147,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "File URL"
+                        text: qsTr("File URL")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 

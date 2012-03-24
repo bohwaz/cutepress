@@ -43,7 +43,7 @@ CPPage {
             id: button2
             flat: true
             visible: !marking
-            iconSource: "qrc:/qml/images/mark.png"
+            iconSource:"qrc:/qml/images/mark.png"
             onClicked: {
                 marking = true
             }
@@ -81,7 +81,7 @@ CPPage {
             anchors.verticalCenter: parent.verticalCenter
             text: {
                 if(window.commentModelStatus=="")
-                    return "Comments"
+                    return qsTr("Comments")
                 else
                     return window.commentModelStatus
             }
@@ -106,7 +106,7 @@ CPPage {
                 width: 32
                 height: width
                 flat: true
-                iconSource: "qrc:/qml/images/reload.png"
+                iconSource: UI.RELOADIMG
                 visible: !status.visible
                 enabled: !pageStack.busy
                 onClicked: window.refreshCurrentBlogComments()
@@ -157,16 +157,15 @@ CPPage {
                     Text {
                         text: dateCreated;
                         width: parent.width
-                        font.pixelSize: titleText.font.pixelSize-1
+                        font.pixelSize: titleText.font.pixelSize-2
                         elide: Text.ElideRight
                         color: UI.LISTDELEGATE_TEXT_COLOR
-                        font.italic: true
                         horizontalAlignment: Text.AlignRight
                     }
 
                     Text {
                         id: titleText
-                        text: authorName+" on <strong>"+postTitle+"</strong>"
+                        text: qsTr("%1 on <strong>%2</strong>").arg(authorName).arg(authorName)
                         color: UI.LISTDELEGATE_TITLE_COLOR
                         width: parent.width
                         textFormat: Text.RichText
@@ -270,9 +269,9 @@ CPPage {
                 MenuItem {
                     text:{
                         if(contextMenu.commentStatus=="hold")
-                            return "Approve";
+                            return qsTr("Approve");
                         else if(contextMenu.commentStatus=="approve")
-                            return "Unapprove";
+                            return qsTr("Unapprove");
                     }
                     onClicked: {
                         if(contextMenu.commentStatus=="hold")
@@ -281,9 +280,9 @@ CPPage {
                             window.unApproveComment(contextMenu.commentId);
                     }
                 }
-                MenuItem { text: "Reply"; onClicked: { window.replyToComment(contextMenu.commentId, contextMenu.commentsPostId) } }
-                MenuItem { text: "Delete"; onClicked: { window.deleteComment(contextMenu.commentId) } }
-                MenuItem { text: "Spam"; onClicked: { window.spamComment(contextMenu.commentId) } }
+                MenuItem { text: qsTr("Reply"); onClicked: { window.replyToComment(contextMenu.commentId, contextMenu.commentsPostId) } }
+                MenuItem { text: qsTr("Delete"); onClicked: { window.deleteComment(contextMenu.commentId) } }
+                MenuItem { text: qsTr("Spam"); onClicked: { window.spamComment(contextMenu.commentId) } }
             }
         }
 

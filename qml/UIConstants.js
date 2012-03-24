@@ -74,6 +74,7 @@ var LISTDELEGATE_COMMENTSTATUS_COLOR2 = "red";
 var LISTDELEGATE_TEXT_COLOR_MARKED = "black";
 var LISTDELEGATE_STYLE_COLOR = "black";
 var LISTDELEGATE_STYLE_COLOR_MARKED = "#CCCCCC";
+var LISTDELEGATE_BG_COLOR_PRESSED = IS_THEME_LIGHT?"#cccccc":"#363636";
 var LISTDELEGATE_WRAPPER_COLOR = IS_THEME_LIGHT?"#cccccc":"#363636";
 var LISTDELEGATE_WRAPPER_COLOR_MARKED = IS_THEME_LIGHT?"#3cb878":"#49aeda";
 
@@ -118,6 +119,8 @@ var DELETEBIGIMG = IS_THEME_LIGHT?"qrc:/qml/images/recycle bin_black.png":"qrc:/
 var BACKIMG = IS_THEME_LIGHT?"qrc:/qml/images/back_black.png":"qrc:/qml/images/back.png";
 var FORWARDIMG = IS_THEME_LIGHT?"qrc:/qml/images/forward_black.png":"qrc:/qml/images/forward.png";
 var CLOSEIMG = IS_THEME_LIGHT?"qrc:/qml/images/close_black.png":"qrc:/qml/images/close.png";
+var CLOSEBIGIMG = IS_THEME_LIGHT?"qrc:/qml/images/close_big_black.png":"qrc:/qml/images/close_big.png";
+var DIRIMG = IS_THEME_LIGHT?"qrc:/qml/images/dir_black.png":"qrc:/qml/images/dir.png";
 var ADDIMG = IS_THEME_LIGHT?"qrc:/qml/images/add_black.png":"qrc:/qml/images/add.png";
 var ABORTTIMG = IS_THEME_LIGHT?"qrc:/qml/images/abort_black.png":"qrc:/qml/images/abort.png";
 var RELOADIMG = IS_THEME_LIGHT?"qrc:/qml/images/reload_black.png":"qrc:/qml/images/reload.png";
@@ -154,6 +157,7 @@ function switchTheme() {
     HEADINGTEXT_COLOR = IS_THEME_LIGHT?"black":"white";
     BIGHEADINGTEXT_COLOR = IS_THEME_LIGHT?"#005826":"#6dcff6";
     PROGRESSSTATUS_LABEL_COLOR = IS_THEME_LIGHT?"#a1a1a1":"#636363";
+    LISTDELEGATE_BG_COLOR_PRESSED = IS_THEME_LIGHT?"#cccccc":"#363636";
     LISTDELEGATE_WRAPPER_COLOR = IS_THEME_LIGHT?"#cccccc":"#363636";
     LISTDELEGATE_WRAPPER_COLOR_MARKED = IS_THEME_LIGHT?"#3cb878":"#49aeda";
     LISTDELEGATE_TITLE_COLOR = IS_THEME_LIGHT?"#005826":"#6dcff6";

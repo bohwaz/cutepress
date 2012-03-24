@@ -31,7 +31,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 if(!marking)
                     pageStack.pop()
@@ -43,7 +43,7 @@ CPPage {
             id: button2
             flat: true
             visible: !marking
-            iconSource: "qrc:/qml/images/mark.png"
+            iconSource:"qrc:/qml/images/mark.png"
             onClicked: {
                 marking = true
             }
@@ -51,7 +51,7 @@ CPPage {
         ToolButton {
             id: button2
             flat: true
-            iconSource: "qrc:/qml/images/reload.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/reload.png":"qrc:/qml/images/symbian/symbian_reload.png"
             visible: !status.visible
             onClicked: window.refreshCurrentBlogComments()
         }
@@ -81,7 +81,7 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.commentModelStatus=="")
-                        return "Comments"
+                        return qsTr("Comments")
                     else
                         return window.commentModelStatus
                 }
@@ -149,16 +149,15 @@ CPPage {
                     Text {
                         text: dateCreated;
                         width: parent.width
-                        font.pixelSize: titleText.font.pixelSize-1
+                        font.pixelSize: titleText.font.pixelSize-2
                         elide: Text.ElideRight
                         color: UI.LISTDELEGATE_TEXT_COLOR1
-                        font.italic: true
                         horizontalAlignment: Text.AlignRight
                     }
 
                     Text {
                         id: titleText
-                        text: authorName+" on <strong>"+postTitle+"</strong>"
+                        text: qsTr("%1 on <strong>%2</strong>").arg(authorName).arg(authorName)
                         color: UI.LISTDELEGATE_TITLE_COLOR
                         width: parent.width
                         textFormat: Text.RichText
@@ -260,9 +259,9 @@ CPPage {
                 MenuItem {
                     text:{
                         if(contextMenu.commentStatus=="hold")
-                            return "Approve";
+                            return qsTr("Approve");
                         else if(contextMenu.commentStatus=="approve")
-                            return "Unapprove";
+                            return qsTr("Unapprove");
                     }
                     onClicked: {
                         if(contextMenu.commentStatus=="hold")
@@ -271,9 +270,9 @@ CPPage {
                             window.unApproveComment(contextMenu.commentId);
                     }
                 }
-                MenuItem { text: "Reply"; onClicked: { window.replyToComment(contextMenu.commentId, contextMenu.commentsPostId) } }
-                MenuItem { text: "Delete"; onClicked: { window.deleteComment(contextMenu.commentId) } }
-                MenuItem { text: "Spam"; onClicked: { window.spamComment(contextMenu.commentId) } }
+                MenuItem { text: qsTr("Reply"); onClicked: { window.replyToComment(contextMenu.commentId, contextMenu.commentsPostId) } }
+                MenuItem { text: qsTr("Delete"); onClicked: { window.deleteComment(contextMenu.commentId) } }
+                MenuItem { text: qsTr("Spam"); onClicked: { window.spamComment(contextMenu.commentId) } }
             }
         }
 

@@ -27,11 +27,22 @@
 #include <QSplashScreen>
 #include <QPixmap>
 #include "worker.h"
+#include "networkaccessmanagerfactory.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QCoreApplication::setAttribute(Qt::AA_S60DisablePartialScreenInputMode, false);
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name().toLower());
+    app.installTranslator(&qtTranslator);
+    QTranslator myappTranslator;
+    qDebug()<<QLocale::system().name();
+    if(myappTranslator.load(":/cutepress_" + QLocale::system().name().toLower()))
+        app.installTranslator(&myappTranslator);
+    else
+        qDebug()<<"File not found";
 
 #if !defined(Q_OS_SYMBIAN)&& !defined(Q_WS_MAEMO_5) && !defined(QT_SIMULATOR) && !defined(Q_WS_WIN)
     QPixmap pixmap(":qml/images/splash-inv.png");
@@ -57,8 +68,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QDeclarativeView view;
     Worker worker;
     worker.uiThread = view.thread();
-    //NetworkAccessManagerFactory factory;
-    //view.engine()->setNetworkAccessManagerFactory(&factory);
+    NetworkAccessManagerFactory factory;
+    view.engine()->setNetworkAccessManagerFactory(&factory);
 
 #if !defined(Q_OS_SYMBIAN)&& !defined(Q_WS_MAEMO_5) && !defined(QT_SIMULATOR) && !defined(Q_WS_WIN)
     view.setSource(QUrl("qrc:/qml/meego/cutepress.qml"));
@@ -115,6 +126,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QObject::connect(object, SIGNAL(spamComment(QString)), &worker, SLOT(spamComment(QString)));
     QObject::connect(object, SIGNAL(addComment(QString,QString)), &worker, SLOT(addComment(QString,QString)));
     QObject::connect(object, SIGNAL(searchMedia(QString)), &worker, SLOT(searchMedia(QString)));
+    QObject::connect(object, SIGNAL(writeMediaItemsToModel(int)), &worker, SLOT(writeMediaItemsToModel(int)));
     QObject::connect(object, SIGNAL(addFile(QString,QString)), &worker, SLOT(addFile(QString,QString)));
     QObject::connect(object, SIGNAL(markCurrentPostCategories(QString)), &worker, SLOT(markCurrentPostCategories(QString)));
     QObject::connect(object, SIGNAL(markCategory(QString)), &worker, SLOT(markCategory(QString)));
@@ -152,8 +164,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QObject::connect(&worker, SIGNAL(updateCurrentPostCategories(QVariant)),
                      object, SLOT(updateCurrentPostCategories(QVariant)));
     QObject::connect(object, SIGNAL(refreshThumbnailCache()), &worker, SLOT(refreshThumbnailCache()));
-    QObject::connect(object, SIGNAL(saveSettings(QString)),
-                     &worker, SLOT(saveSettings(QString)));
+    QObject::connect(object, SIGNAL(saveSettings(QString,QString)),
+                     &worker, SLOT(saveSettings(QString,QString)));
+
+    QObject::connect(object, SIGNAL(getDirectory()), &worker, SLOT(getDirSelectionDialog()));
+    QObject::connect(&worker, SIGNAL(setSelectedDir(QVariant)), object, SLOT(setSelectedDir(QVariant)));
+    QObject::connect(object, SIGNAL(addNewDir(QString)),
+                     &worker, SLOT(addNewDir(QString)));
+    QObject::connect(object, SIGNAL(removeExistingDir(int)),
+                     &worker, SLOT(removeExistingDir(int)));
     QObject::connect(&worker, SIGNAL(updateSettings(QVariant)),
                      object, SLOT(updateSettings(QVariant)));
 
@@ -185,9 +204,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view.rootContext()->setContextProperty("categoriesModel", worker.categoriesModel);
     view.rootContext()->setContextProperty("mediaModel", worker.mediaModel);
     view.rootContext()->setContextProperty("localMediaModel", worker.localMediaModel);
+    view.rootContext()->setContextProperty("mediaDirModel", worker.mediaDirModel);
 
 //    if(worker.isBlogFound)
     object->setProperty("isThemeInverted",  worker.uiTheme=="dark"?true:false);
+    object->setProperty("isIconsMetro",  worker.uiIconType=="metro"?true:false);
     object->setProperty("isBlogFound", worker.isBlogFound);
     object->setProperty("blogCount", worker.blogsModel->rowCount());
     qDebug()<<"Current Bloog"<<worker.currentBlogName;

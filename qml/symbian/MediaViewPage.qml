@@ -29,7 +29,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 if(!marking)
                     pageStack.pop()
@@ -41,21 +41,21 @@ CPPage {
             id: button2
             flat: true
             visible: !marking
-            iconSource: "qrc:/qml/images/mark.png"
+            iconSource:"qrc:/qml/images/mark.png"
             onClicked: {
                 marking = true
             }
         }*/
         ToolButton {
             id: button2
-            iconSource: "qrc:/qml/images/reload.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/reload.png":"qrc:/qml/images/symbian/symbian_reload.png"
             visible: !status.visible
             onClicked: window.refreshCurrentBlogMedia()
         }
         ToolButton {
             id: button3
             flat: true
-            iconSource: "qrc:/qml/images/add.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/add.png":"qrc:/qml/images/symbian/symbian_add.png"
             onClicked: menu.open()
         }
     }
@@ -64,7 +64,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "New Image"
+                    text: qsTr("New Image")
                     onClicked: {
                         window.searchMedia("image")
                         window.nmpMediaType = "image"
@@ -72,7 +72,7 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "New Video"
+                    text: qsTr("New Video")
                     onClicked: {
                         window.searchMedia("video")
                         window.nmpMediaType = "video"
@@ -105,7 +105,7 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.mediaModelStatus=="")
-                        return "Media Items"
+                        return qsTr("Media Items")
                     else
                         return window.mediaModelStatus
                 }
@@ -199,8 +199,7 @@ CPPage {
                     textFormat: Text.RichText
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
-                    font.pixelSize: titleText.font.pixelSize - 1
-                    font.italic: true
+                    font.pixelSize: titleText.font.pixelSize - 2
                 }
             }
 
@@ -238,6 +237,10 @@ CPPage {
         clip: true
         enabled: !pageStack.busy
         spacing: 5
+    }
+
+    ScrollDecorator {
+        flickableItem: mediaList
     }
 }
 //![0]

@@ -1,6 +1,8 @@
-cutepress (1.0.1) stable; urgency=normal
+cutepress (1.2.0) stable; urgency=normal
 
-  * AboutPage fix.
-  * Fix for Symbian crash.
+  * Performance upgrades.
+  * Support for custom media folders.
+  * Default icons for Symbian.
+  * Added Turkish translation.
 
- -- Abhishek Kumar <abhishek.mrt22@gmail.com>  Tue, 23 Dec 2011 02:18:36 +0530
+ -- Abhishek Kumar <abhishek.mrt22@gmail.com>  Mon, 24 Mar 2011 23:21:36 +0530

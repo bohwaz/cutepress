@@ -120,7 +120,7 @@ Dialog {
                         font { family: platformStyle.fontFamilyRegular; pixelSize: window.appGeneralFontSize-1 }
                         color: platformStyle.colorNormalLight
                         wrapMode: Text.Wrap
-                        text: "URL"
+                        text: qsTr("URL")
                         anchors.verticalCenter: link.verticalCenter
                     }
 
@@ -128,7 +128,7 @@ Dialog {
                         id: link
                         width: parent.width - 64 - privateStyle.scrollBarThickness
                         font.pixelSize: window.appInputFontSize
-                        placeholderText: "Enter url here"
+                        placeholderText: qsTr("Enter url here")
                         text: "http://"
                     }
 
@@ -137,7 +137,7 @@ Dialog {
                         font { family: platformStyle.fontFamilyRegular; pixelSize: window.appGeneralFontSize-1 }
                         color: platformStyle.colorNormalLight
                         wrapMode: Text.Wrap
-                        text: "Title"
+                        text: qsTr("Title")
                         anchors.verticalCenter: linkTitle.verticalCenter
                     }
 
@@ -145,7 +145,7 @@ Dialog {
                         id: linkTitle
                         width: parent.width - 64 - privateStyle.scrollBarThickness
                         font.pixelSize: window.appInputFontSize
-                        placeholderText: "Enter title here"
+                        placeholderText: qsTr("Enter title here")
                     }
                 }
             }

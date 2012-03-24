@@ -97,7 +97,7 @@ Dialog {
                     font.pixelSize: root.platformStyle.messageFontPixelSize
                     color: root.platformStyle.messageTextColor
                     wrapMode: Text.WordWrap
-                    text: "URL"
+                    text: qsTr("URL")
                     anchors.verticalCenter: link.verticalCenter
                 }
 
@@ -105,7 +105,7 @@ Dialog {
                     id: link
                     width: parent.width - 64 - parent.spacing
                     font.pixelSize: root.platformStyle.messageFontPixelSize
-                    placeholderText: "Enter url here"
+                    placeholderText: qsTr("Enter url here")
                     text: "http://"
                 }
 
@@ -115,7 +115,7 @@ Dialog {
                     font.pixelSize: root.platformStyle.messageFontPixelSize
                     color: root.platformStyle.messageTextColor
                     wrapMode: Text.WordWrap
-                    text: "Title"
+                    text: qsTr("Title")
                     anchors.verticalCenter: linkTitle.verticalCenter
                 }
 
@@ -123,7 +123,7 @@ Dialog {
                     id: linkTitle
                     width: parent.width - 64 - parent.spacing
                     font.pixelSize: root.platformStyle.messageFontPixelSize
-                    placeholderText: "Enter title here"
+                    placeholderText: qsTr("Enter title here")
                 }
             }
     }

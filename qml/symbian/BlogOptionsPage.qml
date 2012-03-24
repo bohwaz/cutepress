@@ -29,7 +29,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/blogs.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 pageStack.pop()
                 console.log(toolBar.visible,toolBar.enabled)
@@ -39,13 +39,13 @@ CPPage {
             id: button2
             flat: true
             visible: !status.visible
-            iconSource: "qrc:/qml/images/reload.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/reload.png":"qrc:/qml/images/symbian/symbian_reload.png"
             onClicked: window.refreshCurrentBlog()
         }
         ToolButton {
             id: button3
             flat: true
-            iconSource: "qrc:/qml/images/menu.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/menu.png":"qrc:/qml/images/symbian/symbian_menu.png"
             onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
         }
     }
@@ -115,7 +115,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 5
                     Text {
-                        text: "Pages"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
+                        text: qsTr("Pages"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
                         font.pixelSize: window.appGeneralFontSize + 1
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -159,7 +159,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 5
                     Text {
-                        text: "Posts"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
+                        text: qsTr("Posts"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
                         font.pixelSize: window.appGeneralFontSize + 1
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -203,7 +203,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 5
                     Text {
-                        text: "Comments"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
+                        text: qsTr("Comments"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
                         font.pixelSize: window.appGeneralFontSize + 1
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -248,7 +248,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 5
                     Text {
-                        text: "Media"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
+                        text: qsTr("Media"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR;
                         font.pixelSize: window.appGeneralFontSize + 1
                         anchors.verticalCenter: parent.verticalCenter
                     }

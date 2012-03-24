@@ -43,7 +43,7 @@ CPPage {
             id: button2
             flat: true
             visible: !marking
-            iconSource: "qrc:/qml/images/mark.png"
+            iconSource:"qrc:/qml/images/mark.png"
             onClicked: {
                 marking = true
             }
@@ -94,7 +94,7 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.postModelStatus=="")
-                        return "Posts"
+                        return qsTr("Posts")
                     else
                         return window.postModelStatus
                 }
@@ -120,7 +120,7 @@ CPPage {
                 width: 32
                 height: width
                 flat: true
-                iconSource: "qrc:/qml/images/reload.png"
+                window.isIconsMetro?"qrc:/qml/images/reload.png":"qrc:/qml/images/symbian/symbian_reload.png"
                 visible: !status.visible
                 enabled: !pageStack.busy
                 onClicked: window.refreshCurrentBlogPosts()
@@ -169,9 +169,9 @@ CPPage {
                         Text {
                             id: titleText
                             text:{
-                                var txt = "<strong>" + title + "</strong>"
+                                var txt = qsTr("<strong>%1</strong>").arg(title)
                                 if(postPassword!="")
-                                    txt = "[Protected] <strong>" + title + "</strong>"
+                                    txt = qsTr("[Protected] <strong>%1</strong>").arg(title)
                                 return txt
                             }
                             color: selected?UI.LISTDELEGATE_TITLE_COLOR_MARKED:UI.LISTDELEGATE_TITLE_COLOR
@@ -183,7 +183,7 @@ CPPage {
                         }
 
                         Text {
-                            text: "by "+ wpAuthorDisplayName;
+                            text: qsTr("by %1").arg(wpAuthorDisplayName);
                             width: parent.width
                             visible: wpAuthorDisplayName!=""
                             font.pixelSize: titleText.font.pixelSize-1
@@ -194,22 +194,22 @@ CPPage {
                         Text {
                             text: publishStatus;
                             width: parent.width
-                            visible: (publishStatus == "Draft" || publishStatus == "Local Draft" || publishStatus == "Busy"||
-                                       publishStatus == "Trashed" || publishStatus == "Orphaned")
+                            visible: (publishStatus == qsTr("Draft") || publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy")||
+                                       publishStatus == qsTr("Trashed") || publishStatus == qsTr("Orphaned"))
                             font.pixelSize: titleText.font.pixelSize-1
                             elide: Text.ElideRight
                             color: {
-                                if(publishStatus == "Draft"||publishStatus == "Local Draft" || publishStatus == "Busy")
+                                if(publishStatus == qsTr("Draft")||publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy"))
                                     return "orange";
-                                else if(publishStatus == "Trashed"||publishStatus == "Orphaned")
+                                else if(publishStatus == qsTr("Trashed")||publishStatus == qsTr("Orphaned"))
                                     return "red";
                             }
                         }
 
                         Text {
-                            text: "Categorized in "+categories;
+                            text: qsTr("Categorized in %1").arg(categories);
                             width: parent.width
-                            visible: categories!="Uncategorized" &&  categories!=""
+                            visible: categories!="Uncategorized" && categories!=""
                             font.pixelSize: titleText.font.pixelSize-1
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
@@ -224,9 +224,8 @@ CPPage {
                                 text: dateCreated;
                                 visible: text!=""
                                 width: parent.width
-                                font.pixelSize: titleText.font.pixelSize-1
+                                font.pixelSize: titleText.font.pixelSize-2
                                 elide: Text.ElideRight
-                                font.italic: true
                                 color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR1:UI.LISTDELEGATE_TEXT_COLOR1
                                 anchors.verticalCenter: parent.verticalCenter
                             }
@@ -240,7 +239,7 @@ CPPage {
                                     font.pixelSize: text.length>3?titleText.font.pixelSize-4:titleText.font.pixelSize-2
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     anchors.top: parent.top
-                                    anchors.topMargin: text.length>3?4:3
+                                    anchors.topMargin: text.length>3?2:1
                                 }
                             }
                         }
@@ -293,7 +292,7 @@ CPPage {
                         height: 45
                         iconSource: selected?"qrc:/qml/images/delete - white.png":window.isThemeInverted?UI.DELETEIMG:UI.DELETEIMG
                         onClicked: {
-                            showDialog("Doy you really want to delete post \"<strong>"+title+"</strong>\"?", localId)
+                            showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
                             //deletePost(localId)
                         }
                     }
@@ -304,17 +303,17 @@ CPPage {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 5
                     color: {
-                        if(publishStatus == "Published")
+                        if(publishStatus == qsTr("Published"))
                             return "green";
-                        else if(publishStatus == "Private")
+                        else if(publishStatus == qsTr("Private"))
                             return "lightgreen";
-                        else if(publishStatus == "Scheduled in future")
+                        else if(publishStatus == qsTr("Scheduled in future"))
                             return "#5674b9";
-                        else if(publishStatus == "Pending review")
+                        else if(publishStatus == qsTr("Pending review"))
                             return "yellow";
-                        else if(publishStatus == "Draft"||publishStatus == "Local Draft" || publishStatus == "Busy")
+                        else if(publishStatus == qsTr("Draft")||publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy"))
                             return "orange";
-                        else if(publishStatus == "Trashed"||publishStatus == "Orphaned")
+                        else if(publishStatus == qsTr("Trashed")||publishStatus == qsTr("Orphaned"))
                             return "red";
                     }
                     anchors.right: parent.right
@@ -326,7 +325,7 @@ CPPage {
     /*Component {
         id: footerItem
         HeadingText{
-            text: "Load more\.\.\."
+            text: qsTr("Load more\.\.\.")
         }
     }*/
 
@@ -353,9 +352,9 @@ CPPage {
     QueryDialog {
         id: query
         property string myPostId: ""
-        acceptButtonText: "Yes"
-        rejectButtonText: "No"
-        titleText: "Delete post"
+        acceptButtonText: qsTr("Yes")
+        rejectButtonText: qsTr("No")
+        titleText: qsTr("Delete post")
         onAccepted: deletePost(myPostId)
     }
 

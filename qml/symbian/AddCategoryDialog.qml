@@ -116,7 +116,7 @@ Dialog {
                         font { family: platformStyle.fontFamilyRegular; pixelSize: window.appGeneralFontSize-1 }
                         color: platformStyle.colorNormalLight
                         wrapMode: Text.Wrap
-                        text: "Name"
+                        text: qsTr("Name")
                         anchors.verticalCenter: catTitle.verticalCenter
                     }
 
@@ -124,7 +124,7 @@ Dialog {
                         id: catTitle
                         width: parent.width - 64 - privateStyle.scrollBarThickness
                         font.pixelSize: window.appInputFontSize
-                        placeholderText: "Enter category name here"
+                        placeholderText: qsTr("Enter category name here")
                         text: ""
                     }
                 }

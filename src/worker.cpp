@@ -22,6 +22,7 @@
 #include <QFileInfo>
 #include <QApplication>
 #include <QUrl>
+#include <QFileDialog>
 
 Worker::Worker()
 {
@@ -33,9 +34,12 @@ Worker::Worker()
     currentBlogPostsCount = 0;
     currentBlogCommentsCount = 0;
     currentBlogMediaCount = 0;
+    isMediaDirsChanged = false;
     imgReader = new QImageReader();
     imgWriter = new QImageWriter();
 
+    thumbnailThread = NULL;
+    searchThread = NULL;
     iNetworkEngine = NULL;
     /* Data model, needs to be constructed before list views. */
     iNetworkEngine = new WPNetworkEngine();
@@ -138,6 +142,14 @@ Worker::Worker()
 
     localMediaModel = new RoleItemModel(localMediaRoleNames);
 
+    QHash<int, QByteArray> mediaDirRoleNames;
+    mediaDirRoleNames[MediaDirEntry::PathRole] = "dirPath";
+
+    mediaDirModel = new RoleItemModel(mediaDirRoleNames);
+//    QStandardItem *it = new QStandardItem();
+//    it->setData("ABCD", MediaDirEntry::PathRole);
+//    mediaDirModel->appendRow(it);
+
     connect(
         iBlogs,         SIGNAL(UpdateBlogs(const WPDataUsersBlogs &)),
         this, SLOT(updateBlogs(const WPDataUsersBlogs &))
@@ -237,18 +249,30 @@ Worker::~Worker()
     delete iBlogs;
     delete iNetworkEngine;
 
-//    if (searchThread)
-//    {
-//        if (searchThread->isRunning())
-//        {
-//            searchThread->Cancel();
-//            // Bump priority to make it terminate fast
-//            searchThread->setPriority(QThread::HighestPriority);
-//            searchThread->wait();
-//        }
-//        delete searchThread;
-//        searchThread = 0;
-//    }
+    if (searchThread!=NULL)
+    {
+        if (searchThread->isRunning())
+        {
+            searchThread->Cancel();
+            // Bump priority to make it terminate fast
+            searchThread->setPriority(QThread::HighestPriority);
+            searchThread->wait();
+        }
+        delete searchThread;
+        searchThread = 0;
+    }
+    if (thumbnailThread!=NULL)
+    {
+        if (thumbnailThread->isRunning())
+        {
+            thumbnailThread->Cancel();
+            // Bump priority to make it terminate fast
+            thumbnailThread->setPriority(QThread::HighestPriority);
+            thumbnailThread->wait();
+        }
+        delete thumbnailThread;
+        thumbnailThread = 0;
+    }
 }
 
 void Worker::addNewBlog(QString blogUrl,
@@ -329,7 +353,7 @@ void Worker::updatePageData(const WPDataBlog& aBlog)
     if(iCurrentBlog) {
         disconnect(iCurrentBlog, SIGNAL(PageRemoved(WPPage)), this, NULL);
     }
-    pageModelStatus = "Updating pages...";
+    pageModelStatus = tr("Updating pages...");
     pageModelState = ProgressEntry::Processing;
     emit setPageModelStatus(pageModelState, pageModelStatus);
     pagesModel->clear();
@@ -351,24 +375,24 @@ void Worker::updatePageData(const WPDataBlog& aBlog)
         it->setData(page->iWpPageParentTitle, PagesEntry::WpPageParentTitleRole);
         QString status;
         if(page->iStatus=="publish"){
-            status = "Published";
+            status = tr("Published");
 //            if(page->iDateCreated > QDateTime::currentDateTime())
-//                status = "Scheduled in future";
+//                status = tr("Scheduled in future");
 //            if(page->iWpPassword!="")
-//                status = "Protected";
+//                status = tr("Protected");
         }
         else if(page->iStatus=="private")
-            status = "Private";
+            status = tr("Private");
         else if(page->iStatus=="pending")
-            status = "Pending review";
+            status = tr("Pending review");
         else if(page->iStatus=="future")
-            status = "Scheduled in future";
+            status = tr("Scheduled in future");
         else if(page->iStatus=="draft")
-            status = "Draft";
+            status = tr("Draft");
         else if(page->iStatus=="trash")
-            status = "Trashed";
+            status = tr("Trashed");
         if(page->IsLocal())
-            status = "Local Draft";
+            status = tr("Local Draft");
         it->setData(status, PagesEntry::StatusRole);
         qDebug()<<"Paages iStatus"<<page->iStatus<<it->data(PagesEntry::StatusRole);
         it->setData(page->iWpPassword, PagesEntry::PasswordRole);
@@ -401,7 +425,7 @@ void Worker::updatePageData(const WPDataBlog& aBlog)
     );
     pagesModel->setSortRole(PagesEntry::SortDateRole);
     pagesModel->sort(0, Qt::DescendingOrder);
-    pageModelStatus = "Pages("+QString().number(currentBlogPagesCount)+")";
+    pageModelStatus = tr("Pages(%1)").arg(QString().number(currentBlogPagesCount));
     pageModelState = ProgressEntry::Success;
     emit setPageModelStatus(pageModelState, pageModelStatus);
 }
@@ -412,7 +436,7 @@ void Worker::updatePostsData(const WPDataBlog& aBlog)
     if(iCurrentBlog) {
         disconnect(iCurrentBlog, SIGNAL(PostRemoved(WPPost)), this, NULL);
     }
-    postModelStatus = "Updating posts...";
+    postModelStatus = tr("Updating posts...");
     postModelState = ProgressEntry::Processing;
     emit setPostModelStatus(postModelState, postModelStatus);
     postsModel->clear();
@@ -437,28 +461,28 @@ void Worker::updatePostsData(const WPDataBlog& aBlog)
         qDebug()<<"Poost iStatus"<<post->iStatus;
         QString status;
         if(post->iStatus=="publish"){
-            status = "Published";
+            status = tr("Published");
 //            if(post->iDateCreated > QDateTime::currentDateTime())
-//                status = "Scheduled in future";
+//                status = tr("Scheduled in future");
 //            if(post->iWpPassword!="")
-//                status = "Protected";
+//                status = tr("Protected");
         }
         else if(post->iStatus=="private")
-            status = "Private";
+            status = tr("Private");
         else if(post->iStatus=="pending")
-            status = "Pending review";
+            status = tr("Pending review");
         else if(post->iStatus=="future")
-            status = "Scheduled in future";
+            status = tr("Scheduled in future");
         else if(post->iStatus=="draft")
-            status = "Draft";
+            status = tr("Draft");
         else if(post->iStatus=="trash")
-            status = "Trashed";
+            status = tr("Trashed");
         if(post->IsLocal())
-            status = "Local Draft";
+            status = tr("Local Draft");
 //        if(post->IsOrphaned())
-//            status = "Orphaned";
+//            status = tr("Orphaned");
 //        if(post->IsBusy())
-//            status = "Busy";
+//            status = tr("Busy");
         it->setData(status, PostsEntry::StatusRole);
         it->setData(post->iWpPassword, PostsEntry::PasswordRole);
         it->setData(post->iDateCreated.toString(Qt::DefaultLocaleShortDate), PostsEntry::DateCreatedRole);
@@ -493,7 +517,7 @@ void Worker::updatePostsData(const WPDataBlog& aBlog)
 
     postsModel->setSortRole(PostsEntry::SortDateRole);
     postsModel->sort(0, Qt::DescendingOrder);
-    postModelStatus = "Posts("+QString().number(currentBlogPostsCount)+")";
+    postModelStatus = tr("Posts(%1)").arg(QString().number(currentBlogPostsCount));
     postModelState = ProgressEntry::Success;
     emit setPostModelStatus(postModelState, postModelStatus);
 }
@@ -506,7 +530,7 @@ void Worker::updateCommentsData(const WPDataBlog& aBlog)
         disconnect(iCurrentBlog, SIGNAL(CommentChanged(WPComment)), this, NULL);
         disconnect(iCurrentBlog, SIGNAL(CommentRemoved(WPComment)), this, NULL);
     }
-    commentModelStatus = "Updating comments...";
+    commentModelStatus = tr("Updating comments...");
     commentModelState = ProgressEntry::Processing;
     emit setCommentModelStatus(commentModelState, commentModelStatus);
     commentsModel->clear();
@@ -564,7 +588,7 @@ void Worker::updateCommentsData(const WPDataBlog& aBlog)
     );
     commentsModel->setSortRole(CommentsEntry::SortDateRole);
     commentsModel->sort(0, Qt::DescendingOrder);
-    commentModelStatus = "Comments("+QString().number(currentBlogCommentsCount)+")";
+    commentModelStatus = tr("Comments(%1)").arg(QString().number(currentBlogCommentsCount));
     commentModelState = ProgressEntry::Success;
     emit setCommentModelStatus(commentModelState, commentModelStatus);
 }
@@ -641,7 +665,7 @@ void Worker::updateMediaData(const WPDataBlog & aBlog)
     currentBlogMediaCount = mediaModel->rowCount();
     emit updateCurrentBlogMediaCount(currentBlogMediaCount);
     iCurrentBlog = const_cast<WPDataBlog *>(&aBlog);
-    mediaModelStatus = "Media Items";
+    mediaModelStatus = tr("Media Items");
     mediaModelState = ProgressEntry::Success;
     emit setMediaModelStatus(mediaModelState, mediaModelStatus);
 }
@@ -701,26 +725,26 @@ void Worker::openPost(QString id)
     QString status;
     if(post->iStatus=="publish"){
 //        if(post->iDateCreated > QDateTime::currentDateTime())
-//            status = "Scheduled in future";
+//            status = tr("Scheduled in future");
 //        else
-            status = "Published";
+            status = tr("Published");
     }
     else if(post->iStatus=="private")
-        status = "Private";
+        status = tr("Private");
     else if(post->iStatus=="pending")
-        status = "Pending review";
+        status = tr("Pending review");
     else if(post->iStatus=="future")
-        status = "Scheduled in future";
+        status = tr("Scheduled in future");
     else if(post->iStatus=="draft")
-        status = "Draft";
+        status = tr("Draft");
     else if(post->iStatus=="trash")
-        status = "Trashed";
+        status = tr("Trashed");
     if(post->IsLocal())
-        status = "Local Draft";
+        status = tr("Local Draft");
     if(post->IsOrphaned())
-        status = "Orphaned";
+        status = tr("Orphaned");
     if(post->IsBusy())
-        status = "Busy";
+        status = tr("Busy");
     postCommentsModel->clear();
     emit showPost(id,
                   post->iTitle,
@@ -746,83 +770,83 @@ void Worker::taskStarted(TWPNetworkEngineCommand command)
 {
     if(command == EGetPages || command == EGetPageStatuses || command == EGetPage){
         qDebug()<<"Network--------->Updating Pages";
-        pageModelStatus = "Synchronizing pages...";
+        pageModelStatus = tr("Synchronizing pages...");
         pageModelState = ProgressEntry::Processing;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
     else if(command == EDeletePage){
-        pageModelStatus = "Deleting selected pages...";
+        pageModelStatus = tr("Deleting selected pages...");
         pageModelState = ProgressEntry::Processing;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
     else if(command == EGetPosts || command == EGetPostStatuses || command == EGetPost){
         qDebug()<<"Network--------->Updating Posts";
-        postModelStatus = "Synchronizing posts...";
+        postModelStatus = tr("Synchronizing posts...");
         postModelState = ProgressEntry::Processing;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
     else if(command == EDeletePost){
-        postModelStatus = "Deleting selected posts...";
+        postModelStatus = tr("Deleting selected posts...");
         postModelState = ProgressEntry::Processing;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
     else if(command == EGetComments || command == EGetCommentStatuses || command == EGetComment){
         qDebug()<<"Network--------->Updating Comments";
-        commentModelStatus = "Synchronizing comments...";
+        commentModelStatus = tr("Synchronizing comments...");
         commentModelState = ProgressEntry::Processing;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
     else if(command == EDeleteComment){
-        commentModelStatus = "Deleting selected comments...";
+        commentModelStatus = tr("Deleting selected comments...");
         commentModelState = ProgressEntry::Processing;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
     else if(command == EGetMediaLibrary){
         qDebug()<<"Network--------->Updating Media Library";
-        mediaModelStatus = "Synchronizing media items...";
+        mediaModelStatus = tr("Synchronizing media items...");
         mediaModelState = ProgressEntry::Processing;
         emit setMediaModelStatus(mediaModelState, mediaModelStatus);
     }
     else if(command == EUploadFile){
         qDebug()<<"Network--------->Uploading file";
-        addMediaStatus = "Uploading item...";
+        addMediaStatus = tr("Uploading item...");
         addMediaState = ProgressEntry::Processing;
         emit setAddMediaStatus(addMediaState, addMediaStatus);
     }
     else if(command == ENewPost){
         qDebug()<<"Network--------->Publishing post";
         addPostState = ProgressEntry::Processing;
-        addPostStatus = "Publishing post...";
+        addPostStatus = tr("Publishing post...");
         emit setAddPostStatus(addPostState, addPostStatus);
     }
     else if(command == EEditPost){
         qDebug()<<"Network--------->Editing post";
         addPostState = ProgressEntry::Processing;
-        addPostStatus = "Editing post...";
+        addPostStatus = tr("Editing post...");
         emit setAddPostStatus(addPostState, addPostStatus);
     }
     else if(command == ENewPage){
         qDebug()<<"Network--------->Publishing page";
         addPageState = ProgressEntry::Processing;
-        addPageStatus = "Publishing page...";
+        addPageStatus = tr("Publishing page...");
         emit setAddPageStatus(addPageState, addPageStatus);
     }
     else if(command == EEditPage){
         qDebug()<<"Network--------->Editing page";
         addPageState = ProgressEntry::Processing;
-        addPageStatus = "Editing post...";
+        addPageStatus = tr("Editing post...");
         emit setAddPageStatus(addPostState, addPageStatus);
     }
     else if(command == ENewComment){
         qDebug()<<"Network--------->Adding comment";
         addCommentState = ProgressEntry::Processing;
-        addCommentStatus = "Adding comment...";
+        addCommentStatus = tr("Adding comment...");
         emit setAddCommentStatus(addCommentState, addCommentStatus);
     }
     else if(command == ENewCategory){
         qDebug()<<"Network--------->Adding category";
         addCategoryState = 1;
-        addCategoryStatus = "Adding category...";
+        addCategoryStatus = tr("Adding category...");
         emit setAddCategoryStatus(addCategoryState, addCategoryStatus);
     }
 }
@@ -831,79 +855,79 @@ void Worker::taskFinished(TWPNetworkEngineCommand command)
 {
     if((command == EGetPages || command == EGetPageStatuses || command == EGetPage) && pageModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Pages";
-        pageModelStatus = "Synchronizing posts complete...";
+        pageModelStatus = tr("Synchronizing posts complete!");
         pageModelState = ProgressEntry::Processing;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
     else if((command == EDeletePage) && pageModelState == ProgressEntry::Processing){
-        pageModelStatus = "Deleted selected pages...";
+        pageModelStatus = tr("Deleted selected pages!");
         pageModelState = ProgressEntry::Processing;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
     else if((command == EGetPosts || command == EGetPostStatuses || command == EGetPost) && postModelState == ProgressEntry::Processing){
-        postModelStatus = "Synchronizing posts complete...";
+        postModelStatus = tr("Synchronizing posts complete!");
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
     else if((command == EDeletePost) && postModelState == ProgressEntry::Processing){
-        postModelStatus = "Deleted selected posts...";
+        postModelStatus = tr("Deleted selected posts!");
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
     else if((command == EGetComments || command == EGetCommentStatuses || command == EGetComment) && commentModelState == ProgressEntry::Processing){
-        commentModelStatus = "Synchronizing comments complete...";
+        commentModelStatus = tr("Synchronizing comments complete!");
         commentModelState = ProgressEntry::Success;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
     else if((command == EDeleteComment) && commentModelState == ProgressEntry::Processing){
-        commentModelStatus = "Deleted selected comments...";
+        commentModelStatus = tr("Deleted selected comments...");
         commentModelState = ProgressEntry::Success;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
     else if(command == EGetMediaLibrary && mediaModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Media Library Complete";
-        mediaModelStatus = "Synchronizing media items complete...";
+        mediaModelStatus = tr("Synchronizing media items complete...");
         mediaModelState = ProgressEntry::Success;
         emit setMediaModelStatus(mediaModelState, mediaModelStatus);
     }
     else if(command == EUploadFile && addMediaState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Upload finished";
-        addMediaStatus = "Uploading finished!";
+        addMediaStatus = tr("Uploading finished!");
         addMediaState = ProgressEntry::Success;
         emit setAddMediaStatus(addMediaState, addMediaStatus);
     }
     else if(command == ENewPost){
         qDebug()<<"Network--------->New Post Published";
         addPostState = ProgressEntry::Success;
-        addPostStatus = "Post published!";
+        addPostStatus = tr("Post published!");
         emit setAddPostStatus(addPostState, addPostStatus);
         emit newPostPublished();
     }
     else if(command == EEditPost){
         qDebug()<<"Network--------->Post Edited";
         addPostState = ProgressEntry::Success;
-        addPostStatus = "Post edited!";
+        addPostStatus = tr("Post edited!");
         emit setAddPostStatus(addPostState, addPostStatus);
         emit newPostPublished();
     }
     else if(command == ENewPage){
         qDebug()<<"Network--------->New Page Published";
         addPageState = ProgressEntry::Success;
-        addPageStatus = "Page published!";
+        addPageStatus = tr("Page published!");
         emit setAddPageStatus(addPageState, addPageStatus);
         emit newPagePublished();
     }
     else if(command == EEditPage){
         qDebug()<<"Network--------->Page Edited";
         addPageState = ProgressEntry::Success;
-        addPageStatus = "Page edited!";
+        addPageStatus = tr("Page edited!");
         emit setAddPageStatus(addPageState, addPageStatus);
         emit newPagePublished();
     }
     else if(command == ENewComment && addCommentState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Comment added";
         addCommentState = ProgressEntry::Success;
-        addCommentStatus = "Comment added";
+        addCommentStatus = tr("Comment added");
         emit setAddCommentStatus(addCommentState, addCommentStatus);
     }
     else if(command == ENewCategory && addCategoryState == ProgressEntry::Processing){
@@ -923,71 +947,71 @@ void Worker::taskFailed(TWPNetworkEngineCommand command, QString msg)
     }
     else if((command == EGetPages || command == EGetPageStatuses || command == EGetPage) && pageModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Pages Failed"<<msg;
-        pageModelStatus = "Pages<br>" + msg;
-        //pageModelStatus = "Error connecting...";
+        pageModelStatus = tr("Pages<br>%1").arg(msg);
+        //pageModelStatus = tr("Error connecting...");
         pageModelState = ProgressEntry::Error;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
     else if((command == EGetPosts || command == EGetPostStatuses || command == EGetPost) && postModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Posts Failed"<<msg;
-        postModelStatus = "Posts<br>" + msg;
+        postModelStatus = tr("Posts<br>%1").arg(msg);
         postModelState = ProgressEntry::Error;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
     else if((command == EGetComments || command == EGetCommentStatuses || command == EGetComment) && commentModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Comments Failed"<<msg;
-        commentModelStatus = "Comments<br>" + msg;
+        commentModelStatus = tr("Comments<br>%1").arg(msg);
         commentModelState = ProgressEntry::Error;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
     else if(command == EGetMediaLibrary && mediaModelState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Updating Media Library Failed"<<msg;
-        mediaModelStatus = "Media Items<br>" + msg;
+        mediaModelStatus = tr("Media Items<br>%1").arg(msg);
         mediaModelState = ProgressEntry::Error;
         emit setMediaModelStatus(mediaModelState, mediaModelStatus);
     }
     else if(command == EUploadFile && addMediaState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Upload failed"<<msg;
-        addMediaStatus = "Uploading failed!<br>" + msg;
+        addMediaStatus = tr("Uploading failed!<br>%1").arg(msg);
         addMediaState = ProgressEntry::Error;
         emit setAddMediaStatus(addMediaState, addMediaStatus);
     }
     else if(command == ENewPost){
         qDebug()<<"Network--------->New Post Publishing Failed"<<msg;
         addPostState = ProgressEntry::Error;
-        addPostStatus = "Post publishing failed! Saved as local draft<br>" + msg;
+        addPostStatus = tr("Post publishing failed! Saved as local draft<br>%1").arg(msg);
         emit setAddPostStatus(addPostState, addPostStatus);
         emit newPostPublishFailed(postPub);
     }
     else if(command == EEditPost){
         qDebug()<<"Network--------->Post Editing Failed"<<msg;
         addPostState = ProgressEntry::Error;
-        addPostStatus = "Post editing failed!<br>" + msg;
+        addPostStatus = tr("Post editing failed!<br>%1").arg(msg);
         emit setAddPostStatus(addPostState, addPostStatus);
     }
     else if(command == ENewPage){
         qDebug()<<"Network--------->New Page Publishing Failed"<<msg;
         addPageState = ProgressEntry::Error;
-        addPageStatus = "Page publishing failed! Saved as local draft<br>" + msg;
+        addPageStatus = tr("Page publishing failed! Saved as local draft<br>%1").arg(msg);
         emit setAddPageStatus(addPageState, addPageStatus);
         emit newPagePublishFailed(pagePub);
     }
     else if(command == EEditPage){
         qDebug()<<"Network--------->Page Editing Failed"<<msg;
         addPageState = ProgressEntry::Error;
-        addPageStatus = "Page editing failed!<br>" + msg;
+        addPageStatus = tr("Page editing failed!<br>%1").arg(msg);
         emit setAddPageStatus(addPageState, addPageStatus);
     }
     else if(command == ENewComment && addCommentState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Comment addition failed";
         addCommentState = ProgressEntry::Error;
-        addCommentStatus = "Comment addition failed!<br>" + msg;
+        addCommentStatus = tr("Comment addition failed!<br>%1").arg(msg);
         emit setAddCommentStatus(addCommentState, addCommentStatus);
     }
     else if(command == ENewCategory && addCategoryState == ProgressEntry::Processing){
         qDebug()<<"Network--------->Adding category failed!"<<msg;
         addCategoryState = 2;
-        addCategoryStatus = "Unable to add new category!<br>" + msg;
+        addCategoryStatus = tr("Unable to add new category!<br>%1").arg(msg);
         emit setAddCategoryStatus(addCategoryState, addCategoryStatus);
     }
 }
@@ -1069,24 +1093,24 @@ void Worker::pageAdded(WPPage page)
     it->setData(page->iWpPageParentTitle, PagesEntry::WpPageParentTitleRole);
     QString status;
     if(page->iStatus=="publish"){
-        status = "Published";
+        status = tr("Published");
 //        if(page->iDateCreated > QDateTime::currentDateTime())
-//            status = "Scheduled in future";
+//            status = tr("Scheduled in future");
 //        if(page->iWpPassword!="")
-//            status = "Protected";
+//            status = tr("Protected");
     }
     else if(page->iStatus=="private")
-        status = "Private";
+        status = tr("Private");
     else if(page->iStatus=="pending")
-        status = "Pending review";
+        status = tr("Pending review");
     else if(page->iStatus=="future")
-        status = "Scheduled in future";
+        status = tr("Scheduled in future");
     else if(page->iStatus=="draft")
-        status = "Draft";
+        status = tr("Draft");
     else if(page->iStatus=="trash")
-        status = "Trashed";
+        status = tr("Trashed");
     if(page->IsLocal())
-        status = "Local Draft";
+        status = tr("Local Draft");
     it->setData(status, PagesEntry::StatusRole);
     qDebug()<<"Paages iStatus"<<page->iStatus<<it->data(PagesEntry::StatusRole);
     it->setData(page->iWpPassword, PagesEntry::PasswordRole);
@@ -1102,7 +1126,7 @@ void Worker::pageAdded(WPPage page)
     }
     pagesModel->setSortRole(PagesEntry::SortDateRole);
     pagesModel->sort(0, Qt::DescendingOrder);
-    pageModelStatus = "Pages("+QString().number(currentBlogPagesCount)+")";
+    pageModelStatus = tr("Pages(%1)").arg(QString().number(currentBlogPagesCount));
     pageModelState = ProgressEntry::Success;
     emit setPageModelStatus(pageModelState, pageModelStatus);
 }
@@ -1133,24 +1157,24 @@ void Worker::pageChanged(WPPage page)
         it->setData(page->iWpPageParentTitle, PagesEntry::WpPageParentTitleRole);
         QString status;
         if(page->iStatus=="publish"){
-            status = "Published";
+            status = tr("Published");
 //            if(page->iDateCreated > QDateTime::currentDateTime())
-//                status = "Scheduled in future";
+//                status = tr("Scheduled in future";
 //            if(page->iWpPassword!="")
-//                status = "Protected";
+//                status = tr("Protected";
         }
         else if(page->iStatus=="private")
-            status = "Private";
+            status = tr("Private");
         else if(page->iStatus=="pending")
-            status = "Pending review";
+            status = tr("Pending review");
         else if(page->iStatus=="future")
-            status = "Scheduled in future";
+            status = tr("Scheduled in future");
         else if(page->iStatus=="draft")
-            status = "Draft";
+            status = tr("Draft");
         else if(page->iStatus=="trash")
-            status = "Trashed";
+            status = tr("Trashed");
         if(page->IsLocal())
-            status = "Local Draft";
+            status = tr("Local Draft");
         it->setData(status, PagesEntry::StatusRole);
         qDebug()<<"Paages iStatus"<<page->iStatus<<it->data(PagesEntry::StatusRole);
         it->setData(page->iWpPassword, PagesEntry::PasswordRole);
@@ -1166,7 +1190,7 @@ void Worker::pageChanged(WPPage page)
         }
         pagesModel->setSortRole(PagesEntry::SortDateRole);
         pagesModel->sort(0, Qt::DescendingOrder);
-        pageModelStatus = "Pages("+QString().number(currentBlogPagesCount)+")";
+        pageModelStatus = tr("Pages(%1)").arg(QString().number(currentBlogPagesCount));
         pageModelState = ProgressEntry::Success;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
@@ -1188,7 +1212,7 @@ void Worker::pageRemoved(WPPage page)
             blogsModel->item(tempBlogIdHash.value(iBlogs->GetCurrentBlog()->LocalId()))->setData(currentBlogPagesCount, BlogEntry::PagesCountRole);
             emit updateCurrentBlogPagesCount(currentBlogPagesCount);
         }
-        pageModelStatus = "Pages("+QString().number(currentBlogPagesCount)+")";
+        pageModelStatus = tr("Pages(%1)").arg(QString().number(currentBlogPagesCount));
         pageModelState = ProgressEntry::Success;
         emit setPageModelStatus(pageModelState, pageModelStatus);
     }
@@ -1214,28 +1238,28 @@ void Worker::postAdded(WPPost post)
     it->setData(post->GetComments().count(), PostsEntry::CommentsCountRole);
     QString status;
     if(post->iStatus=="publish"){
-        status = "Published";
+        status = tr("Published");
 //        if(post->iDateCreated > QDateTime::currentDateTime())
-//            status = "Scheduled in future";
+//            status = tr("Scheduled in future");
 //        if(post->iWpPassword!="")
-//            status = "Protected";
+//            status = tr("Protected");
     }
     else if(post->iStatus=="private")
-        status = "Private";
+        status = tr("Private");
     else if(post->iStatus=="pending")
-        status = "Pending review";
+        status = tr("Pending review");
     else if(post->iStatus=="future")
-        status = "Scheduled in future";
+        status = tr("Scheduled in future");
     else if(post->iStatus=="draft")
-        status = "Draft";
+        status = tr("Draft");
     else if(post->iStatus=="trash")
-        status = "Trashed";
+        status = tr("Trashed");
     if(post->IsLocal())
-        status = "Local Draft";
+        status = tr("Local Draft");
 //    if(post->IsOrphaned())
-//        status = "Orphaned";
+//        status = tr("Orphaned");
 //    if(post->IsBusy())
-//        status = "Busy";
+//        status = tr("Busy");
     it->setData(status, PostsEntry::StatusRole);
     it->setData(post->iWpPassword, PostsEntry::PasswordRole);
     it->setData(post->iDateCreated.toString(Qt::DefaultLocaleShortDate), PostsEntry::DateCreatedRole);
@@ -1253,7 +1277,7 @@ void Worker::postAdded(WPPost post)
     }
     postsModel->setSortRole(PostsEntry::SortDateRole);
     postsModel->sort(0, Qt::DescendingOrder);
-    postModelStatus = "Posts("+QString().number(currentBlogPostsCount)+")";
+    postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
     postModelState = ProgressEntry::Success;
     emit setPostModelStatus(postModelState, postModelStatus);
 }
@@ -1284,28 +1308,28 @@ void Worker::postChanged(WPPost post)
         it->setData(post->GetComments().count(), PostsEntry::CommentsCountRole);
         QString status;
         if(post->iStatus=="publish"){
-            status = "Published";
+            status = tr("Published");
 //            if(post->iDateCreated > QDateTime::currentDateTime())
-//                status = "Scheduled in future";
+//                status = tr("Scheduled in future");
 //            if(post->iWpPassword!="")
-//                status = "Protected";
+//                status = tr("Protected");
         }
         else if(post->iStatus=="private")
-            status = "Private";
+            status = tr("Private");
         else if(post->iStatus=="pending")
-            status = "Pending review";
+            status = tr("Pending review");
         else if(post->iStatus=="future")
-            status = "Scheduled in future";
+            status = tr("Scheduled in future");
         else if(post->iStatus=="draft")
-            status = "Draft";
+            status = tr("Draft");
         else if(post->iStatus=="trash")
-            status = "Trashed";
+            status = tr("Trashed");
         if(post->IsLocal())
-            status = "Local Draft";
+            status = tr("Local Draft");
     //    if(post->IsOrphaned())
-    //        status = "Orphaned";
+    //        status = tr("Orphaned");
     //    if(post->IsBusy())
-    //        status = "Busy";
+    //        status = tr("Busy");
         it->setData(status, PostsEntry::StatusRole);
         it->setData(post->iWpPassword, PostsEntry::PasswordRole);
         it->setData(post->iDateCreated.toString(Qt::DefaultLocaleShortDate), PostsEntry::DateCreatedRole);
@@ -1321,7 +1345,7 @@ void Worker::postChanged(WPPost post)
         }
         postsModel->setSortRole(PostsEntry::SortDateRole);
         postsModel->sort(0, Qt::DescendingOrder);
-        postModelStatus = "Posts("+QString().number(currentBlogPostsCount)+")";
+        postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
@@ -1343,7 +1367,7 @@ void Worker::postRemoved(WPPost post)
             blogsModel->item(tempBlogIdHash.value(iBlogs->GetCurrentBlog()->LocalId()))->setData(currentBlogPostsCount, BlogEntry::PostsCountRole);
             emit updateCurrentBlogPostsCount(currentBlogPostsCount);
         }
-        postModelStatus = "Posts("+QString().number(currentBlogPostsCount)+")";
+        postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
@@ -1394,7 +1418,7 @@ void Worker::commentRemoved(WPComment comment)
             blogsModel->item(tempBlogIdHash.value(iBlogs->GetCurrentBlog()->LocalId()))->setData(currentBlogCommentsCount, BlogEntry::CommentsCountRole);
             emit updateCurrentBlogCommentsCount(currentBlogCommentsCount);
         }
-        commentModelStatus = "Comments("+QString().number(currentBlogCommentsCount)+")";
+        commentModelStatus = tr("Comments(%1)").arg(QString().number(currentBlogCommentsCount));
         commentModelState = ProgressEntry::Success;
         emit setCommentModelStatus(commentModelState, commentModelStatus);
     }
@@ -1487,7 +1511,7 @@ void Worker::commentChanged(WPComment comment)
                 blogsModel->item(tempBlogIdHash.value(iBlogs->GetCurrentBlog()->LocalId()))->setData(currentBlogCommentsCount, BlogEntry::CommentsCountRole);
                 emit updateCurrentBlogCommentsCount(currentBlogCommentsCount);
             }
-            commentModelStatus = "Comments("+QString().number(currentBlogCommentsCount)+")";
+            commentModelStatus = tr("Comments(%1)").arg(QString().number(currentBlogCommentsCount));
             commentModelState = ProgressEntry::Success;
             emit setCommentModelStatus(commentModelState, commentModelStatus);
         }
@@ -1633,21 +1657,38 @@ void Worker::searchMedia(QString type)
         searchThread->setSearchType(MediaSearchThread::SearchImages);
     else
         searchThread->setSearchType(MediaSearchThread::SearchVideos);
+    mediaDirs.clear();
+    for(int i=0;i<mediaDirModel->rowCount();i++)
+        mediaDirs.append(mediaDirModel->item(i)->data(MediaDirEntry::PathRole).toString());
+    searchThread->setSearchDirs(mediaDirs);
+    localMediaModel->clear();
     searchMediaState = ProgressEntry::Processing;
-    searchMediaStatus = "Searching media items...";
+    searchMediaStatus = tr("Searching media items...");
     emit setSearchMediaStatus(searchMediaState, searchMediaStatus);
     uiThread->setPriority(QThread::HighestPriority);
-    searchThread->start(QThread::LowPriority);
+    searchThread->start(QThread::LowestPriority);
 }
 
 void Worker::searchFinished()
 {
-    uiThread->setPriority(QThread::NormalPriority);
+    files.clear();
+    localMediaModel->clear();
+//    uiThread->setPriority(QThread::NormalPriority);
+
     if(!isSearchCanceled()) {
-        prepareLocalMediaModel();
+        files = searchThread->InfoList();
+        if(!files.isEmpty()) {
+            prepareLocalMediaModel();
+            if(searchThread->searchType()==MediaSearchThread::SearchImages){
+                thumbnailThread = new ThumbnailThread(this);
+                thumbnailThread->setFileList(&files);
+                thumbnailThread->start(QThread::LowestPriority);
+                connect(thumbnailThread, SIGNAL(finished()), this, SLOT(thumbnailsCreated()));
+            }
+        }
     }
     searchMediaState = ProgressEntry::Success;
-    searchMediaStatus = "Search finished!";
+    searchMediaStatus = tr("Search finished!");
     emit setSearchMediaStatus(searchMediaState, searchMediaStatus);
 
     addMediaState = ProgressEntry::None;
@@ -1658,93 +1699,88 @@ void Worker::searchFinished()
     searchThread = NULL;
 }
 
+void Worker::thumbnailsCreated()
+{
+    qDebug()<<"ThumbsCreated";
+    uiThread->setPriority(QThread::NormalPriority);
+    delete thumbnailThread;
+    thumbnailThread = NULL;
+}
+
 void Worker::prepareLocalMediaModel()
 {
-    qDebug()<<"Preparing Media Model";
-    QString thumb;
+    qDebug()<<tr("Preparing Media Model");
     uiThread->setPriority(QThread::HighestPriority);
-    this->thread()->setPriority(QThread::LowPriority);
-    localMediaModel->clear();
-    QFileInfoList const & list = searchThread->InfoList();
-    qDebug()<<"Items found"<<list.count();
-    int tempCount = 0;
-    for(int i=0;i<list.count();i++) {
-        //qDebug()<<"File"<<list.at(i).fileName()<<list.at(i).filePath()<<list.at(i).size()/1024*1024;
-        QStandardItem *it = new QStandardItem();
-        it->setData(list.at(i).fileName(), LocalMediaEntry::FileNameRole);
-
-        it->setData(list.at(i).filePath(), LocalMediaEntry::FilePathRole);
-        QString type = list.at(i).suffix();
-        if(type=="jpg"||type=="jpeg"||type=="png"||type=="bmp")
-            type = "image/"+type;
-        else if(type=="mp4"||type=="flv"||type=="avi"||type=="mpeg"||type=="mpg")
-            type = "video/"+type;
-        else
-            type = "file/"+type;
-        it->setData(type, LocalMediaEntry::FileTypeRole);
-        it->setData(QString::number(float(list.at(i).size())/(1024*1024),'g', 2), LocalMediaEntry::FileSizeRole);
-
-        if(list.at(i).suffix()=="jpg"||list.at(i).suffix()=="jpeg"||list.at(i).suffix()=="png"||list.at(i).suffix()=="bmp") {
-            qDebug()<<"It is a image!";
-            imgReader->setFileName(list.at(i).absoluteFilePath());
-            int rotation;
-            if(QExifImageHeader(list.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 6)
-                rotation = 90;
-            else if(QExifImageHeader(list.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 3)
-                rotation = 180;
-            else if(QExifImageHeader(list.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 8)
-                rotation = 270;
-            else
-                rotation = 0;
-
-            QDir mkd = QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
-            //qDebug()<<"QDesktopServices::DataLocation"<<mkd.path();
-#if defined(Q_OS_UNIX) && !defined(Q_OS_SYMBIAN)
-            thumb = QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/cache/"+
-                    QCryptographicHash::hash(list.at(i).absoluteFilePath().toUtf8(), QCryptographicHash::Md5).toHex()+".jpg";
-            if(!QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/cache").exists())
-                mkd.mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/cache");
-#else
-            thumb = QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/_PAlbTN/cache/"+
-                    QCryptographicHash::hash(list.at(i).absoluteFilePath().toUtf8(), QCryptographicHash::Md5).toHex()+".jpg";
-            if(!QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/_PAlbTN/cache").exists())
-                mkd.mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/_PAlbTN/cache");
-#endif
-            qDebug()<<thumb<<QFile::exists(thumb);
-            if(!QFile::exists(thumb)){
-                qDebug()<<"Create thumbnail!";
-                imgReader->setFileName(list.at(i).absoluteFilePath());
-                imgReader->setScaledSize(QSize(128,128));
-                QTransform rot;
-                rot.rotate(rotation);
-                QImage temp = imgReader->read().transformed(rot, Qt::FastTransformation);
-                imgWriter->setFileName(thumb);
-                imgWriter->setFormat("jpg");
-                qDebug()<<"write"<<thumb<<imgWriter->write(temp)<<imgWriter->errorString();
-            }
-        }
-        it->setData(QUrl::fromLocalFile(thumb) , LocalMediaEntry::FileThumbRole);
-//#if !defined(Q_OS_SYMBIAN)&& !defined(Q_WS_MAEMO_5) && !defined(QT_SIMULATOR) && !defined(Q_WS_WIN)
-//        QString thumb = "file:///home/user/.thumbnails/grid/" +
-//                        QCryptographicHash::hash(QUrl::toPercentEncoding(QUrl::fromLocalFile(list.at(i).filePath()).toString(), QUrl::fromLocalFile(list.at(i).filePath()).toEncoded()," "),QCryptographicHash::Md5).toHex() +
-//                        ".jpeg";
-//        it->setData(thumb , LocalMediaEntry::FileThumbRole);
-//#endif
-        localMediaModel->appendRow(it);
-
-        // Process events after every 10 items to keep ui responsive
-        if(++tempCount == 10) {
-            tempCount = 0;
-            QApplication::processEvents();
-
-            // this might be cancelled during processEvents();
-            if(isSearchCanceled()) {
-                return;
-            }
-        }
-    }
+//    this->thread()->setPriority(QThread::LowPriority);
+    qDebug()<<"Items found"<<files.count();
+    writeMediaItemsToModel(0);
     uiThread->setPriority(QThread::NormalPriority);
-    this->thread()->setPriority(QThread::NormalPriority);
+//    this->thread()->setPriority(QThread::NormalPriority);
+}
+
+void Worker::writeMediaItemsToModel(const int startIdx)
+{
+    if(startIdx>=files.count())
+        return;
+//    int tempCount = 0;
+    for(int i=startIdx; i<startIdx+36 && i<files.count(); i++) {
+         writeItem(i);
+         // Process events after every 10 items to keep ui responsive
+//         if(++tempCount == 10) {
+//             tempCount = 0;
+//             QApplication::processEvents();
+
+//             // this might be cancelled during processEvents();
+//             if(isSearchCanceled()) {
+//                 return;
+//             }
+//         }
+    }
+}
+
+void Worker::writeItem(const int i)
+{
+    QStandardItem *it = new QStandardItem();
+    QString thumb;
+    it->setData(files.at(i).fileName(), LocalMediaEntry::FileNameRole);
+
+    it->setData(files.at(i).filePath(), LocalMediaEntry::FilePathRole);
+    QString type = files.at(i).suffix().toLower();
+    if(type=="jpg"||type=="jpeg"||type=="png"||type=="bmp")
+        type = "image/"+type;
+    else if(type=="mp4"||type=="flv"||type=="avi"||type=="mpeg"||type=="mpg")
+        type = "video/"+type;
+    else
+        type = "file/"+type;
+    it->setData(type, LocalMediaEntry::FileTypeRole);
+    it->setData(QString::number(float(files.at(i).size())/(1024*1024),'g', 2), LocalMediaEntry::FileSizeRole);
+
+    if(type=="image/jpg"||
+            type=="image/jpeg"||
+            type=="image/png"||
+            type=="image/bmp") {
+        //qDebug()<<"It is a image!";
+        imgReader->setFileName(files.at(i).absoluteFilePath());
+        int rotation;
+        if(QExifImageHeader(files.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 6)
+            rotation = 90;
+        else if(QExifImageHeader(files.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 3)
+            rotation = 180;
+        else if(QExifImageHeader(files.at(i).absoluteFilePath()).value(QExifImageHeader::Orientation).toShort() == 8)
+            rotation = 270;
+        else
+            rotation = 0;
+#if defined(Q_OS_UNIX) && !defined(Q_OS_SYMBIAN)
+        thumb = QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/cache/"+
+                QCryptographicHash::hash(files.at(i).absoluteFilePath().toUtf8(), QCryptographicHash::Md5).toHex()+".jpg";;
+#else
+        thumb = QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/_PAlbTN/cache/"+
+                QCryptographicHash::hash(files.at(i).absoluteFilePath().toUtf8(), QCryptographicHash::Md5).toHex()+".jpg";
+#endif
+    }
+    it->setData(QUrl::fromLocalFile(thumb) , LocalMediaEntry::FileThumbRole);
+    qDebug()<<"Haha"<<it->data(LocalMediaEntry::FileNameRole);
+    localMediaModel->appendRow(it);
 }
 
 void Worker::addFile(QString file, QString type)
@@ -1982,6 +2018,22 @@ void Worker::checkSettings()
     {
         uiTheme = "dark";
         settings.setValue("uiTheme", uiTheme);
+    }    
+    if(!settings.value("Icon Type").toString().isEmpty() && settings.value("Icon Type").toString()=="default"){
+        uiIconType = "default";
+    }
+    else
+    {
+        uiIconType = "metro";
+        settings.setValue("Icon Type", uiIconType);
+    }
+    if(!settings.value("Media Directories").toString().isEmpty()){
+        mediaDirs = settings.value("Media Directories").toString().split(";");
+        for(int i=0;i<mediaDirs.count();i++) {
+            QStandardItem *it = new QStandardItem();
+            it->setData(mediaDirs.at(i), MediaDirEntry::PathRole);
+            mediaDirModel->appendRow(it);
+        }
     }
     qDebug()<<"Theme"<<uiTheme;
     //emit updateSettings(uiTheme);
@@ -1990,6 +2042,18 @@ void Worker::checkSettings()
 void Worker::refreshThumbnailCache()
 {
     qDebug()<<"Deleting thumbnail cache";
+    if (thumbnailThread!=NULL)
+    {
+        if (thumbnailThread->isRunning())
+        {
+            thumbnailThread->Cancel();
+            // Bump priority to make it terminate fast
+            thumbnailThread->setPriority(QThread::HighestPriority);
+            thumbnailThread->wait();
+        }
+        delete thumbnailThread;
+        thumbnailThread = NULL;
+    }
     QDir cacheDir;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_SYMBIAN)
     cacheDir = QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/.cutepress/cache/");
@@ -2003,7 +2067,7 @@ void Worker::refreshThumbnailCache()
     }
 }
 
-void Worker::saveSettings(QString theme)
+void Worker::saveSettings(QString theme, QString iconType)
 {
     QSettings settings("ShowStopper","CutePress");
     if(theme!=uiTheme) {
@@ -2011,4 +2075,38 @@ void Worker::saveSettings(QString theme)
         settings.setValue("uiTheme", uiTheme);
         qDebug()<<"theme saved";
     }
+    if(iconType!=uiIconType) {
+        uiIconType = iconType;
+        settings.setValue("Icon Type", uiIconType);
+        qDebug()<<"icon type saved"<<uiIconType;
+    }
+    if(isMediaDirsChanged){
+        mediaDirs.clear();
+        for(int i=0;i<mediaDirModel->rowCount();i++)
+            mediaDirs.append(mediaDirModel->item(i)->data(MediaDirEntry::PathRole).toString());
+        settings.setValue("Media Directories", mediaDirs.join(";"));
+    }
+}
+
+void Worker::addNewDir(QString dir)
+{
+    qDebug()<<dir;
+    QStandardItem* it = new QStandardItem();
+    it->setData(dir, MediaDirEntry::PathRole);
+    mediaDirModel->appendRow(it);
+    isMediaDirsChanged = true;
+}
+
+void Worker::removeExistingDir(int value)
+{
+    qDebug()<<value;
+    mediaDirModel->removeRow(value);
+    isMediaDirsChanged = true;
+}
+
+void Worker::getDirSelectionDialog()
+{
+    QString dir = QFileDialog::getExistingDirectory();
+    qDebug()<<dir;
+    setSelectedDir(dir);
 }

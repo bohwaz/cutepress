@@ -31,7 +31,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 pageStack.pop()
             }
@@ -80,7 +80,7 @@ CPPage {
                     spacing: 15
 
                     HeadingText {
-                        text: "Title"
+                        text: qsTr("Title")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -94,7 +94,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Description"
+                        text: qsTr("Description")
                         visible: descLabel.text!=""
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
@@ -110,7 +110,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Caption"
+                        text: qsTr("Caption")
                         visible: captionLabel.text!=""
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
@@ -126,7 +126,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "File type"
+                        text: qsTr("File type")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -138,7 +138,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Upload date"
+                        text: qsTr("Upload date")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -150,7 +150,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "File URL"
+                        text: qsTr("File URL")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 

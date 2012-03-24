@@ -32,7 +32,7 @@ CPPage {
             id: button1
             flat: true
             enabled: window.addMediaState!=UI.ProgressState.Processing
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 pageStack.replace(newPostPage)
             }
@@ -45,7 +45,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Upload"
+                    text: qsTr("Upload")
                     onClicked: {
                         window.addingMediaToPost = true
                         window.addFile(menu.filepath, menu.filetype)
@@ -117,8 +117,7 @@ CPPage {
                     textFormat: Text.RichText
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
-                    font.pixelSize: titleText.font.pixelSize - 1
-                    font.italic: true
+                    font.pixelSize: titleText.font.pixelSize - 2
                 }
             }
             MouseArea {
@@ -234,9 +233,9 @@ CPPage {
             text: {
                 if(window.addMediaState!=UI.ProgressState.Processing || window.addMediaStatus==""){
                     if(window.ampMediaType=="image")
-                        return "Select Image"
+                        return qsTr("Select Image")
                     else
-                        return "Select Video"
+                        return qsTr("Select Video")
                 }else
                     return window.addMediaStatus
             }
@@ -264,9 +263,9 @@ CPPage {
             right: parent.right
             margins: UI.MARGIN_XLARGE
         }
-        height: 48
-        TabButton { tab: tab1content; text: "Library" }
-        TabButton { tab: tab2content; text: "Local" }
+        height: 36
+        TabButton { tab: tab1content; text: qsTr("Library") }
+        TabButton { tab: tab2content; text: qsTr("Local") }
     }
 
     TabGroup {
@@ -296,7 +295,7 @@ CPPage {
             }
 
             Text {
-                text: "Media items for blogs not hosted on Wordpress.com cannot be fetched"
+                text: qsTr("Media items for blogs not hosted on Wordpress.com cannot be fetched")
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 width: 0.9*parent.width
@@ -306,39 +305,51 @@ CPPage {
                 visible: serverList.count == 0 && !window.isCurrentBlogWPHosted
             }
         }
-
-        ListView {
-            id:tab2content
+        Item {
+            id: tab2content
             anchors {
                 fill: parent
                 leftMargin: UI.MARGIN_XLARGE
                 rightMargin: UI.MARGIN_XLARGE
             }
-            cacheBuffer: height
-            delegate: localMediaDelegate
-            model: localMediaModel
-            clip: true
-            enabled: !pageStack.busy
-            spacing: 5
-        }
 
-        BusyIndicator {
-            id: busyInd
-            width: 64
-            height: width
-            running: true
-            visible: !tab2content.visible
-            anchors.centerIn: tab2content
-        }
+            ListView {
+                id: localList
+                anchors {
+                    fill: parent
+                }
+                cacheBuffer: height
+                delegate: localMediaDelegate
+                model: localMediaModel
+                clip: true
+                enabled: !pageStack.busy
+                spacing: 5
+                visible: window.searchMediaState==UI.ProgressState.Success
+                onMovingChanged: {
+                    if(atYEnd && window.searchMediaState!=UI.ProgressState.Processing){
+                        window.writeMediaItemsToModel(count)
+                    }
+                }
+            }
 
-        Text {
-            text: window.searchMediaStatus
-            color: UI.PROGRESSSTATUS_LABEL_COLOR
-            anchors.top: busyInd.bottom
-            anchors.topMargin: 25
-            anchors.horizontalCenter: busyInd.horizontalCenter
-            font.pixelSize: window.appGeneralFontSize+15
-            visible: busyInd.visible
+            BusyIndicator {
+                id: busyInd
+                width: 64
+                height: width
+                running: true
+                visible: !localList.visible
+                anchors.centerIn: parent
+            }
+
+            Text {
+                text: window.searchMediaStatus
+                color: UI.PROGRESSSTATUS_LABEL_COLOR
+                anchors.top: busyInd.bottom
+                anchors.topMargin: 25
+                anchors.horizontalCenter: busyInd.horizontalCenter
+                font.pixelSize: window.appGeneralFontSize+8
+                visible: busyInd.visible
+            }
         }
     }
 }

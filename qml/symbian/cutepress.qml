@@ -33,12 +33,13 @@ Window {
         color: isThemeInverted?UI.PAGE_BG_COLOR:UI.PAGE_BG_COLOR1
         Image {
             visible: isThemeInverted
-            source: "qrc:/qml/images/pagebg.png"
+            source: "qrc:/qml/images/pagebg.jpg"
             fillMode: Image.Stretch
             anchors.fill: parent
         }
     }
     property bool isThemeInverted: true
+    property bool isIconsMetro: true
     onIsThemeInvertedChanged: {
         console.log("UI Theme", isThemeInverted)
 //        if(isThemeInverted!=theme.inverted) {
@@ -51,7 +52,7 @@ Window {
 
     property int appGeneralFontSize: platformStyle.fontSizeSmall + 1
     property int appSectionFontSize: platformStyle.fontSizeSmall - 2
-    property int appInputFontSize: platformStyle.fontSizeSmall
+    property int appInputFontSize: platformStyle.fontSizeSmall+1
 
     property bool openActiveBlog: false
     property bool isBlogFound: false
@@ -82,6 +83,7 @@ Window {
     property string addCategoryStatus: ""
     property int searchMediaState: UI.ProgressState.None
     property string searchMediaStatus: ""
+    property string newSelectedDir: ""
 
     property string addNewBlogMsg: ""
     property int addNewBlogStatus: UI.ProgressState.None
@@ -126,13 +128,17 @@ Window {
     signal spamComment(string id)
     signal addComment(string postId, string comment)
     signal searchMedia(string type)
+    signal writeMediaItemsToModel(int count)
     signal addFile(string file, string type)
     signal markCurrentPostCategories(string id)
     signal markCategory(string cat)
     signal setCategoriesToPost(string id)
     signal unmarkAllCategories()
     signal refreshThumbnailCache()
-    signal saveSettings(string theme)
+    signal removeExistingDir(int value)
+    signal addNewDir(string value)
+    signal getDirectory()
+    signal saveSettings(string theme, string icons)
 
     //SingleMediaPage vars
 
@@ -437,7 +443,7 @@ Window {
     function newPostPublishFailed(id)
     {
         newPostPage.postLocalId = id
-        newPostPage.postPublishStatus = "Local Draft"
+        newPostPage.postPublishStatus = qsTr("Local Draft")
         newPostPage.isEditingPost = true
     }
 
@@ -449,8 +455,12 @@ Window {
     function newPagePublishFailed(id)
     {
         newPagePage.pageLocalId = id
-        newPagePage.pagePublishStatus = "Local Draft"
+        newPagePage.pagePublishStatus = qsTr("Local Draft")
         newPagePage.isEditingPage = true
+    }
+
+    function setSelectedDir(dir) {
+        newSelectedDir = dir
     }
 
     function updateSettings (theme){
@@ -463,7 +473,7 @@ Window {
         id: pageStack
         anchors.fill: parent
         toolBar: toolBar
-        onDepthChanged: console.log("hall")
+//        onDepthChanged: console.log("hall")
     }
 
 
@@ -483,24 +493,28 @@ Window {
         visualParent: pageStack
         MenuLayout {
             MenuItem {
-                text: "Settings"
+                text: qsTr("Settings")
                 onClicked: {
                     openFile("SettingsPage.qml")
                 }
             }
             MenuItem {
-                text: "About"
+                text: qsTr("About")
                 onClicked: {
                     openFile("AboutPage.qml")
                 }
             }
             MenuItem {
-                text: "Help"
+                text: qsTr("Help")
                 onClicked: {
                     openFile("HelpPage.qml")
                 }
             }
-            MenuItem { text: "Exit"; onClicked: Qt.quit(); }
+            MenuItem {
+                visible: pageStack.currentPage!=blogsViewPage
+                text: qsTr("Exit")
+                onClicked: Qt.quit()
+            }
         }
     }
 

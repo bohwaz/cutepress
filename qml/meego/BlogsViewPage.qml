@@ -57,18 +57,18 @@ CPPage {
         visualParent: blogsPage
         MenuLayout {
             MenuItem {
-                text: "About"
+                text: qsTr("About")
                 onClicked: {
                     openFile("AboutPage.qml")
                 }
             }
             MenuItem {
-                text: "Help"
+                text: qsTr("Help")
                 onClicked: {
                     openFile("HelpPage.qml")
                 }
             }
-            MenuItem { text: "Exit"; onClicked: Qt.quit(); }
+            MenuItem { text: qsTr("Exit"); onClicked: Qt.quit(); }
         }
     }*/
 
@@ -84,7 +84,7 @@ CPPage {
 
         BigHeadingText {
             id: heading
-            text: "Blogs"
+            text: qsTr("Blogs")
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
@@ -152,25 +152,23 @@ CPPage {
                         }
 
                         Text {
-                            text: (isAdmin)?"<b>"+username+"</b> | Admin":"<b>"+username+"</b> | User"
+                            text: (isAdmin)?qsTr("<b>%1</b> | Admin").arg(username):qsTr("<b>%1</b> | User").arg(username)
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
-                            //visible: (pagesCount!=''||pagesCount=='0')&&postsCount!=''&&commentsCount!=''
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR1:UI.LISTDELEGATE_TEXT_COLOR1
                         }
 
                         Text {
-                            text: (pagesCount==''&&postsCount==''&&commentsCount=='')?"Blog Data Not Available":pagesCount+" page(s) | "+postsCount+" post(s) | "+commentsCount+" comment(s)"
+                            text: (pagesCount==''&&postsCount==''&&commentsCount=='')?qsTr("Blog Data Not Available"):qsTr("%1 page(s) | %2 post(s) | %3 comment(s)").arg(pagesCount).arg(postsCount).arg(commentsCount)
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
-                            //visible: (pagesCount!=''||pagesCount=='0')&&postsCount!=''&&commentsCount!=''
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:(pagesCount==''&&postsCount==''&&commentsCount=='')?UI.LISTDELEGATE_TEXT_COLOR:window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR1:UI.LISTDELEGATE_TEXT_COLOR1
                         }
 
                         Text {
-                            text: "Hosted at WordPress.com"
+                            text: qsTr("Hosted at WordPress.com")
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
                             font.italic: true
@@ -187,12 +185,7 @@ CPPage {
                             window.openBlog(blogId)
                             pageStack.push(blogOptionsPage)
                         }
-//                        onPressed: myCurrentItem = index
-//                        onReleased: myCurrentItem = -1
-//                        onFocusChanged: {
-//                            if(!focus)
-//                                myCurrentItem = -1
-//                        }
+                        onPressAndHold: console.log("pages",pagesCount,"pages",postsCount,"comments",commentsCount)
                     }
                 }
 
@@ -251,7 +244,7 @@ CPPage {
     }
 
     Text {
-        text: "No Blog Found"
+        text: qsTr("No Blog Found")
         color: window.isThemeInverted?UI.PROGRESSSTATUS_LABEL_COLOR:UI.PROGRESSSTATUS_LABEL_COLOR
         anchors.centerIn: blogList
         font.pixelSize: window.appGeneralFontSize+15

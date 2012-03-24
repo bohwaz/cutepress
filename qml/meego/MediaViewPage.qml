@@ -43,7 +43,7 @@ CPPage {
             id: button2
             flat: true
             visible: !marking
-            iconSource: "qrc:/qml/images/mark.png"
+            iconSource:"qrc:/qml/images/mark.png"
             onClicked: {
                 marking = true
             }
@@ -65,7 +65,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "New Image"
+                    text: qsTr("New Image")
                     onClicked: {
                         window.searchMedia("image")
                         window.nmpMediaType = "image"
@@ -73,7 +73,7 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "New Video"
+                    text: qsTr("New Video")
                     onClicked: {
                         window.searchMedia("video")
                         window.nmpMediaType = "video"
@@ -107,7 +107,7 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.mediaModelStatus=="")
-                        return "Media Items"
+                        return qsTr("Media Items")
                     else
                         return window.mediaModelStatus
                 }
@@ -197,8 +197,7 @@ CPPage {
                     textFormat: Text.RichText
                     elide: Text.ElideRight
                     wrapMode: Text.Wrap
-                    font.pixelSize: titleText.font.pixelSize - 1
-                    font.italic: true
+                    font.pixelSize: titleText.font.pixelSize - 2
                 }
             }
 

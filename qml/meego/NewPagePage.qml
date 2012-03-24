@@ -51,7 +51,7 @@ CPPage {
 
     function insertMedia(html)
     {
-        console.log("Insert Media",html,window.tempPagePos, window.tempPageText, mediaItemPosition)
+        console.log(qsTr("Insert Media"),html,window.tempPagePos, window.tempPageText, mediaItemPosition)
         pageText.text = window.tempPageText.substring(0,window.tempPagePos)+
                        html+
                        window.tempPageText.substring(window.tempPagePos)
@@ -72,7 +72,7 @@ CPPage {
 //        ToolButton {
 //            id: button2
 //            flat: true
-//            iconSource: "qrc:/qml/images/reset.png"
+//            iconSource:"qrc:/qml/images/reset.png"
 //        }
         ToolIcon {
             id: button3
@@ -90,7 +90,7 @@ CPPage {
         visualParent: pagePage
         content: MenuLayout {
                 MenuItem {
-                    text: "Save as draft"
+                    text: qsTr("Save as draft")
                     onClicked: {
                         if(isEditingPage)
                             window.editPage(pageLocalId,
@@ -107,8 +107,8 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Save as local draft"
-                    visible: pagePublishStatus=="Local Draft" || pagePublishStatus==""
+                    text: qsTr("Save as local draft")
+                    visible: pagePublishStatus==qsTr("Local Draft") || pagePublishStatus==""
                     onClicked: {
                         window.addNewPage(pageTitleText,
                                           pageContentText,
@@ -126,7 +126,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Publish as public"
+                    text: qsTr("Publish as public")
                     onClicked: {
                         if(isEditingPage)
                             window.editPage(pageLocalId,
@@ -144,7 +144,7 @@ CPPage {
                     }
                 }
                 MenuItem {
-                    text: "Publish as private"
+                    text: qsTr("Publish as private")
                     onClicked: {
                         if(isEditingPage)
                             window.editPage(pageLocalId,
@@ -227,44 +227,44 @@ CPPage {
                 font.pixelSize: window.appGeneralFontSize
                 elide: Text.ElideRight
                 color: {
-                    if(text == "Published")
+                    if(text == qsTr("Published"))
                         return "green";
-                    else if(text == "Private")
+                    else if(text == qsTr("Private"))
                         return "lightgreen";
-                    else if(text == "Scheduled in future")
+                    else if(text == qsTr("Scheduled in future"))
                         return "#5674b9";
-                    else if(text == "Pending review")
+                    else if(text == qsTr("Pending review"))
                         return "yellow";
-                    else if(text == "Draft"||text == "Local Draft" || text == "Busy")
+                    else if(text == qsTr("Draft")||text == qsTr("Local Draft") || text == qsTr("Busy"))
                         return "orange";
-                    else if(text == "Trashed"||text == "Orphaned")
+                    else if(text == qsTr("Trashed")||text == qsTr("Orphaned"))
                         return "red";
                 }
                 visible: text!=""
             }
 
             HeadingText {
-                text: "Title"
+                text: qsTr("Title")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
             TextField {
                 id: pageTitle
                 width: parent.width
-                font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter title here"
+//                font.pixelSize: window.appInputFontSize
+                placeholderText: qsTr("Enter title here")
             }
 
             HeadingText {
-                text: "Content"
+                text: qsTr("Content")
                 color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
             }
 
             TextArea {
                 id: pageText
                 textFormat: Text.PlainText
-                font.pixelSize: window.appInputFontSize
-                placeholderText: "Enter content here"
+//                font.pixelSize: window.appInputFontSize
+                placeholderText: qsTr("Enter content here")
                 width: parent.width
                 height: Math.max(450, implicitHeight)
                 onActiveFocusChanged: {
@@ -284,20 +284,20 @@ CPPage {
                 HeadingText {
                     id: dateLabel
                     width: 150
-                    text: "Published on"
+                    text: qsTr("Published on")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
                 Button {
                     id: date
-                    text: "Date"
+                    text: qsTr("Date")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: pagePage.launchDialogToToday()
                 }
                 Button {
                     id: time
-                    text: "Time"
+                    text: qsTr("Time")
                     font.pixelSize: window.appInputFontSize - 1
                     width: (parent.width - 2*parent.spacing - dateLabel.width)*1/2
                     onClicked: pagePage.launchDialogToNow()
@@ -310,15 +310,15 @@ CPPage {
                 HeadingText {
                     id: pwdLabel
                     width: 120
-                    text: "Password"
+                    text: qsTr("Password")
                     anchors.verticalCenter: parent.verticalCenter
                     color: window.isThemeInverted?UI.HEADINGTEXT_COLOR:UI.HEADINGTEXT_COLOR
                 }
                 TextField {
                     id: pwdText
                     width: parent.width - pwdLabel.width - parent.spacing
-                    font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter password here"
+//                    font.pixelSize: window.appInputFontSize
+                    placeholderText: qsTr("Enter password here")
                 }
             }
         }
@@ -326,10 +326,10 @@ CPPage {
 
     LinkDialog {
         id: linkDialog
-        titleText: "Enter the destination URL"
+        titleText: qsTr("Enter the destination URL")
         linkTitleText: ""
-        rejectButtonText: "Cancel"
-        acceptButtonText: "Add Link"
+        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr("Add Link")
         onRejected: pageText.focus = true
         onAccepted: {
             var pre = "<a href=\'"+linkUrlText+"\'>"
@@ -545,17 +545,17 @@ CPPage {
 
     DatePickerDialog {
          id: tDialog
-         titleText: "Publish Date"
-         acceptButtonText: "Ok"
-         rejectButtonText: "Cancel"
+         titleText: qsTr("Publish Date")
+         acceptButtonText: qsTr("Ok")
+         rejectButtonText: qsTr("Cancel")
          onAccepted: date.text = tDialog.year + "/" + tDialog.month + "/" + tDialog.day
      }
 
     TimePickerDialog{
         id: timeDialog
-        titleText: "Publish Time"
-        acceptButtonText: "Ok"
-        rejectButtonText: "Cancel"
+        titleText: qsTr("Publish Time")
+        acceptButtonText: qsTr("Ok")
+        rejectButtonText: qsTr("Cancel")
         fields: DateTime.All
         onAccepted: time.text = timeDialog.hour + ":" + timeDialog.minute + ":" + timeDialog.second
     }

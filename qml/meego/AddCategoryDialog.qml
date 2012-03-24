@@ -93,7 +93,7 @@ Dialog {
                     font.pixelSize: root.platformStyle.messageFontPixelSize
                     color: root.platformStyle.messageTextColor
                     wrapMode: Text.WordWrap
-                    text: "URL"
+                    text: qsTr("URL")
                     anchors.verticalCenter: catTitle.verticalCenter
                 }
 
@@ -101,8 +101,8 @@ Dialog {
                     id: catTitle
                     width: parent.width - 64 - parent.spacing
                     font.pixelSize: root.platformStyle.messageFontPixelSize
-                    placeholderText: "Enter category name here"
-                    text: ""
+                    placeholderText: qsTr("Enter category name here")
+                    text: qsTr("")
                 }
             }
     }
@@ -122,19 +122,19 @@ Dialog {
 
               Button {
                   id: acceptButton
-                  text: ""
+                  text: qsTr("")
                   onClicked: accept()
                   visible: text != ""
                   __dialogButton: true
-                  platformStyle: ButtonStyle { }
+                  platformStyle: ButtonStyle { textColor: root.platformStyle.titleTextColor }
               }
               Button {
                   id: rejectButton
-                  text: ""
+                  text: qsTr("")
                   onClicked: reject()
                   visible: text != ""
                   __dialogButton: true
-                  platformStyle: ButtonStyle { }
+                  platformStyle: ButtonStyle { textColor: root.platformStyle.titleTextColor }
               }
           }
 }

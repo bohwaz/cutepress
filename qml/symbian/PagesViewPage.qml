@@ -31,7 +31,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 if(!marking)
                     pageStack.pop()
@@ -42,14 +42,14 @@ CPPage {
         ToolButton {
             id: button2
             flat: true
-            iconSource: "qrc:/qml/images/reload.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/reload.png":"qrc:/qml/images/symbian/symbian_reload.png"
             visible: !status.visible
             onClicked: window.refreshCurrentBlogPages()
         }
         ToolButton {
             id: button3
             flat: true
-            iconSource: "qrc:/qml/images/add.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/add.png":"qrc:/qml/images/symbian/symbian_add.png"
             onClicked: {
                 newPagePage.resetPage()
                 var d = new Date()
@@ -85,7 +85,7 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.pageModelStatus=="")
-                        return "Pages"
+                        return qsTr("Pages")
                     else
                         return window.pageModelStatus
                 }
@@ -152,7 +152,7 @@ CPPage {
                             text:{
                                 var txt = "<strong>" + title + "</strong>"
                                 if(pagePassword!="")
-                                    txt = "[Protected] <strong>" + title + "</strong>"
+                                    txt = qsTr("[Protected] <strong>%1</strong>").arg(title)
                                 return txt
                             }
                             color: selected?UI.LISTDELEGATE_TITLE_COLOR_MARKED:UI.LISTDELEGATE_TITLE_COLOR
@@ -164,7 +164,7 @@ CPPage {
                         }
 
                         Text {
-                            text: "by "+wpAuthorDisplayName;
+                            text: qsTr("by %1").arg(wpAuthorDisplayName);
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
                             elide: Text.ElideRight
@@ -174,14 +174,14 @@ CPPage {
                         Text {
                             text: publishStatus;
                             width: parent.width
-                            visible: (publishStatus == "Draft" || publishStatus == "Local Draft" || publishStatus == "Busy"||
-                                       publishStatus == "Trashed" || publishStatus == "Orphaned")
+                            visible: (publishStatus == qsTr("Draft") || publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy")||
+                                       publishStatus == qsTr("Trashed") || publishStatus == qsTr("Orphaned"))
                             font.pixelSize: titleText.font.pixelSize-1
                             elide: Text.ElideRight
                             color: {
-                                if(publishStatus == "Draft"||publishStatus == "Local Draft" || publishStatus == "Busy")
+                                if(publishStatus == qsTr("Draft")||publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy"))
                                     return "orange";
-                                else if(publishStatus == "Trashed"||publishStatus == "Orphaned")
+                                else if(publishStatus == qsTr("Trashed")||publishStatus == qsTr("Orphaned"))
                                     return "red";
                             }
                         }
@@ -189,10 +189,9 @@ CPPage {
                         Text {
                             text: dateCreated;
                             width: parent.width
-                            font.pixelSize: titleText.font.pixelSize-1
+                            font.pixelSize: titleText.font.pixelSize-2
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:UI.LISTDELEGATE_TEXT_COLOR1
-                            font.italic: true
                         }
                     }
 
@@ -214,7 +213,23 @@ CPPage {
                         id: editButton
                         flat: true
                         width: 36; height: 36
-                        iconSource: selected?"qrc:/qml/images/edit - white.png":window.isThemeInverted?UI.EDITIMG:UI.EDITIMG
+                        iconSource: {
+                            if(selected) {
+                                if(window.isIconsMetro)
+                                    return "qrc:/qml/images/edit - white.png"
+                                else
+                                    return "qrc:/qml/images/symbian/symbian_edit.png"
+                            } else {
+                                if(window.isIconsMetro)
+                                    return UI.EDITIMG
+                                else{
+                                    if(window.isThemeInverted)
+                                        return "qrc:/qml/images/symbian/symbian_edit_small.png"
+                                    else
+                                        return "qrc:/qml/images/symbian/symbian_edit_small_black.png"
+                                }
+                            }
+                        }
                         onClicked: {
                             newPagePage.resetPage()
                             newPagePage.isEditingPage = true
@@ -233,8 +248,24 @@ CPPage {
                         id: deleteButton
                         flat: true
                         width: 36; height: 36
-                        iconSource: selected?"qrc:/qml/images/delete - white.png":window.isThemeInverted?UI.DELETEIMG:UI.DELETEIMG
-                        onClicked: deletePage(localId)
+                        iconSource: {
+                            if(selected) {
+                                if(window.isIconsMetro)
+                                    return "qrc:/qml/images/delete - white.png"
+                                else
+                                    return "qrc:/qml/images/symbian/symbian_recycle bin_small.png"
+                            } else {
+                                if(window.isIconsMetro)
+                                    return UI.DELETEIMG
+                                else{
+                                    if(window.isThemeInverted)
+                                        return "qrc:/qml/images/symbian/symbian_recycle bin_small.png"
+                                    else
+                                        return "qrc:/qml/images/symbian/symbian_recycle bin_small_black.png"
+                                }
+                            }
+                        }
+                        onClicked: showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)//deletePage(localId)
                     }
                 }
                 Rectangle {
@@ -243,17 +274,17 @@ CPPage {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 5
                     color: {
-                        if(publishStatus == "Published")
+                        if(publishStatus == qsTr("Published"))
                             return "green";
-                        else if(publishStatus == "Private")
+                        else if(publishStatus == qsTr("Private"))
                             return "lightgreen";
-                        else if(publishStatus == "Scheduled in future")
+                        else if(publishStatus == qsTr("Scheduled in future"))
                             return "#5674b9";
-                        else if(publishStatus == "Pending review")
+                        else if(publishStatus == qsTr("Pending review"))
                             return "yellow";
-                        else if(publishStatus == "Draft"||publishStatus == "Local Draft" || publishStatus == "Busy")
+                        else if(publishStatus == qsTr("Draft")||publishStatus == qsTr("Local Draft") || publishStatus == qsTr("Busy"))
                             return "orange";
-                        else if(publishStatus == "Trashed"||publishStatus == "Orphaned")
+                        else if(publishStatus == qsTr("Trashed")||publishStatus == qsTr("Orphaned"))
                             return "red";
                     }
                     anchors.right: parent.right
@@ -278,6 +309,21 @@ CPPage {
         clip: true
         enabled: !pageStack.busy
         spacing: 5
+    }
+
+    QueryDialog {
+        id: query
+        property string myPageId: ""
+        acceptButtonText: qsTr("Yes")
+        rejectButtonText: qsTr("No")
+        titleText: qsTr("Delete page")
+        onAccepted: deletePage(myPageId)
+    }
+
+    function showDialog(msg, id){
+        query.message = msg
+        query.myPageId = id
+        query.open()
     }
 }
 //![0]

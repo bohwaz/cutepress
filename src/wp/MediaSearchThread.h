@@ -5,6 +5,10 @@
 #include <QLinkedList>
 #include <QStringList>
 #include <QFileInfoList>
+#include <QImageReader>
+#include <QImageWriter>
+#include <QDateTime>
+#include "../qexifimageheader.h"
 
 class QDir;
 class QFileInfo;
@@ -26,6 +30,8 @@ public:
     };
     
     void setSearchType(SearchType type);
+    void setSearchDirs(QStringList dirs);
+    SearchType searchType() { return iCurrentType; }
     
     void run();
     void Cancel();
@@ -46,6 +52,8 @@ private:
     DirList iSearchDirs;
     
     SearchType iCurrentType;
+    QImageReader *imgReader;
+    QImageWriter *imgWriter;
 };
 
 #endif // MEDIASEARCHTHREAD_H

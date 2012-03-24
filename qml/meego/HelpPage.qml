@@ -56,7 +56,7 @@ CPPage {
             spacing: UI.DETAILS_SPACING
 
             BigHeadingText{
-                text: "Help"
+                text: qsTr("Help")
                 color: UI.PAGE_HEADER_TITLE_COLOR
             }
 
@@ -64,14 +64,17 @@ CPPage {
                 font.bold: false
                 wrapMode: Text.Wrap
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: "A video showing working of CutePress is available on <a style='color:orange' href='http://www.youtube.com/watch?v=Pb3LY93Az34'>YouTube</a><br>
-                       Before adding a blog enable XML-RPC from the admin end, for this go to Dashboard->Settings->Writing->Remote Publishing and check XML-RPC.<br><br>
-                Blogs that are not hosted on WordPress.com does not support retrieving media items.<br><br>
-                       <em>Symbols and icons related to the application are described below.</em>"
+                text: qsTr("A video showing working of CutePress is available on <a style='color:orange' href='http://www.youtube.com/watch?v=Pb3LY93Az34'>YouTube</a>")+
+                      "<br>"+
+                      qsTr("Before adding a blog enable XML-RPC from the admin end, for this go to Dashboard->Settings->Writing->Remote Publishing and check XML-RPC.")+
+                      "<br><br>"+
+                      qsTr("Blogs that are not hosted on WordPress.com does not support retrieving media items.")+
+                      "<br><br>"+
+                      qsTr("<em>Symbols and icons related to the application are described below.</em>")
             }
 
             BigHeadingText{
-                text: "Tool icons"
+                text: qsTr("Tool icons")
                 font.pixelSize: window.appGeneralFontSize
             }
 
@@ -87,31 +90,31 @@ CPPage {
                     source: UI.BACKIMG
                 }
                 HeadingText{
-                    text: "To move back from a particular view"
+                    text: qsTr("To move back from a particular view")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
                     anchors.verticalCenter: img1.verticalCenter
                 }
 
-                Image{
-                    id: img2
-                    source: UI.BLOGIMG
-                }
-                HeadingText{
-                    text: "To view all added blogs"
-                    wrapMode: Text.WordWrap
-                    font.bold: false
-                    width: parent.width-45
-                    anchors.verticalCenter:img2.verticalCenter
-                }
+//                Image{
+//                    id: img2
+//                    source: UI.BLOGIMG
+//                }
+//                HeadingText{
+//                    text: qsTr("To view all added blogs")
+//                    wrapMode: Text.WordWrap
+//                    font.bold: false
+//                    width: parent.width-45
+//                    anchors.verticalCenter:img2.verticalCenter
+//                }
 
                 Image{
                     id: img3
                     source: UI.CLOSEIMG
                 }
                 HeadingText{
-                    text: "To remove an added blog"
+                    text: qsTr("To remove an added blog")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -123,7 +126,7 @@ CPPage {
                     source: UI.EDITIMG
                 }
                 HeadingText{
-                    text: "To edit a page/post in the corresponding view"
+                    text: qsTr("To edit a page/post in the corresponding view")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -135,7 +138,7 @@ CPPage {
                     source: UI.PUBLISHIMG
                 }
                 HeadingText{
-                    text: "To publish posts/pages"
+                    text: qsTr("To publish posts/pages")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -147,7 +150,7 @@ CPPage {
                     source: UI.DELETEBIGIMG
                 }
                 HeadingText{
-                    text: "To delete a page/post in the corresponding view"
+                    text: qsTr("To delete a page/post in the corresponding view")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -159,7 +162,7 @@ CPPage {
                     source: UI.RELOADIMG
                 }
                 HeadingText{
-                    text: "To refresh a particular view"
+                    text: qsTr("To refresh a particular view")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -171,7 +174,7 @@ CPPage {
                     source: UI.SAVEIMG
                 }
                 HeadingText{
-                    text: "To save posts/pages as draft or local draft"
+                    text: qsTr("To save posts/pages as draft or local draft")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -181,7 +184,7 @@ CPPage {
 
 
             BigHeadingText{
-                text: "Status in pages/posts view"
+                text: qsTr("Status in pages/posts view")
                 font.pixelSize: window.appGeneralFontSize
             }
 
@@ -199,7 +202,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Publicly published page/post"
+                    text: qsTr("Publicly published page/post")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     anchors.verticalCenter: prect1.verticalCenter
@@ -212,7 +215,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Private page/post"
+                    text: qsTr("Private page/post")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -226,7 +229,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Page/post scheduled for publishing in future"
+                    text: qsTr("Page/post scheduled for publishing in future")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -240,7 +243,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Page/Post pending for review"
+                    text: qsTr("Page/Post pending for review")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -254,7 +257,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Local or server draft page/post"
+                    text: qsTr("Local or server draft page/post")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -268,7 +271,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Trashed page/post"
+                    text: qsTr("Trashed page/post")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -278,7 +281,7 @@ CPPage {
 
 
             BigHeadingText{
-                text: "Status in comments view"
+                text: qsTr("Status in comments view")
                 font.pixelSize: window.appGeneralFontSize
             }
 
@@ -296,7 +299,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Approved comment"
+                    text: qsTr("Approved comment")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -310,7 +313,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Unapproved comment"
+                    text: qsTr("Unapproved comment")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45
@@ -324,7 +327,7 @@ CPPage {
                     height: 10
                 }
                 HeadingText{
-                    text: "Deleted or spammed comment"
+                    text: qsTr("Deleted or spammed comment")
                     wrapMode: Text.WordWrap
                     font.bold: false
                     width: parent.width-45

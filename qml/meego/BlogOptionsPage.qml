@@ -29,7 +29,7 @@ CPPage {
     tools: ToolBarLayout {
         ToolIcon {
             id: button1
-            iconSource: window.isThemeInverted?UI.BLOGIMG:UI.BLOGIMG
+            iconSource: window.isThemeInverted?UI.BACKIMG:UI.BACKIMG
             onClicked: {
                 pageStack.pop()
                 console.log(toolBar.visible,toolBar.enabled)
@@ -47,26 +47,6 @@ CPPage {
             onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
         }
     }
-
-//    Menu {
-//        id: myMenu
-//        visualParent: bOptionsPage
-//        MenuLayout {
-//            MenuItem {
-//                text: "About"
-//                onClicked: {
-//                    openFile("AboutPage.qml")
-//                }
-//            }
-//            MenuItem {
-//                text: "Help"
-//                onClicked: {
-//                    openFile("HelpPage.qml")
-//                }
-//            }
-//            MenuItem { text: "Exit"; onClicked: Qt.quit(); }
-//        }
-//    }
 
     Row {
         id: header
@@ -136,7 +116,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 15
                     Text {
-                        text: "Pages"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
+                        text: qsTr("Pages"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
                         font.pixelSize: window.appGeneralFontSize + 3
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -186,7 +166,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 15
                     Text {
-                        text: "Posts"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
+                        text: qsTr("Posts"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
                         font.pixelSize: window.appGeneralFontSize + 3
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -235,7 +215,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 15
                     Text {
-                        text: "Comments"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
+                        text: qsTr("Comments"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
                         font.pixelSize: window.appGeneralFontSize + 3
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -285,7 +265,7 @@ CPPage {
                     anchors.right: parent.right
                     anchors.margins: 15
                     Text {
-                        text: "Media"; color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
+                        text: qsTr("Media"); color: window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR:UI.LISTDELEGATE_TEXT_COLOR
                         font.pixelSize: window.appGeneralFontSize + 3
                         anchors.verticalCenter: parent.verticalCenter
                     }

@@ -24,8 +24,10 @@ import "../UIConstants.js" as UI
 
 CPPage {
 
-    property string mediaSize: "Full"
-    property string mediaAlignment: "None"
+    property string mediaSize: qsTr("Full")
+    property string mediaSizeValue: "full"
+    property string mediaAlignment: qsTr("None")
+    property string mediaAlignmentValue: "none"
     property string htmlSnippet: ""
 
     anchors { fill: parent; topMargin: statusBar.height; bottomMargin: toolBar.height }
@@ -35,16 +37,16 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 window.replaceFile("AddMediaPage.qml")
             }
         }
         ToolButton {
             id: button2
-            text: "Insert"
+            text: qsTr("Insert")
             onClicked: {
-                var html = "\n<p><a href=\""+window.impUrlText+"\"><img class=\"align"+mediaAlignment.toLowerCase()+" size-"+mediaSize.toLowerCase()+" wp-image-6\" src=\""+window.impUrlText+"\" /></a></p>\n"
+                var html = "\n<p><a href=\""+window.impUrlText+"\"><img class=\"align"+mediaAlignmentValue.toLowerCase()+" size-"+mediaSizeValue.toLowerCase()+" wp-image-6\" src=\""+window.impUrlText+"\" /></a></p>\n"
                 if(window.impCaller == "page"){
                     newPagePage.insertMedia(html)
                     pageStack.replace(newPagePage)
@@ -58,13 +60,13 @@ CPPage {
 
     Flickable {
         id: pageFlickable
-        anchors.fill: parent
         anchors {
             fill: parent
             topMargin: UI.MARGIN_XLARGE
             leftMargin: UI.MARGIN_XLARGE
             rightMargin:  UI.MARGIN_XLARGE
         }
+        contentHeight: content.height
         contentWidth: width
         flickableDirection: Flickable.VerticalFlick
         interactive: contentHeight>height
@@ -90,6 +92,7 @@ CPPage {
                     source: window.impThumbSource
                     visible: status == Image.Ready
                     width: window.inPortrait?parent.width:(parent.width-parent.spacing)/2
+//                    height: window.inPortrait?width:parent.height
                     fillMode: Image.PreserveAspectFit
                 }
 
@@ -98,7 +101,7 @@ CPPage {
                     spacing: 15
 
                     HeadingText {
-                        text: "Title"
+                        text: qsTr("Title")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -112,7 +115,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Description"
+                        text: qsTr("Description")
                         visible: descLabel.text!=""
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
@@ -128,7 +131,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Caption"
+                        text: qsTr("Caption")
                         visible: captionLabel.text!=""
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
@@ -144,7 +147,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "File type"
+                        text: qsTr("File type")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -156,7 +159,7 @@ CPPage {
                     }
 
                     HeadingText {
-                        text: "Upload date"
+                        text: qsTr("Upload date")
                         color: UI.PAGE_HEADER_TITLE_COLOR
                     }
 
@@ -170,7 +173,7 @@ CPPage {
             }
 
             HeadingText {
-                text: "File URL"
+                text: qsTr("File URL")
                 color: UI.PAGE_HEADER_TITLE_COLOR
             }
 
@@ -185,7 +188,7 @@ CPPage {
             }
 
             HeadingText {
-                text: "Alignment"
+                text: qsTr("Alignment")
                 color: UI.PAGE_HEADER_TITLE_COLOR
             }
 
@@ -200,16 +203,16 @@ CPPage {
                 ContextMenu {
                     id: setAlignmentContextMenu
                     content:  MenuLayout {
-                        MenuItem { text: "None"; onClicked: { mediaAlignment = text } }
-                        MenuItem { text: "Left"; onClicked: { mediaAlignment = text } }
-                        MenuItem { text: "Center"; onClicked: { mediaAlignment = text } }
-                        MenuItem { text: "Right"; onClicked: { mediaAlignment = text } }
+                        MenuItem { text: qsTr("None"); onClicked: { mediaAlignment = text; mediaAlignmentValue = "none" } }
+                        MenuItem { text: qsTr("Left"); onClicked: { mediaAlignment = text; mediaAlignmentValue = "left" } }
+                        MenuItem { text: qsTr("Center"); onClicked: { mediaAlignment = text; mediaAlignmentValue = "center" } }
+                        MenuItem { text: qsTr("Right"); onClicked: { mediaAlignment = text; mediaAlignmentValue = "right" } }
                     }
                 }
             }
 
             HeadingText {
-                text: "Size"
+                text: qsTr("Size")
                 color: UI.PAGE_HEADER_TITLE_COLOR
             }
 
@@ -224,10 +227,10 @@ CPPage {
                 ContextMenu {
                     id: setSizeContextMenu
                     content:  MenuLayout {
-                        MenuItem { text: "Thumbnail"; onClicked: { mediaSize = text } }
-                        MenuItem { text: "Medium"; onClicked: { mediaSize = text } }
-                        MenuItem { text: "Large"; onClicked: { mediaSize = text } }
-                        MenuItem { text: "Full"; onClicked: { mediaSize = text } }
+                        MenuItem { text: qsTr("Thumbnail"); onClicked: { mediaSize = text; mediaSizeValue = "thumbnail" } }
+                        MenuItem { text: qsTr("Medium"); onClicked: { mediaSize = text; mediaSizeValue = "medium" } }
+                        MenuItem { text: qsTr("Large"); onClicked: { mediaSize = text; mediaSizeValue = "large" } }
+                        MenuItem { text: qsTr("Full"); onClicked: { mediaSize = text; mediaSizeValue = "full" } }
                     }
                 }
             }

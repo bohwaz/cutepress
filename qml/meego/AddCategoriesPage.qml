@@ -67,7 +67,7 @@ CPPage {
             BigHeadingText {
                 id: heading
                 anchors.verticalCenter: parent.verticalCenter
-                text: window.addCategoryState==2?window.addCategoryStatus:"Select Category"
+                text: window.addCategoryState==2?window.addCategoryStatus:qsTr("Select Category")
                 width: parent.width-parent.spacing-refreshButton.width
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
@@ -147,11 +147,10 @@ CPPage {
 
     AddCategoryDialog {
         id: addCatDialog
-        titleText: "Add new category"
-        catTitleText: ""
-        rejectButtonText: "Cancel"
-        acceptButtonText: "Add"
-        //onRejected:
+        titleText: qsTr("Add new category")
+        catTitleText: qsTr("")
+        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr("Add")
         onAccepted: window.addNewCategory(catTitleText)
     }
 }

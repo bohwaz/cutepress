@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/images/pagebg.png</file>
         <file>qml/symbian/CPPage.qml</file>
         <file>qml/symbian/cutepress.qml</file>
         <file>qml/symbian/NewBlogPage.qml</file>
@@ -27,5 +26,43 @@
         <file>qml/symbian/AddCategoryDialog.qml</file>
         <file>qml/symbian/HelpPage.qml</file>
         <file>qml/symbian/SettingsPage.qml</file>
+        <file>qml/images/symbian/symbian_add.png</file>
+        <file>qml/images/symbian/symbian_add_black.png</file>
+        <file>qml/images/symbian/symbian_back.png</file>
+        <file>qml/images/symbian/symbian_back_black.png</file>
+        <file>qml/images/symbian/symbian_close.png</file>
+        <file>qml/images/symbian/symbian_close_black.png</file>
+        <file>qml/images/symbian/symbian_dir.png</file>
+        <file>qml/images/symbian/symbian_dir_black.png</file>
+        <file>qml/images/symbian/symbian_favorite.png</file>
+        <file>qml/images/symbian/symbian_favorite_black.png</file>
+        <file>qml/images/symbian/symbian_favorited.png</file>
+        <file>qml/images/symbian/symbian_list.png</file>
+        <file>qml/images/symbian/symbian_list_black.png</file>
+        <file>qml/images/symbian/symbian_mark.png</file>
+        <file>qml/images/symbian/symbian_mark_black.png</file>
+        <file>qml/images/symbian/symbian_next.png</file>
+        <file>qml/images/symbian/symbian_next_black.png</file>
+        <file>qml/images/symbian/symbian_reload.png</file>
+        <file>qml/images/symbian/symbian_reload_black.png</file>
+        <file>qml/images/symbian/symbian_reset.png</file>
+        <file>qml/images/symbian/symbian_reset_black.png</file>
+        <file>qml/images/symbian/symbian_save_black.png</file>
+        <file>qml/images/symbian/symbian_save.png</file>
+        <file>qml/images/symbian/symbian_recycle bin_black.png</file>
+        <file>qml/images/symbian/symbian_recycle bin.png</file>
+        <file>qml/images/symbian/symbian_edit_black.png</file>
+        <file>qml/images/symbian/symbian_edit.png</file>
+        <file>qml/images/symbian/symbian_menu_black.png</file>
+        <file>qml/images/symbian/symbian_menu.png</file>
+        <file>qml/images/symbian/symbian_edit_small_black.png</file>
+        <file>qml/images/symbian/symbian_edit_small.png</file>
+        <file>qml/images/symbian/symbian_close_small_black.png</file>
+        <file>qml/images/symbian/symbian_recycle bin_small_black.png</file>
+        <file>qml/images/symbian/symbian_recycle bin_small.png</file>
+        <file>qml/images/symbian/symbian_close_small.png</file>
+        <file>qml/images/pagebg.jpg</file>
+        <file>qml/images/symbian/symbian_publish_black.png</file>
+        <file>qml/images/symbian/symbian_publish.png</file>
     </qresource>
 </RCC>

@@ -32,7 +32,7 @@ CPPage {
             id: button1
             flat: true
             enabled: window.addMediaState!=UI.ProgressState.Processing
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 pageStack.pop()
             }
@@ -45,7 +45,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Upload"
+                    text: qsTr("Upload")
                     onClicked: {
                         window.addFile(menu.filepath, menu.filetype)
                     }
@@ -114,6 +114,15 @@ CPPage {
                         wrapMode: Text.Wrap
                         font.pixelSize: titleText.font.pixelSize - 1
                     }
+//                    Text {
+//                        text: Qt.md5(fileName)
+//                        color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:UI.LISTDELEGATE_TEXT_COLOR
+//                        width: parent.width
+//                        textFormat: Text.RichText
+//                        elide: Text.ElideRight
+//                        wrapMode: Text.Wrap
+//                        font.pixelSize: titleText.font.pixelSize - 1
+//                    }
                 }
             }
             MouseArea {
@@ -153,10 +162,10 @@ CPPage {
                 anchors.verticalCenter: parent.verticalCenter
                 text: {
                     if(window.addMediaState!=UI.ProgressState.Processing || window.addMediaStatus==""){
-                        if(window.ampMediaType=="image")
-                            return "Select Image"
+                        if(window.nmpMediaType=="image")
+                            return qsTr("Select Image")
                         else
-                            return "Select Video"
+                            return qsTr("Select Video")
                     }else
                         return window.addMediaStatus
                 }
@@ -186,8 +195,45 @@ CPPage {
         }
     }
 
+    Component {
+        id: footer
+        Item {
+            id: wrapper
+            height: footerRow.height+10
+            width: wrapper.ListView.view.width
+            visible: window.searchMediaState==UI.ProgressState.Processing
+            Row {
+                id: footerRow
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    right: parent.right
+                    rightMargin: 10
+                    leftMargin: 10
+                }
+                Text{
+                    text: window.searchMediaStatus
+                    visible: false
+                    color: UI.PAGE_HEADER_TITLE_COLOR
+                    width: indicator.visible?parent.width-indicator.width:parent.width
+                    font.bold: true
+                    font.pixelSize: window.appGeneralFontSize+1
+                    horizontalAlignment: indicator.visible?Text.AlignLeft:Text.AlignHCenter
+                }
+                BusyIndicator {
+                    id: indicator
+                    width: 24
+                    anchors.centerIn: parent
+                    height: width
+                    running: true
+                    visible: window.searchMediaState==UI.ProgressState.Processing
+                }
+            }
+        }
+    }
+
     ListView {
-        id:localMediaList
+        id: localMediaList
         anchors {
             top: header.bottom
             left: parent.left
@@ -198,10 +244,40 @@ CPPage {
         }
         cacheBuffer: height
         delegate: localMediaDelegate
+        header: footer
         model: localMediaModel
         clip: true
         enabled: !pageStack.busy
         spacing: 5
+        visible: window.searchMediaState==UI.ProgressState.Success
+        onMovingChanged: {
+            if(atYEnd && window.searchMediaState!=UI.ProgressState.Processing){
+                window.writeMediaItemsToModel(count)
+            }
+        }
+    }
+
+    ScrollDecorator {
+        flickableItem: localMediaList
+    }
+
+    BusyIndicator {
+        id: busyInd
+        width: 64
+        height: width
+        running: true
+        visible: !localMediaList.visible
+        anchors.centerIn: localMediaList
+    }
+
+    Text {
+        text: window.searchMediaStatus
+        color: UI.PROGRESSSTATUS_LABEL_COLOR
+        anchors.top: busyInd.bottom
+        anchors.topMargin: 25
+        anchors.horizontalCenter: busyInd.horizontalCenter
+        font.pixelSize: window.appGeneralFontSize+8
+        visible: busyInd.visible
     }
 }
 

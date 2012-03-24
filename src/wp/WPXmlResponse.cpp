@@ -1,5 +1,4 @@
 #include "WPXmlResponse.h"
-
 #include <QDebug>
 
 WPXmlResponse::WPXmlResponse (const QByteArray &data) :
@@ -124,7 +123,7 @@ QString WPXmlResponse::getError ()
     if (hasError())
         return errorString();
     else
-        return "Unexpected token: " + tokenString() + ":" + name().toString();
+        return QObject::tr("Unexpected token: %1:%2").arg(tokenString()).arg(name().toString());
 }
 
 bool WPXmlResponse::startMethodResponse (bool *fault)

@@ -29,7 +29,7 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: {
                 window.setCategoriesToPost("")
                 pageStack.pop()
@@ -38,7 +38,7 @@ CPPage {
         ToolButton {
             id: button2
             flat: true
-            iconSource: "qrc:/qml/images/add.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/add.png":"qrc:/qml/images/symbian/symbian_add.png"
             onClicked: {
                 addCatDialog.catTitleText = ""
                 addCatDialog.open()
@@ -148,10 +148,10 @@ CPPage {
 
     AddCategoryDialog {
         id: addCatDialog
-        titleText: "Add new category"
+        titleText: qsTr("Add new category")
         catTitleText: ""
-        rejectButtonText: "Cancel"
-        acceptButtonText: "Add"
+        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr("Add")
         //onRejected:
         onAccepted: window.addNewCategory(catTitleText)
     }

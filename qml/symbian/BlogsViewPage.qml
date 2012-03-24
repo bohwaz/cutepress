@@ -41,16 +41,22 @@ CPPage {
         ToolButton {
             id: button1
             flat: true
-            iconSource: "qrc:/qml/images/add.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
+            onClicked: Qt.quit()
+        }
+        ToolButton {
+            id: button2
+            flat: true
+            iconSource: window.isIconsMetro?"qrc:/qml/images/add.png":"qrc:/qml/images/symbian/symbian_add.png"
             onClicked: {
                 window.nbpClear()
                 window.openFile("NewBlogPage.qml")
             }
         }
         ToolButton {
-            id: button4
+            id: button3
             flat: true
-            iconSource: "qrc:/qml/images/menu.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/menu.png":"qrc:/qml/images/symbian/symbian_menu.png"
             onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
         }
     }
@@ -67,7 +73,7 @@ CPPage {
 
         BigHeadingText {
             id: heading
-            text: "Blogs"
+            text: qsTr("Blogs")
             anchors {
                 top: parent.top
                 left: parent.left
@@ -143,19 +149,17 @@ CPPage {
                         }
 
                         Text {
-                            text: (isAdmin)?"<b>"+username+"</b> | Admin":"<b>"+username+"</b> | User"
+                            text: (isAdmin)?qsTr("<b>%1</b> | Admin").arg(username):qsTr("<b>%1</b> | User").arg(username)
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
-                            //visible: (pagesCount!=''||pagesCount=='0')&&postsCount!=''&&commentsCount!=''
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:window.isThemeInverted?UI.LISTDELEGATE_TEXT_COLOR1:UI.LISTDELEGATE_TEXT_COLOR1
                         }
 
                         Text {
-                            text: (pagesCount==''&&postsCount==''&&commentsCount=='')?"Blog Data Not Available":pagesCount+" page(s) | "+postsCount+" post(s) | "+commentsCount+" comment(s)"
+                            text: (pagesCount==''&&postsCount==''&&commentsCount=='')?qsTr("Blog Data Not Available"):qsTr("%1 page(s) | %2 post(s) | %3 comment(s)").arg(pagesCount).arg(postsCount).arg(commentsCount)
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
-                            //visible: (pagesCount!=''||pagesCount=='0')&&postsCount!=''&&commentsCount!=''
                             elide: Text.ElideRight
                             color: selected?UI.LISTDELEGATE_TEXT_COLOR_MARKED:
                                             (pagesCount==''&&postsCount==''&&commentsCount=='')?
@@ -164,7 +168,7 @@ CPPage {
                         }
 
                         Text {
-                            text: "Hosted at WordPress.com"
+                            text: qsTr("Hosted at WordPress.com")
                             width: parent.width
                             font.pixelSize: titleText.font.pixelSize-1
                             font.italic: true
@@ -194,7 +198,26 @@ CPPage {
                         id: editButton
                         flat: true
                         width: 36; height: 36
-                        iconSource: selected?"qrc:/qml/images/edit - white.png":window.isThemeInverted?UI.EDITIMG:UI.EDITIMG
+                        iconSource: {
+                            if(selected) {
+                                if(window.isIconsMetro)
+                                    return "qrc:/qml/images/edit - white.png"
+                                else
+                                    return "qrc:/qml/images/symbian/symbian_edit_small.png"
+                            } else {
+                                if(window.isIconsMetro) {
+                                    if(window.isThemeInverted)
+                                        return UI.EDITIMG
+                                    else
+                                        return UI.EDITIMG
+                                } else{
+                                    if(window.isThemeInverted)
+                                        return "qrc:/qml/images/symbian/symbian_edit_small.png"
+                                    else
+                                        return "qrc:/qml/images/symbian/symbian_edit_small_black.png"
+                                }
+                            }
+                        }
                         onClicked: {
                             window.nbpClear()
                             window.nbpIsEditingBlog = true
@@ -209,7 +232,27 @@ CPPage {
                         id: deleteButton
                         flat: true
                         width: 36; height: 36
-                        iconSource: selected?"qrc:/qml/images/close - white.png":window.isThemeInverted?UI.CLOSEIMG:UI.CLOSEIMG
+                        iconSource: {
+                            if(selected) {
+                                if(window.isIconsMetro)
+                                    return "qrc:/qml/images/close - white.png"
+                                else
+                                    return "qrc:/qml/images/symbian/symbian_close_small.png"
+                            } else {
+                                if(window.isIconsMetro) {
+                                    if(window.isThemeInverted)
+                                        return UI.CLOSEIMG
+                                    else
+                                        return UI.CLOSEIMG
+                                } else{
+                                    if(window.isThemeInverted)
+                                        return "qrc:/qml/images/symbian/symbian_close_small.png"
+                                    else
+                                        return "qrc:/qml/images/symbian/symbian_close_small_black.png"
+                                }
+                            }
+                        }
+
                         onClicked: deleteBlog(blogId)
                     }
                 }
@@ -240,7 +283,9 @@ CPPage {
     }
 
     Text {
-        text: "No Blog Found"
+        text: qsTr("No Blog Found")
+        wrapMode: Text.Wrap
+        horizontalAlignment: Text.AlignHCenter
         color: window.isThemeInverted?UI.PROGRESSSTATUS_LABEL_COLOR:UI.PROGRESSSTATUS_LABEL_COLOR
         anchors.centerIn: blogList
         font.pixelSize: window.appGeneralFontSize+5

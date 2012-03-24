@@ -34,6 +34,7 @@
 #include "roleitemmodel.h"
 #include "md5.h"
 #include "MediaSearchThread.h"
+#include "thumbnailthread.h"
 #include "qexifimageheader.h"
 
 /**
@@ -67,6 +68,17 @@ struct BlogEntry {
         PagesCountRole,
         PostsCountRole,
         CommentsCountRole
+    };
+};
+
+/**
+ * @struct MediaDirEntry
+ * Structure for defining roles for directory model
+ */
+struct MediaDirEntry {
+
+    enum MediaDirRoles {
+        PathRole = Qt::UserRole + 1
     };
 };
 
@@ -232,6 +244,7 @@ public:
     RoleItemModel *categoriesModel;
     RoleItemModel *mediaModel;
     RoleItemModel *localMediaModel;
+    RoleItemModel *mediaDirModel;
     bool isBlogFound;
     int currentBlogPagesCount;
     int currentBlogPostsCount;
@@ -261,6 +274,7 @@ public:
     int searchMediaState;
     QThread *uiThread;
     QString uiTheme;
+    QString uiIconType;
 
 signals:
     void blogFound(QVariant);
@@ -289,7 +303,12 @@ signals:
     void newPagePublishFailed(QVariant);
     void newPostPublished();
     void newPostPublishFailed(QVariant);
-    void updatSettings(QVariant);
+    /**
+     * Emitted for setting selected directory from selection dialog in QML UI
+     * @param dir - selected directory
+     */
+    void setSelectedDir(QVariant);
+    void updateSettings(QVariant, QVariant);
 
 public slots:
     void addNewBlog(QString blogUrl,
@@ -330,8 +349,20 @@ public slots:
     void unmarkAllCategories();
     void addNewCategory(QString);
     //void addNewPost();    
+    void writeMediaItemsToModel(const int startIdx);
     void refreshThumbnailCache();
-    void saveSettings(QString);
+    void saveSettings(QString, QString);
+    /**
+     * Slot for adding new directory in feed directory model from QML UI
+     * @param dir - path of new directory
+     */
+    void addNewDir(QString dir);
+    /**
+     * Slot for removing existing idx directory from feed directory model from QML UI
+     * @param idx - index from feed dir model
+     */
+    void removeExistingDir(int idx);
+    void getDirSelectionDialog();
 
 private slots:
     void updatePageData(const WPDataBlog &);
@@ -355,12 +386,14 @@ private slots:
     void commentRemoved(WPComment);
     void categoryAdded(WPDataCategory *);
     void searchFinished();
+    void thumbnailsCreated();
     void fileUploaded(WPMediaFile);
     void fileUploadFailed(WPMediaFile);
 
 private:
     void preparePostCommentsModel(QString);
     void prepareLocalMediaModel();
+    void writeItem(const int i);
 
     inline bool isSearchCanceled() { return !searchThread || searchThread->IsCanceled(); }
     WPNetworkEngine* iNetworkEngine;
@@ -376,12 +409,16 @@ private:
     QHash<QString, int> tempCommentsIdHash;
     QHash<QString, int> tempPostCommentsIdHash;
     MediaSearchThread *searchThread;
+    ThumbnailThread *thumbnailThread;
 
     WPMediaFile *iUploadFile;
     QString postPub;
     QString pagePub;
     QImageReader *imgReader;
     QImageWriter *imgWriter;
+    QStringList mediaDirs;
+    bool isMediaDirsChanged;
+    QFileInfoList files;
 };
 #endif
 // WORKER_H

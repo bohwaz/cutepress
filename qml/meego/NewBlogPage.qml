@@ -42,11 +42,11 @@ CPPage {
             onClicked: {
                 window.addNewBlogStatus = UI.ProgressState.Processing
                 if(window.nbpIsEditingBlog){
-                    window.addNewBlogMsg = "Editing\.\.\."
+                    window.addNewBlogMsg = qsTr("Editing\.\.\.")
                     editBlog(window.nbpBlogId,blogUrl.text,blogUsr.text,blogPwd.text,"false")
                 }
                 else{
-                    window.addNewBlogMsg = "Connecting\.\.\."
+                    window.addNewBlogMsg = qsTr("Connecting\.\.\.")
                     addNewBlog(blogUrl.text,blogUsr.text,blogPwd.text,"false")
                 }
             }
@@ -102,7 +102,7 @@ CPPage {
             }
 
             BigHeadingText {
-                text: window.nbpIsEditingBlog?"":"Start by entering blog info"
+                text: window.nbpIsEditingBlog?"":qsTr("Start by entering blog info")
             }
 
             Row {
@@ -111,15 +111,15 @@ CPPage {
                 HeadingText {
                     id: urlLabel
                     width: 90
-                    text: "Url"
+                    text: qsTr("Url")
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 TextField {
                     id: blogUrl
                     text: window.nbpUrlText
                     width: parent.width - urlLabel.width - parent.spacing
-                    font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter blog url here"
+//                    font.pixelSize: window.appInputFontSize
+                    placeholderText: qsTr("Enter blog url here")
                     readOnly: window.nbpIsEditingBlog
                 }
             }
@@ -130,14 +130,14 @@ CPPage {
                 HeadingText {
                     id: usernameLabel
                     width: 90
-                    text: "Username"
+                    text: qsTr("Username")
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 TextField {
                     id: blogUsr
                     width: parent.width - usernameLabel.width - parent.spacing
-                    font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter blog username here"
+//                    font.pixelSize: window.appInputFontSize
+                    placeholderText: qsTr("Enter blog username here")
                     text: window.nbpUsernameText
                 }
             }
@@ -148,14 +148,14 @@ CPPage {
                 HeadingText {
                     id: pwdLabel
                     width: 90
-                    text: "Password"
+                    text: qsTr("Password")
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 TextField {
                     id: blogPwd
                     width: parent.width - pwdLabel.width - parent.spacing
-                    font.pixelSize: window.appInputFontSize
-                    placeholderText: "Enter password here"
+//                    font.pixelSize: window.appInputFontSize
+                    placeholderText: qsTr("Enter password here")
                     echoMode: TextInput.Password
                     text: window.nbpPasswordText
                 }
@@ -169,12 +169,12 @@ CPPage {
                     spacing: 5
 
                     HeadingText {
-                        text: "Resize images"
+                        text: qsTr("Resize images")
                         width: parent.width
                     }
                     SmallHeadingText {
                         width: parent.width
-                        text: "Resizing will result in faster publishing but smaller photos"
+                        text: qsTr("Resizing will result in faster publishing but smaller photos")
                         wrapMode: Text.Wrap
                     }
                 }

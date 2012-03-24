@@ -29,7 +29,7 @@ CPPage {
     tools: ToolBarLayout {
         ToolButton {            
             flat: true
-            iconSource: "qrc:/qml/images/back.png"
+            iconSource: window.isIconsMetro?"qrc:/qml/images/back.png":"qrc:/qml/images/symbian/symbian_back.png"
             onClicked: pageStack.pop();
         }
     }
@@ -73,9 +73,9 @@ CPPage {
                 Text {
                     id: headDetail
                     font.pixelSize: window.appGeneralFontSize+1;
-                    text: "<strong>CutePress version 1.0.1</strong><br\>
-                           Developed by Abhishek Kumar.<br\>
-                           Copyright© 2012 Abhishek Kumar.<br\>"
+                    text: qsTr("<strong>CutePress version 1.2.0</strong>")+"<br\>"+
+                          qsTr("Developed by Abhishek Kumar.")+"<br\>"+
+                          qsTr("Copyright© 2012 Abhishek Kumar.")
                     color: UI.HEADINGTEXT_COLOR
                     wrapMode: TextEdit.WordWrap
                     anchors.verticalCenter: parent.verticalCenter
@@ -86,10 +86,12 @@ CPPage {
             Text {
                 id: aboutText
                 font.pixelSize: window.appGeneralFontSize;
-                text: "Please send your feedback to <a style='color:orange' href='mailto:abhishek.mrt22@gmail.com'>abhishek.mrt22@gmail.com</a>. All comments and ideas are welcome to further improve CutePress<br/><br/>
-                       <i>Overview</i><br\>CutePress allows user manage pages, posts, comments and media items on WordPress blogs. It needs an active GPRS connection or Wi-fi (on Wif-fi enabled devices) to access Internet.<br/><br/>
-                       It supports WordPress 2.7 or higher(WordPress.com or self-hosted).<br/><br/>
-                       For more info visit <a style='color:orange' href='http://theshowstopper.in/cutepress'>http://theshowstopper.in/cutepress</a>";
+                text: qsTr("Please send your feedback to <a style='color:orange' href='mailto:abhishek.mrt22@gmail.com'>abhishek.mrt22@gmail.com</a>. All comments and ideas are welcome to further improve CutePress.")+"<br/><br/>"+
+                      qsTr("<i>Overview</i>")+"<br\>"+qsTr("CutePress allows user manage pages, posts, comments and media items on WordPress blogs. It needs an active GPRS connection or Wi-fi (on Wif-fi enabled devices) to access Internet.")+"<br/><br/>"+
+                      qsTr("It supports WordPress 2.7 or higher(WordPress.com or self-hosted).")+"<br/><br/>"+
+                      qsTr("Turkish translation by <a style='color:orange' href='http://www.meegoturkiye.org/'>MeeGo Turkey</a>.")+"<br/><br/>"+
+                      qsTr("For more info visit <a style='color:orange' href='http://theshowstopper.in/cutepress'>http://theshowstopper.in/cutepress</a>")+"<br><br>"+
+                      qsTr("If you really like this app and wants to donate, send your donations through PayPal on this id: <strong>abhishek.mrt22@gmail.com</strong>");
                 width: parent.width
                 color: UI.HEADINGTEXT_COLOR
                 wrapMode: TextEdit.WordWrap

@@ -32,6 +32,7 @@ PageStackWindow {
         backgroundFillMode: Image.Stretch
     }
     property bool isThemeInverted: true
+    property bool isIconsMetro: true
     onIsThemeInvertedChanged: {
         console.log("UI Theme", isThemeInverted)
         if(isThemeInverted!=theme.inverted) {
@@ -42,9 +43,9 @@ PageStackWindow {
             UI.switchTheme()
     }
 
-    property int appGeneralFontSize: 20
-    property int appSectionFontSize: 18
-    property int appInputFontSize: 20
+    property int appGeneralFontSize: 21
+    property int appSectionFontSize: 19
+    property int appInputFontSize: 21
 
     property bool openActiveBlog: false
     property bool isBlogFound: false
@@ -75,6 +76,7 @@ PageStackWindow {
     property string addCategoryStatus: ""
     property int searchMediaState: UI.ProgressState.None
     property string searchMediaStatus: ""
+    property string newSelectedDir: ""
 
     property string addNewBlogMsg: ""
     property int addNewBlogStatus: UI.ProgressState.None
@@ -117,6 +119,7 @@ PageStackWindow {
     signal deleteComment(string id)
     signal spamComment(string id)
     signal addComment(string postId, string comment)
+    signal writeMediaItemsToModel(int count)
     signal searchMedia(string type)
     signal addFile(string file, string type)
     signal markCurrentPostCategories(string id)
@@ -124,7 +127,10 @@ PageStackWindow {
     signal setCategoriesToPost(string id)
     signal unmarkAllCategories()
     signal refreshThumbnailCache()
-    signal saveSettings(string theme)
+    signal removeExistingDir(int value)
+    signal addNewDir(string value)
+    signal getDirectory()
+    signal saveSettings(string theme, string icons)
 
     //SingleMediaPage vars
 
@@ -425,7 +431,7 @@ PageStackWindow {
     function newPostPublishFailed(id)
     {
         newPostPage.postLocalId = id
-        newPostPage.postPublishStatus = "Local Draft"
+        newPostPage.postPublishStatus = qsTr("Local Draft")
         newPostPage.isEditingPost = true
     }
 
@@ -437,8 +443,12 @@ PageStackWindow {
     function newPagePublishFailed(id)
     {
         newPagePage.pageLocalId = id
-        newPagePage.pagePublishStatus = "Local Draft"
+        newPagePage.pagePublishStatus = qsTr("Local Draft")
         newPagePage.isEditingPage = true
+    }
+
+    function setSelectedDir(dir) {
+        newSelectedDir = dir
     }
 
     function updateSettings (theme){
@@ -452,24 +462,24 @@ PageStackWindow {
         visualParent: pageStack
         MenuLayout {
             MenuItem {
-                text: "Settings"
+                text: qsTr("Settings")
                 onClicked: {
                     openFile("SettingsPage.qml")
                 }
             }
             MenuItem {
-                text: "About"
+                text: qsTr("About")
                 onClicked: {
                     openFile("AboutPage.qml")
                 }
             }
             MenuItem {
-                text: "Help"
+                text: qsTr("Help")
                 onClicked: {
                     openFile("HelpPage.qml")
                 }
             }
-            MenuItem { text: "Exit"; onClicked: Qt.quit(); }
+            MenuItem { text: qsTr("Exit"); onClicked: Qt.quit(); }
         }
     }
 

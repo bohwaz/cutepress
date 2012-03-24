@@ -45,7 +45,7 @@ CPPage {
         visualParent: toolBar
         content: MenuLayout {
                 MenuItem {
-                    text: "Upload"
+                    text: qsTr("Upload")
                     onClicked: {
                         window.addFile(menu.filepath, menu.filetype)
                     }
@@ -155,9 +155,9 @@ CPPage {
                 text: {
                     if(window.addMediaState!=UI.ProgressState.Processing || window.addMediaStatus==""){
                         if(window.nmpMediaType=="image")
-                            return "Select Image"
+                            return qsTr("Select Image")
                         else
-                            return "Select Video"
+                            return qsTr("Select Video")
                     }else
                         return window.addMediaStatus
                 }
@@ -202,6 +202,11 @@ CPPage {
         enabled: !pageStack.busy
         spacing: 5
         visible: window.searchMediaState==UI.ProgressState.Success
+        onMovingChanged: {
+            if(atYEnd && window.searchMediaState!=UI.ProgressState.Processing){
+                window.writeMediaItemsToModel(count)
+            }
+        }
     }
 
     BusyIndicator {

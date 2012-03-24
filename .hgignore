@@ -117,3 +117,5 @@ CutePress.sis
 CutePress.loc
 .make.cache
 CutePress.rss
+syntax: regexp
+/*.changes
