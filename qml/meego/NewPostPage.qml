@@ -44,6 +44,7 @@ CPPage {
         isEditingPost = false
         mediaItemPosition = 0
         postLocalId = ""
+        postTitleText = ""
         postPageText = ""
         postTagsText = ""
         postCatText = ""

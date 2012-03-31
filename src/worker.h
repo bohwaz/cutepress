@@ -67,6 +67,7 @@ struct BlogEntry {
         IsWordpressRole,
         PagesCountRole,
         PostsCountRole,
+        NumberOfPostsRole,
         CommentsCountRole
     };
 };
@@ -314,12 +315,14 @@ public slots:
     void addNewBlog(QString blogUrl,
                     QString username,
                     QString password,
-                    bool resizePhotosCheck);
+                    bool resizePhotosCheck,
+                    int numberOfPosts);
     void editBlog(QString id,
                   QString blogUrl,
                   QString username,
                   QString password,
-                  bool resizePhotosCheck);
+                  bool resizePhotosCheck,
+                  int numberOfPosts);
     void checkBlog();
     void refreshCurrentBlog();
     void openBlog(QString);

@@ -44,6 +44,7 @@ CPPage {
         window.addPostStatus = ""
         isEditingPost = false
         mediaItemPosition = 0
+        postTitleText = ""
         postLocalId = ""
         postPageText = ""
         postTagsText = ""

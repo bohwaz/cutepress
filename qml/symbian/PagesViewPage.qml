@@ -265,7 +265,7 @@ CPPage {
                                 }
                             }
                         }
-                        onClicked: showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)//deletePage(localId)
+                        onClicked: showDialog(qsTr("Do you really want to delete page \"<strong>%1</strong>\"?").arg(title), localId)//deletePage(localId)
                     }
                 }
                 Rectangle {

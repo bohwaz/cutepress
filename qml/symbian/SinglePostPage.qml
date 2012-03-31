@@ -42,7 +42,7 @@ CPPage {
             id: button2
             flat: true
             iconSource: window.isIconsMetro?"qrc:/qml/images/recycle bin.png":"qrc:/qml/images/symbian/symbian_recycle bin.png"
-            onClicked: showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg("+window.sppPostTitle+"))
+            onClicked: showDialog(qsTr("Do you really want to delete post \"<strong>%1</strong>\"?").arg(window.sppPostTitle))
         }
     }
 

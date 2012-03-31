@@ -1,1 +1,2 @@
 lupdate src qml -recursive -ts cutepress_tr.ts -extensions cpp,c,h,qml
+lrelease cutepress_tr.ts -qm cutepress_tr.qm

@@ -225,6 +225,7 @@ CPPage {
                             window.nbpUrlText = blogUrl
                             window.nbpUsernameText = username
                             window.nbpPasswordText = password
+                            window.nbpNumberOfPosts = blogNumberOfPosts
                             window.openFile("NewBlogPage.qml")
                         }
                     }

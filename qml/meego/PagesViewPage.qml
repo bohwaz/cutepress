@@ -24,7 +24,7 @@ import com.nokia.extras 1.0
 import "../UIConstants.js" as UI
 
 CPPage {
-    id: postsPage
+    id: pagesPage
 
     property bool marking: false
 
@@ -249,7 +249,7 @@ CPPage {
                         height: 45
                         iconSource: selected?"qrc:/qml/images/delete - white.png":window.isThemeInverted?UI.DELETEIMG:UI.DELETEIMG
                         onClicked: {
-                            showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
+                            showDialog(qsTr("Do you really want to delete page \"<strong>%1</strong>\"?").arg(title), localId)
                             //deletePost(localId)
                         }
                     }

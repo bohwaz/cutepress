@@ -5,68 +5,63 @@
     <name>AboutPage</name>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="76"/>
+        <location filename="qml/symbian/AboutPage.qml" line="77"/>
         <source>&lt;strong&gt;CutePress version %1&lt;/strong&gt;</source>
         <translation>&lt;strong&gt;CutePress versiyon %1&lt;/strong&gt;</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="77"/>
-        <location filename="qml/symbian/AboutPage.qml" line="77"/>
+        <location filename="qml/symbian/AboutPage.qml" line="78"/>
         <source>Developed by Abhishek Kumar.</source>
         <translation>Abhishek Kumar tarafından geliştirildi.</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="78"/>
-        <location filename="qml/symbian/AboutPage.qml" line="78"/>
+        <location filename="qml/symbian/AboutPage.qml" line="79"/>
         <source>CopyrightÂ© 2012 Abhishek Kumar.</source>
         <translation>Tüm hakları saklıdır © 2012 Abhishek Kumar.</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="89"/>
-        <location filename="qml/symbian/AboutPage.qml" line="89"/>
+        <location filename="qml/symbian/AboutPage.qml" line="90"/>
         <source>Please send your feedback to &lt;a style=&apos;color:orange&apos; href=&apos;mailto:abhishek.mrt22@gmail.com&apos;&gt;abhishek.mrt22@gmail.com&lt;/a&gt;. All comments and ideas are welcome to further improve CutePress.</source>
         <translation>Lütfen ger bildirimlerinizi &lt;a style=&apos;color:orange&apos; href=&apos;mailto:abhishek.mrt22@gmail.com&apos;&gt;abhishek.mrt22@gmail.com&lt;/a&gt;. Tüm görüşleriniz CutePress&apos;in geliştirilmesine katkı sağlayacaktır.</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="90"/>
-        <location filename="qml/symbian/AboutPage.qml" line="90"/>
+        <location filename="qml/symbian/AboutPage.qml" line="91"/>
         <source>&lt;i&gt;Overview&lt;/i&gt;</source>
         <translation>&lt;i&gt;Genel Bakış&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="90"/>
-        <location filename="qml/symbian/AboutPage.qml" line="90"/>
+        <location filename="qml/symbian/AboutPage.qml" line="91"/>
         <source>CutePress allows user manage pages, posts, comments and media items on WordPress blogs. It needs an active GPRS connection or Wi-fi (on Wif-fi enabled devices) to access Internet.</source>
         <translation>CutePress, WordPress blogunuzun sayfalarını, yorumlarını, girdilerini ve görsel içeriklerini kontrol etmenizi sağlar. Aktif GPRS ya da Wi Fi internet bağlantısı gerektirebilir.</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="91"/>
-        <location filename="qml/symbian/AboutPage.qml" line="91"/>
+        <location filename="qml/symbian/AboutPage.qml" line="92"/>
         <source>It supports WordPress 2.7 or higher(WordPress.com or self-hosted).</source>
         <translation>WordPress 2.7 ve üstü sürümleri destekler(WordPress.com ya da kendi sunucunuzdan).</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="92"/>
-        <location filename="qml/symbian/AboutPage.qml" line="92"/>
+        <location filename="qml/symbian/AboutPage.qml" line="93"/>
         <source>Turkish translation by &lt;a style=&apos;color:orange&apos; href=&apos;http://www.meegoturkiye.org/&apos;&gt;MeeGo Turkey&lt;/a&gt;.</source>
         <translation>Türkçe çevirisi &lt;a style=&apos;color:orange&apos; href=&apos;http://www.meegoturkiye.org/&apos;&gt;MeeGo Türkiye&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="93"/>
-        <location filename="qml/symbian/AboutPage.qml" line="93"/>
+        <location filename="qml/symbian/AboutPage.qml" line="94"/>
         <source>For more info visit &lt;a style=&apos;color:orange&apos; href=&apos;http://theshowstopper.in/cutepress&apos;&gt;http://theshowstopper.in/cutepress&lt;/a&gt;</source>
         <translation>Daha fazla bilgi için &lt;a style=&apos;color:orange&apos; href=&apos;http://theshowstopper.in/cutepress&apos;&gt;http://theshowstopper.in/cutepress&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="qml/meego/AboutPage.qml" line="94"/>
-        <location filename="qml/symbian/AboutPage.qml" line="94"/>
+        <location filename="qml/symbian/AboutPage.qml" line="95"/>
         <source>If you really like this app and wants to donate, send your donations through PayPal on this id: &lt;strong&gt;abhishek.mrt22@gmail.com&lt;/strong&gt;</source>
         <translation>Uygulamayı beğendiyseniz ve bağış yapmak isterseniz, lütfen PayPal üzerinden: &lt;strong&gt;abhishek.mrt22@gmail.com&lt;/strong&gt;</translation>
-    </message>
-    <message>
-        <location filename="qml/symbian/AboutPage.qml" line="76"/>
-        <source>&lt;strong&gt;CutePress version 1.2.0&lt;/strong&gt;</source>
-        <oldsource>&lt;strong&gt;CutePress version 1.1.1&lt;/strong&gt;</oldsource>
-        <translation>&lt;strong&gt;CutePress versiyon 1.2.0&lt;/strong&gt;</translation>
     </message>
 </context>
 <context>
@@ -225,8 +220,8 @@
         <translation>WordPress.com sunucusunda</translation>
     </message>
     <message>
-        <location filename="qml/meego/BlogsViewPage.qml" line="247"/>
-        <location filename="qml/symbian/BlogsViewPage.qml" line="286"/>
+        <location filename="qml/meego/BlogsViewPage.qml" line="248"/>
+        <location filename="qml/symbian/BlogsViewPage.qml" line="287"/>
         <source>No Blog Found</source>
         <translation>Blog Bulunamadı</translation>
     </message>
@@ -635,16 +630,25 @@
         <translation>Şifrenizi buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewBlogPage.qml" line="172"/>
-        <location filename="qml/symbian/NewBlogPage.qml" line="176"/>
-        <source>Resize images</source>
-        <translation>Resmi yeniden ölçekle</translation>
+        <location filename="qml/meego/NewBlogPage.qml" line="170"/>
+        <location filename="qml/symbian/NewBlogPage.qml" line="170"/>
+        <source>Number of posts</source>
+        <translation>Girişlerin sayısı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewBlogPage.qml" line="177"/>
-        <location filename="qml/symbian/NewBlogPage.qml" line="181"/>
+        <location filename="qml/meego/NewBlogPage.qml" line="183"/>
+        <location filename="qml/symbian/NewBlogPage.qml" line="176"/>
+        <source>Select one of the options</source>
+        <oldsource>Select one of the values</oldsource>
+        <translation>Seçeneklerden birini seçin</translation>
+    </message>
+    <message>
+        <source>Resize images</source>
+        <translation type="obsolete">Resmi yeniden ölçekle</translation>
+    </message>
+    <message>
         <source>Resizing will result in faster publishing but smaller photos</source>
-        <translation>Yeniden boyutlandırılma daha hızlı yayınlanacaktır fakat fotoğraflar küçülecektir</translation>
+        <translation type="obsolete">Yeniden boyutlandırılma daha hızlı yayınlanacaktır fakat fotoğraflar küçülecektir</translation>
     </message>
     <message>
         <location filename="qml/meego/NewBlogPage.qml" line="105"/>
@@ -677,183 +681,183 @@
 <context>
     <name>NewPagePage</name>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="54"/>
+        <location filename="qml/meego/NewPagePage.qml" line="55"/>
         <source>Insert Media</source>
         <translation>Görsel içerik ekle</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="93"/>
+        <location filename="qml/meego/NewPagePage.qml" line="94"/>
         <location filename="qml/symbian/NewPagePage.qml" line="97"/>
         <source>Save as draft</source>
         <translation>Taslak olarak kaydet</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="110"/>
+        <location filename="qml/meego/NewPagePage.qml" line="111"/>
         <location filename="qml/symbian/NewPagePage.qml" line="115"/>
         <source>Save as local draft</source>
         <translation>Yerel taslak olarak kaydet</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="129"/>
+        <location filename="qml/meego/NewPagePage.qml" line="130"/>
         <location filename="qml/symbian/NewPagePage.qml" line="134"/>
         <source>Publish as public</source>
         <translation>Genele yayımla</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="147"/>
+        <location filename="qml/meego/NewPagePage.qml" line="148"/>
         <location filename="qml/symbian/NewPagePage.qml" line="152"/>
         <source>Publish as private</source>
         <translation>Özele yayımla</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="247"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="251"/>
+        <location filename="qml/meego/NewPagePage.qml" line="282"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="285"/>
         <source>Title</source>
         <translation>Başlık</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="255"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="259"/>
+        <location filename="qml/meego/NewPagePage.qml" line="290"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="293"/>
         <source>Enter title here</source>
         <translation>Başlığı buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="259"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="263"/>
+        <location filename="qml/meego/NewPagePage.qml" line="294"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="297"/>
         <source>Content</source>
         <translation>İçerik</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="267"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="449"/>
+        <location filename="qml/meego/NewPagePage.qml" line="302"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="483"/>
         <source>Enter content here</source>
         <translation>İçeriği buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="287"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="461"/>
+        <location filename="qml/meego/NewPagePage.qml" line="322"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="495"/>
         <source>Published on</source>
         <translation>Yayınlamak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="293"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="467"/>
+        <location filename="qml/meego/NewPagePage.qml" line="328"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="501"/>
         <source>Date</source>
         <translation>Tarih</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="300"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="474"/>
+        <location filename="qml/meego/NewPagePage.qml" line="335"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="508"/>
         <source>Time</source>
         <translation>Zaman</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="313"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="487"/>
+        <location filename="qml/meego/NewPagePage.qml" line="348"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="521"/>
         <source>Password</source>
         <translation>Şifre</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="321"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="495"/>
+        <location filename="qml/meego/NewPagePage.qml" line="356"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="529"/>
         <source>Enter password here</source>
         <translation>Şifreyi buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="329"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="503"/>
+        <location filename="qml/meego/NewPagePage.qml" line="364"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="537"/>
         <source>Enter the destination URL</source>
         <translation>Konumun URL&apos;sini girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="331"/>
-        <location filename="qml/meego/NewPagePage.qml" line="550"/>
-        <location filename="qml/meego/NewPagePage.qml" line="558"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="505"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="523"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="531"/>
+        <location filename="qml/meego/NewPagePage.qml" line="366"/>
+        <location filename="qml/meego/NewPagePage.qml" line="585"/>
+        <location filename="qml/meego/NewPagePage.qml" line="593"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="539"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="557"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="565"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="332"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="506"/>
+        <location filename="qml/meego/NewPagePage.qml" line="367"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="540"/>
         <source>Add Link</source>
         <translation>Link Ekle</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="548"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="521"/>
+        <location filename="qml/meego/NewPagePage.qml" line="583"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="555"/>
         <source>Publish Date</source>
         <translation>Yayımlanma Tarihi</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="549"/>
-        <location filename="qml/meego/NewPagePage.qml" line="557"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="522"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="530"/>
+        <location filename="qml/meego/NewPagePage.qml" line="584"/>
+        <location filename="qml/meego/NewPagePage.qml" line="592"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="556"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="564"/>
         <source>Ok</source>
         <translation>Tamam</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="556"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="529"/>
+        <location filename="qml/meego/NewPagePage.qml" line="591"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="563"/>
         <source>Publish Time</source>
         <translation>Yayımlanma Zamanı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="230"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="234"/>
+        <location filename="qml/meego/NewPagePage.qml" line="232"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="235"/>
         <source>Published</source>
         <translation>Yayımlandı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="232"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="236"/>
+        <location filename="qml/meego/NewPagePage.qml" line="234"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="237"/>
         <source>Private</source>
         <translation>Özel</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="234"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="238"/>
+        <location filename="qml/meego/NewPagePage.qml" line="236"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="239"/>
         <source>Scheduled in future</source>
         <translation>Gelecek tarihe ayarlandı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="236"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="240"/>
+        <location filename="qml/meego/NewPagePage.qml" line="238"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="241"/>
         <source>Pending review</source>
         <translation>Gözden geçirme bekliyor</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="238"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="242"/>
+        <location filename="qml/meego/NewPagePage.qml" line="240"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="243"/>
         <source>Draft</source>
         <translation>Taslak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="111"/>
-        <location filename="qml/meego/NewPagePage.qml" line="238"/>
+        <location filename="qml/meego/NewPagePage.qml" line="112"/>
+        <location filename="qml/meego/NewPagePage.qml" line="240"/>
         <location filename="qml/symbian/NewPagePage.qml" line="116"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="242"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="243"/>
         <source>Local Draft</source>
         <translation>Yerel Taslak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="238"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="242"/>
+        <location filename="qml/meego/NewPagePage.qml" line="240"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="243"/>
         <source>Busy</source>
         <translation>Meşgul</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="240"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="244"/>
+        <location filename="qml/meego/NewPagePage.qml" line="242"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="245"/>
         <source>Trashed</source>
         <translation>Silindi</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPagePage.qml" line="240"/>
-        <location filename="qml/symbian/NewPagePage.qml" line="244"/>
+        <location filename="qml/meego/NewPagePage.qml" line="242"/>
+        <location filename="qml/symbian/NewPagePage.qml" line="245"/>
         <source>Orphaned</source>
         <translation>Yetim kalan</translation>
     </message>
@@ -861,207 +865,207 @@
 <context>
     <name>NewPostPage</name>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="58"/>
+        <location filename="qml/meego/NewPostPage.qml" line="59"/>
         <source>Insert Media</source>
         <translation>Görsel içerik ekle</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="97"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="101"/>
+        <location filename="qml/meego/NewPostPage.qml" line="98"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="102"/>
         <source>Save as draft</source>
         <translation>Taslak olarak kaydet</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="117"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="121"/>
+        <location filename="qml/meego/NewPostPage.qml" line="118"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="122"/>
         <source>Save as local draft</source>
         <translation>Yerel taslak olarak kaydet</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="118"/>
-        <location filename="qml/meego/NewPostPage.qml" line="282"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="122"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="282"/>
+        <location filename="qml/meego/NewPostPage.qml" line="119"/>
+        <location filename="qml/meego/NewPostPage.qml" line="283"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="123"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="283"/>
         <source>Local Draft</source>
         <translation>Yerel Taslak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="137"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="141"/>
+        <location filename="qml/meego/NewPostPage.qml" line="138"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="142"/>
         <source>Publish as public</source>
         <translation>Genele yayımla</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="157"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="161"/>
+        <location filename="qml/meego/NewPostPage.qml" line="158"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="162"/>
         <source>Publish as private</source>
         <translation>Özele yayımla</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="263"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="263"/>
+        <location filename="qml/meego/NewPostPage.qml" line="264"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="264"/>
         <source>Edit Post</source>
         <translation>Girdiye Ekleme</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="263"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="263"/>
+        <location filename="qml/meego/NewPostPage.qml" line="264"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="264"/>
         <source>Add Post</source>
         <translation>Girdi Ekle</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="274"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="274"/>
+        <location filename="qml/meego/NewPostPage.qml" line="275"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="275"/>
         <source>Published</source>
         <translation>Yayımlandı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="276"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="276"/>
+        <location filename="qml/meego/NewPostPage.qml" line="277"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="277"/>
         <source>Private</source>
         <translation>Özel</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="278"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="278"/>
+        <location filename="qml/meego/NewPostPage.qml" line="279"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="279"/>
         <source>Scheduled in future</source>
         <translation>Gelecek tarihe ayarlandı</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="280"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="280"/>
+        <location filename="qml/meego/NewPostPage.qml" line="281"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="281"/>
         <source>Pending review</source>
         <translation>Gözden geçirme bekliyor</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="282"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="282"/>
+        <location filename="qml/meego/NewPostPage.qml" line="283"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="283"/>
         <source>Draft</source>
         <translation>Taslak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="282"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="282"/>
+        <location filename="qml/meego/NewPostPage.qml" line="283"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="283"/>
         <source>Busy</source>
         <translation>Meşgul</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="284"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="284"/>
+        <location filename="qml/meego/NewPostPage.qml" line="285"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="285"/>
         <source>Trashed</source>
         <translation>Silindi</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="284"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="284"/>
+        <location filename="qml/meego/NewPostPage.qml" line="285"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="285"/>
         <source>Orphaned</source>
         <translation>Yetim kalan</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="303"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="303"/>
+        <location filename="qml/meego/NewPostPage.qml" line="304"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="304"/>
         <source>Title</source>
         <translation>Başlık</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="311"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="311"/>
+        <location filename="qml/meego/NewPostPage.qml" line="312"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="312"/>
         <source>Enter title here</source>
         <translation>Başlığı buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="315"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="315"/>
+        <location filename="qml/meego/NewPostPage.qml" line="316"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="316"/>
         <source>Content</source>
         <translation>İçerik</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="336"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="506"/>
+        <location filename="qml/meego/NewPostPage.qml" line="337"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="507"/>
         <source>Tags</source>
         <translation>Etiketler</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="344"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="514"/>
+        <location filename="qml/meego/NewPostPage.qml" line="345"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="515"/>
         <source>Enter tags here</source>
         <translation>Etiketleri buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="355"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="525"/>
+        <location filename="qml/meego/NewPostPage.qml" line="356"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="526"/>
         <source>Categories</source>
         <translation>Kategoriler</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="395"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="568"/>
+        <location filename="qml/meego/NewPostPage.qml" line="396"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="569"/>
         <source>Published on</source>
         <translation>Yayınlamak</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="401"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="574"/>
+        <location filename="qml/meego/NewPostPage.qml" line="402"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="575"/>
         <source>Date</source>
         <translation>Tarih</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="408"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="581"/>
+        <location filename="qml/meego/NewPostPage.qml" line="409"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="582"/>
         <source>Time</source>
         <translation>Zaman</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="421"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="594"/>
+        <location filename="qml/meego/NewPostPage.qml" line="422"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="595"/>
         <source>Password</source>
         <translation>Şifre</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="429"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="602"/>
+        <location filename="qml/meego/NewPostPage.qml" line="430"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="603"/>
         <source>Enter password here</source>
         <translation>Şifrenizi buraya girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="637"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="610"/>
+        <location filename="qml/meego/NewPostPage.qml" line="638"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="611"/>
         <source>Enter the destination URL</source>
         <translation>Konumun URL&apos;sini girin</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="640"/>
-        <location filename="qml/meego/NewPostPage.qml" line="658"/>
-        <location filename="qml/meego/NewPostPage.qml" line="666"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="613"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="631"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="639"/>
+        <location filename="qml/meego/NewPostPage.qml" line="641"/>
+        <location filename="qml/meego/NewPostPage.qml" line="659"/>
+        <location filename="qml/meego/NewPostPage.qml" line="667"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="614"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="632"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="640"/>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="641"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="614"/>
+        <location filename="qml/meego/NewPostPage.qml" line="642"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="615"/>
         <source>Add Link</source>
         <translation>Link Ekle</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="656"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="629"/>
+        <location filename="qml/meego/NewPostPage.qml" line="657"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="630"/>
         <source>Publish Date</source>
         <translation>Yayımlanma Tarihi</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="657"/>
-        <location filename="qml/meego/NewPostPage.qml" line="665"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="630"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="638"/>
+        <location filename="qml/meego/NewPostPage.qml" line="658"/>
+        <location filename="qml/meego/NewPostPage.qml" line="666"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="631"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="639"/>
         <source>Ok</source>
         <translation>Tamam</translation>
     </message>
     <message>
-        <location filename="qml/meego/NewPostPage.qml" line="664"/>
-        <location filename="qml/symbian/NewPostPage.qml" line="637"/>
+        <location filename="qml/meego/NewPostPage.qml" line="665"/>
+        <location filename="qml/symbian/NewPostPage.qml" line="638"/>
         <source>Publish Time</source>
         <translation>Yayımlanma Zamanı</translation>
     </message>
@@ -1144,7 +1148,8 @@
     <message>
         <location filename="qml/meego/PagesViewPage.qml" line="252"/>
         <location filename="qml/symbian/PagesViewPage.qml" line="268"/>
-        <source>Doy you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <source>Do you really want to delete page &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <oldsource>Do you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</oldsource>
         <translation>Girdiyi silmek istediğinizden emin misiniz &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</translation>
     </message>
     <message>
@@ -1275,7 +1280,8 @@
     <message>
         <location filename="qml/meego/PostsViewPage.qml" line="295"/>
         <location filename="qml/symbian/PostsViewPage.qml" line="302"/>
-        <source>Doy you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <source>Do you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <oldsource>Doy you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</oldsource>
         <translation>Girdiyi silmek istediğinizden emin misiniz &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</translation>
     </message>
     <message>
@@ -1465,9 +1471,13 @@
 <context>
     <name>SinglePostPage</name>
     <message>
+        <source>Doy you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <translation type="obsolete">Girdiyi silmek istediğinizden emin misiniz &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</translation>
+    </message>
+    <message>
         <location filename="qml/meego/SinglePostPage.qml" line="43"/>
         <location filename="qml/symbian/SinglePostPage.qml" line="45"/>
-        <source>Doy you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
+        <source>Do you really want to delete post &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</source>
         <translation>Girdiyi silmek istediğinizden emin misiniz &quot;&lt;strong&gt;%1&lt;/strong&gt;&quot;?</translation>
     </message>
     <message>
@@ -1749,42 +1759,20 @@
 <context>
     <name>Worker</name>
     <message>
-        <location filename="src/worker.cpp" line="356"/>
+        <location filename="src/worker.cpp" line="360"/>
         <source>Updating pages...</source>
         <translation>Sayfalar güncelleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="378"/>
-        <location filename="src/worker.cpp" line="464"/>
-        <location filename="src/worker.cpp" line="730"/>
-        <location filename="src/worker.cpp" line="1096"/>
-        <location filename="src/worker.cpp" line="1160"/>
-        <location filename="src/worker.cpp" line="1241"/>
-        <location filename="src/worker.cpp" line="1311"/>
+        <location filename="src/worker.cpp" line="382"/>
+        <location filename="src/worker.cpp" line="468"/>
+        <location filename="src/worker.cpp" line="734"/>
+        <location filename="src/worker.cpp" line="1100"/>
+        <location filename="src/worker.cpp" line="1164"/>
+        <location filename="src/worker.cpp" line="1245"/>
+        <location filename="src/worker.cpp" line="1315"/>
         <source>Published</source>
         <translation>Yayımlandı</translation>
-    </message>
-    <message>
-        <location filename="src/worker.cpp" line="385"/>
-        <location filename="src/worker.cpp" line="471"/>
-        <location filename="src/worker.cpp" line="733"/>
-        <location filename="src/worker.cpp" line="1103"/>
-        <location filename="src/worker.cpp" line="1167"/>
-        <location filename="src/worker.cpp" line="1248"/>
-        <location filename="src/worker.cpp" line="1318"/>
-        <source>Private</source>
-        <translation>Özel</translation>
-    </message>
-    <message>
-        <location filename="src/worker.cpp" line="387"/>
-        <location filename="src/worker.cpp" line="473"/>
-        <location filename="src/worker.cpp" line="735"/>
-        <location filename="src/worker.cpp" line="1105"/>
-        <location filename="src/worker.cpp" line="1169"/>
-        <location filename="src/worker.cpp" line="1250"/>
-        <location filename="src/worker.cpp" line="1320"/>
-        <source>Pending review</source>
-        <translation>Gözden geçirme bekliyor</translation>
     </message>
     <message>
         <location filename="src/worker.cpp" line="389"/>
@@ -1794,8 +1782,8 @@
         <location filename="src/worker.cpp" line="1171"/>
         <location filename="src/worker.cpp" line="1252"/>
         <location filename="src/worker.cpp" line="1322"/>
-        <source>Scheduled in future</source>
-        <translation>Gelecek tarihe ayarlandı</translation>
+        <source>Private</source>
+        <translation>Özel</translation>
     </message>
     <message>
         <location filename="src/worker.cpp" line="391"/>
@@ -1805,8 +1793,8 @@
         <location filename="src/worker.cpp" line="1173"/>
         <location filename="src/worker.cpp" line="1254"/>
         <location filename="src/worker.cpp" line="1324"/>
-        <source>Draft</source>
-        <translation>Taslak</translation>
+        <source>Pending review</source>
+        <translation>Gözden geçirme bekliyor</translation>
     </message>
     <message>
         <location filename="src/worker.cpp" line="393"/>
@@ -1816,8 +1804,8 @@
         <location filename="src/worker.cpp" line="1175"/>
         <location filename="src/worker.cpp" line="1256"/>
         <location filename="src/worker.cpp" line="1326"/>
-        <source>Trashed</source>
-        <translation>Silindi</translation>
+        <source>Scheduled in future</source>
+        <translation>Gelecek tarihe ayarlandı</translation>
     </message>
     <message>
         <location filename="src/worker.cpp" line="395"/>
@@ -1827,6 +1815,28 @@
         <location filename="src/worker.cpp" line="1177"/>
         <location filename="src/worker.cpp" line="1258"/>
         <location filename="src/worker.cpp" line="1328"/>
+        <source>Draft</source>
+        <translation>Taslak</translation>
+    </message>
+    <message>
+        <location filename="src/worker.cpp" line="397"/>
+        <location filename="src/worker.cpp" line="483"/>
+        <location filename="src/worker.cpp" line="745"/>
+        <location filename="src/worker.cpp" line="1115"/>
+        <location filename="src/worker.cpp" line="1179"/>
+        <location filename="src/worker.cpp" line="1260"/>
+        <location filename="src/worker.cpp" line="1330"/>
+        <source>Trashed</source>
+        <translation>Silindi</translation>
+    </message>
+    <message>
+        <location filename="src/worker.cpp" line="399"/>
+        <location filename="src/worker.cpp" line="485"/>
+        <location filename="src/worker.cpp" line="747"/>
+        <location filename="src/worker.cpp" line="1117"/>
+        <location filename="src/worker.cpp" line="1181"/>
+        <location filename="src/worker.cpp" line="1262"/>
+        <location filename="src/worker.cpp" line="1332"/>
         <source>Local Draft</source>
         <translation>Yerel Taslak</translation>
     </message>
@@ -1835,251 +1845,251 @@
         <translation type="obsolete">Sayfalar(%1)</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="439"/>
+        <location filename="src/worker.cpp" line="443"/>
         <source>Updating posts...</source>
         <translation>Girdiler güncelleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="520"/>
+        <location filename="src/worker.cpp" line="524"/>
+        <location filename="src/worker.cpp" line="1284"/>
+        <location filename="src/worker.cpp" line="1352"/>
+        <location filename="src/worker.cpp" line="1374"/>
         <source>Posts(%1)</source>
         <translation>Giridler(%1)</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="533"/>
+        <location filename="src/worker.cpp" line="537"/>
         <source>Updating comments...</source>
         <translation>Yorumlar güncelleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="591"/>
-        <location filename="src/worker.cpp" line="1421"/>
-        <location filename="src/worker.cpp" line="1514"/>
+        <location filename="src/worker.cpp" line="595"/>
+        <location filename="src/worker.cpp" line="1425"/>
+        <location filename="src/worker.cpp" line="1518"/>
         <source>Comments(%1)</source>
         <translation>Yorumlar(%1)</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="668"/>
+        <location filename="src/worker.cpp" line="672"/>
         <source>Media Items</source>
         <translation>Görsel içerik</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="745"/>
+        <location filename="src/worker.cpp" line="749"/>
         <source>Orphaned</source>
         <translation>Yetim kalan</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="747"/>
+        <location filename="src/worker.cpp" line="751"/>
         <source>Busy</source>
         <translation>Meşgul</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="773"/>
+        <location filename="src/worker.cpp" line="777"/>
         <source>Synchronizing pages...</source>
         <translation>Sayfalar senkronize ediliyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="778"/>
+        <location filename="src/worker.cpp" line="782"/>
         <source>Deleting selected pages...</source>
         <translation>Seçilen sayfalar siliniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="784"/>
+        <location filename="src/worker.cpp" line="788"/>
         <source>Synchronizing posts...</source>
         <translation>Girdiler senkronize ediliyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="789"/>
+        <location filename="src/worker.cpp" line="793"/>
         <source>Deleting selected posts...</source>
         <translation>Seçilen girdiler siliniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="795"/>
+        <location filename="src/worker.cpp" line="799"/>
         <source>Synchronizing comments...</source>
         <translation>Yorumlar senkronize ediliyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="800"/>
+        <location filename="src/worker.cpp" line="804"/>
         <source>Deleting selected comments...</source>
         <translation>Seçilen yorumlar siliniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="806"/>
+        <location filename="src/worker.cpp" line="810"/>
         <source>Synchronizing media items...</source>
         <translation>Görsel içerik senkronize ediliyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="812"/>
+        <location filename="src/worker.cpp" line="816"/>
         <source>Uploading item...</source>
         <translation>Upload edilen içerik...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="819"/>
+        <location filename="src/worker.cpp" line="823"/>
         <source>Publishing post...</source>
         <translation>Girdiler yayımlanıyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="825"/>
-        <location filename="src/worker.cpp" line="837"/>
+        <location filename="src/worker.cpp" line="829"/>
+        <location filename="src/worker.cpp" line="841"/>
         <source>Editing post...</source>
         <translation>Girdilere ekleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="831"/>
+        <location filename="src/worker.cpp" line="835"/>
         <source>Publishing page...</source>
         <translation>Sayfa yayımlanıyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="843"/>
+        <location filename="src/worker.cpp" line="847"/>
         <source>Adding comment...</source>
         <translation>Yorum ekleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="849"/>
+        <location filename="src/worker.cpp" line="853"/>
         <source>Adding category...</source>
         <translation>Kategori ekleniyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="858"/>
-        <location filename="src/worker.cpp" line="868"/>
+        <location filename="src/worker.cpp" line="862"/>
+        <location filename="src/worker.cpp" line="872"/>
         <source>Synchronizing posts complete!</source>
         <translation>Girdilerin senkronizasyonu tamamlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="863"/>
+        <location filename="src/worker.cpp" line="867"/>
         <source>Deleted selected pages!</source>
         <translation>Seçilen sayfalar silindi!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="873"/>
+        <location filename="src/worker.cpp" line="877"/>
         <source>Deleted selected posts!</source>
         <translation>Seçilen girdiler silindi!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="878"/>
+        <location filename="src/worker.cpp" line="882"/>
         <source>Synchronizing comments complete!</source>
         <translation>Yorumların senkronizasyonu tamamlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="883"/>
+        <location filename="src/worker.cpp" line="887"/>
         <source>Deleted selected comments...</source>
         <translation>Seçilen yorumlar silindi...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="889"/>
+        <location filename="src/worker.cpp" line="893"/>
         <source>Synchronizing media items complete...</source>
         <translation>Görsel içerik senkronize ediliyor...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="895"/>
+        <location filename="src/worker.cpp" line="899"/>
         <source>Uploading finished!</source>
         <translation>Upload tamamlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="902"/>
+        <location filename="src/worker.cpp" line="906"/>
         <source>Post published!</source>
         <translation>Girdi yayımlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="909"/>
+        <location filename="src/worker.cpp" line="913"/>
         <source>Post edited!</source>
         <translation>Girdi eklendi!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="916"/>
+        <location filename="src/worker.cpp" line="920"/>
         <source>Page published!</source>
         <translation>Sayfa yayımlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="923"/>
+        <location filename="src/worker.cpp" line="927"/>
         <source>Page edited!</source>
         <translation>Sayfa eklendi!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="930"/>
+        <location filename="src/worker.cpp" line="934"/>
         <source>Comment added</source>
         <translation>Yorum eklendi</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="950"/>
+        <location filename="src/worker.cpp" line="954"/>
         <source>Pages&lt;br&gt;%1</source>
         <translation>Sayfalar&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="957"/>
+        <location filename="src/worker.cpp" line="961"/>
         <source>Posts&lt;br&gt;%1</source>
         <translation>Girdiler&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="963"/>
+        <location filename="src/worker.cpp" line="967"/>
         <source>Comments&lt;br&gt;%1</source>
         <translation>Yorumlar&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="969"/>
+        <location filename="src/worker.cpp" line="973"/>
         <source>Media Items&lt;br&gt;%1</source>
         <translation>Görsel içerikler&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="975"/>
+        <location filename="src/worker.cpp" line="979"/>
         <source>Uploading failed!&lt;br&gt;%1</source>
         <translation>Upload hata!&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="982"/>
+        <location filename="src/worker.cpp" line="986"/>
         <source>Post publishing failed! Saved as local draft&lt;br&gt;%1</source>
         <translation>Girdi yayınlama hatası! Yerel taslak olarak kaydedildi&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="989"/>
+        <location filename="src/worker.cpp" line="993"/>
         <source>Post editing failed!&lt;br&gt;%1</source>
         <translation>Girdi ekleme hatası!&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="995"/>
+        <location filename="src/worker.cpp" line="999"/>
         <source>Page publishing failed! Saved as local draft&lt;br&gt;%1</source>
         <translation>Sayfa yayımlama hatası! Yerel taslak olarak kaydedildi&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1002"/>
+        <location filename="src/worker.cpp" line="1006"/>
         <source>Page editing failed!&lt;br&gt;%1</source>
         <translation>Sayfa ekleme hatası!&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1008"/>
+        <location filename="src/worker.cpp" line="1012"/>
         <source>Comment addition failed!&lt;br&gt;%1</source>
         <translation>Yorum ekleme hatası!&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1014"/>
+        <location filename="src/worker.cpp" line="1018"/>
         <source>Unable to add new category!&lt;br&gt;%1</source>
         <translation>Yeni kategori eklenemiyor!&lt;br&gt;%1</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="428"/>
-        <location filename="src/worker.cpp" line="1129"/>
-        <location filename="src/worker.cpp" line="1193"/>
-        <location filename="src/worker.cpp" line="1215"/>
+        <location filename="src/worker.cpp" line="432"/>
+        <location filename="src/worker.cpp" line="1133"/>
+        <location filename="src/worker.cpp" line="1197"/>
+        <location filename="src/worker.cpp" line="1219"/>
         <source>Pages(%1)</source>
         <translation>Sayfalar(%1)</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1280"/>
-        <location filename="src/worker.cpp" line="1348"/>
-        <location filename="src/worker.cpp" line="1370"/>
         <source>Posts(%1</source>
-        <translation>Girdiler(%1)</translation>
+        <translation type="obsolete">Girdiler(%1)</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1666"/>
+        <location filename="src/worker.cpp" line="1670"/>
         <source>Searching media items...</source>
         <translation>Göresel içerikleri ara...</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1691"/>
+        <location filename="src/worker.cpp" line="1695"/>
         <source>Search finished!</source>
         <translation>Arama sonuçlandı!</translation>
     </message>
     <message>
-        <location filename="src/worker.cpp" line="1712"/>
+        <location filename="src/worker.cpp" line="1716"/>
         <source>Preparing Media Model</source>
         <translation>Görsel Model .Hazırlanıyor</translation>
     </message>
@@ -2087,34 +2097,34 @@
 <context>
     <name>cutepress</name>
     <message>
-        <location filename="qml/meego/cutepress.qml" line="434"/>
-        <location filename="qml/meego/cutepress.qml" line="446"/>
-        <location filename="qml/symbian/cutepress.qml" line="446"/>
-        <location filename="qml/symbian/cutepress.qml" line="458"/>
+        <location filename="qml/meego/cutepress.qml" line="436"/>
+        <location filename="qml/meego/cutepress.qml" line="448"/>
+        <location filename="qml/symbian/cutepress.qml" line="448"/>
+        <location filename="qml/symbian/cutepress.qml" line="460"/>
         <source>Local Draft</source>
         <translation>Yerel Taslak</translation>
     </message>
     <message>
-        <location filename="qml/meego/cutepress.qml" line="465"/>
-        <location filename="qml/symbian/cutepress.qml" line="496"/>
+        <location filename="qml/meego/cutepress.qml" line="467"/>
+        <location filename="qml/symbian/cutepress.qml" line="498"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
     </message>
     <message>
-        <location filename="qml/meego/cutepress.qml" line="471"/>
-        <location filename="qml/symbian/cutepress.qml" line="502"/>
+        <location filename="qml/meego/cutepress.qml" line="473"/>
+        <location filename="qml/symbian/cutepress.qml" line="504"/>
         <source>About</source>
         <translation>Hakkında</translation>
     </message>
     <message>
-        <location filename="qml/meego/cutepress.qml" line="477"/>
-        <location filename="qml/symbian/cutepress.qml" line="508"/>
+        <location filename="qml/meego/cutepress.qml" line="479"/>
+        <location filename="qml/symbian/cutepress.qml" line="510"/>
         <source>Help</source>
         <translation>Yardım</translation>
     </message>
     <message>
-        <location filename="qml/meego/cutepress.qml" line="482"/>
-        <location filename="qml/symbian/cutepress.qml" line="515"/>
+        <location filename="qml/meego/cutepress.qml" line="484"/>
+        <location filename="qml/symbian/cutepress.qml" line="517"/>
         <source>Exit</source>
         <translation>Çıkış</translation>
     </message>

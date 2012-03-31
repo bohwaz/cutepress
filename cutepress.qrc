@@ -42,8 +42,6 @@
         <file>qml/images/delete - white.png</file>
         <file>qml/images/delete.png</file>
         <file>qml/images/CutePress-logo.png</file>
-        <file>qml/images/splash.png</file>
-        <file>qml/images/splash-inv.png</file>
         <file>qml/images/comments - meego - white.png</file>
         <file>qml/images/comments - meego.png</file>
         <file>qml/images/comments - meego_black.png</file>
@@ -63,6 +61,9 @@
         <file>qml/images/close_big_black.png</file>
         <file>qml/images/dir_black.png</file>
         <file>qml/images/dir.png</file>
+        <file>qml/images/splash-360x640.png</file>
+        <file>qml/images/splash-854x480.png</file>
+        <file>qml/images/splash-640x480.png</file>
         <file>cutepress_tr.qm</file>
     </qresource>
 </RCC>

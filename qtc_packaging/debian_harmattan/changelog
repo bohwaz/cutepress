@@ -1,8 +1,6 @@
-cutepress (1.2.0) stable; urgency=normal
+cutepress (1.3.0) stable; urgency=normal
 
-  * Performance upgrades.
-  * Support for custom media folders.
-  * Default icons for Symbian.
-  * Added Turkish translation.
+  * Added feature of selecting number of posts for a blog(max 200).
+  * Fix for some UI bugs.
 
- -- Abhishek Kumar <abhishek.mrt22@gmail.com>  Mon, 24 Mar 2011 23:21:36 +0530
+ -- Abhishek Kumar <abhishek.mrt22@gmail.com>  Mon, 27 Mar 2011 23:21:36 +0530

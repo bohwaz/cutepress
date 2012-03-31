@@ -292,7 +292,7 @@ CPPage {
                         height: 45
                         iconSource: selected?"qrc:/qml/images/delete - white.png":window.isThemeInverted?UI.DELETEIMG:UI.DELETEIMG
                         onClicked: {
-                            showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
+                            showDialog(qsTr("Do you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
                             //deletePost(localId)
                         }
                     }

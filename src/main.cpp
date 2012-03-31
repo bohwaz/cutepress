@@ -44,11 +44,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     else
         qDebug()<<"File not found";
 
-#if !defined(Q_OS_SYMBIAN)&& !defined(Q_WS_MAEMO_5) && !defined(QT_SIMULATOR) && !defined(Q_WS_WIN)
-    QPixmap pixmap(":qml/images/splash-inv.png");
-#else
-    QPixmap pixmap(":qml/images/splash.png");
-#endif
+    int myW = app.desktop()->width();
+    int myH = app.desktop()->height();
+    QPixmap pixmap(":qml/images/splash-"+QString::number(myW)+"x"+QString::number(myH)+".png");
+    if(pixmap.isNull())
+        pixmap = QPixmap(":qml/images/splash-360x640.png");
+
     Qt::WidgetAttribute attribute;
     attribute = Qt::WA_LockPortraitOrientation;
     QSplashScreen splash(pixmap);
@@ -94,10 +95,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 
     QObject *object = view.rootObject();
-    QObject::connect(object, SIGNAL(addNewBlog(QString,QString,QString,bool)),
-                     &worker, SLOT(addNewBlog(QString,QString,QString,bool)));
-    QObject::connect(object, SIGNAL(editBlog(QString,QString,QString,QString,bool)),
-                     &worker, SLOT(editBlog(QString,QString,QString,QString,bool)));
+    QObject::connect(object, SIGNAL(addNewBlog(QString,QString,QString,bool,int)),
+                     &worker, SLOT(addNewBlog(QString,QString,QString,bool,int)));
+    QObject::connect(object, SIGNAL(editBlog(QString,QString,QString,QString,bool,int)),
+                     &worker, SLOT(editBlog(QString,QString,QString,QString,bool,int)));
     QObject::connect(object, SIGNAL(addNewPage(QString,QString,QString,QString,QString)),
                      &worker, SLOT(addNewPage(QString,QString,QString,QString,QString)));
     QObject::connect(object, SIGNAL(editPage(QString,QString,QString,QString,QString,QString)),

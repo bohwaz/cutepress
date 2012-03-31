@@ -71,7 +71,7 @@ CPPage {
 
                 Text {
                     id: headDetail
-                    property string appVer: "1.2.0"
+                    property string appVer: "1.3.0"
                     font.pixelSize: window.appGeneralFontSize+2;
                     text: qsTr("<strong>CutePress version %1</strong>").arg(appVer)+"<br\>"+
                           qsTr("Developed by Abhishek Kumar.")+"<br\>"+

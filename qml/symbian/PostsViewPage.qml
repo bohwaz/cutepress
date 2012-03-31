@@ -299,7 +299,7 @@ CPPage {
                             }
                         }
                         onClicked: {
-                            showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
+                            showDialog(qsTr("Do you really want to delete post \"<strong>%1</strong>\"?").arg(title), localId)
                         }
                     }
                 }

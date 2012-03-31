@@ -43,11 +43,11 @@ CPPage {
                 window.addNewBlogStatus = UI.ProgressState.Processing
                 if(window.nbpIsEditingBlog){
                     window.addNewBlogMsg = qsTr("Editing\.\.\.")
-                    editBlog(window.nbpBlogId,blogUrl.text,blogUsr.text,blogPwd.text,"false")
+                    editBlog(window.nbpBlogId,blogUrl.text,blogUsr.text,blogPwd.text,false,window.nbpNumberOfPosts)
                 }
                 else{
                     window.addNewBlogMsg = qsTr("Connecting\.\.\.")
-                    addNewBlog(blogUrl.text,blogUsr.text,blogPwd.text,"false")
+                    addNewBlog(blogUrl.text,blogUsr.text,blogPwd.text,false,window.nbpNumberOfPosts)
                 }
             }
         }
@@ -160,29 +160,65 @@ CPPage {
                     text: window.nbpPasswordText
                 }
             }
+
             Row {
                 width: parent.width
                 spacing: 10
-                visible: false
-                Column {
-                    width: parent.width - resizeCheck.width - parent.spacing
-                    spacing: 5
-
-                    HeadingText {
-                        text: qsTr("Resize images")
-                        width: parent.width
-                    }
-                    SmallHeadingText {
-                        width: parent.width
-                        text: qsTr("Resizing will result in faster publishing but smaller photos")
-                        wrapMode: Text.Wrap
-                    }
+                HeadingText {
+                    id: postsCountLabel
+                    width: 200
+                    text: qsTr("Number of posts")
+                    anchors.verticalCenter: parent.verticalCenter
                 }
-                CheckBox {
-                    id: resizeCheck
-                    checked: true
+                Button {
+                    id: blogPostsCount
+                    width: 75
+                    anchors.right: parent.right
+                    font.pixelSize: window.appInputFontSize
+                    text: window.nbpNumberOfPosts
+                    onClicked: selectionDialog.open()
+
+                    SelectionDialog {
+                        id: selectionDialog
+                        titleText: qsTr("Select one of the options")
+                        selectedIndex: -1
+                        onSelectedIndexChanged: {
+                            window.nbpNumberOfPosts = selectedIndex>= 0?model.get(selectedIndex).name: "50"
+                        }
+
+                        model: ListModel {
+                            ListElement { name: "10" }
+                            ListElement { name: "20" }
+                            ListElement { name: "50" }
+                            ListElement { name: "100" }
+                            ListElement { name: "200" }
+                        }
+                    }
                 }
             }
+//            Row {
+//                width: parent.width
+//                spacing: 10
+//                visible: false
+//                Column {
+//                    width: parent.width - resizeCheck.width - parent.spacing
+//                    spacing: 5
+
+//                    HeadingText {
+//                        text: qsTr("Resize images")
+//                        width: parent.width
+//                    }
+//                    SmallHeadingText {
+//                        width: parent.width
+//                        text: qsTr("Resizing will result in faster publishing but smaller photos")
+//                        wrapMode: Text.Wrap
+//                    }
+//                }
+//                CheckBox {
+//                    id: resizeCheck
+//                    checked: true
+//                }
+//            }
         }
     }
 }

@@ -40,7 +40,7 @@ CPPage {
         ToolIcon {
             id: button2
             iconSource: UI.DELETEBIGIMG
-            onClicked: showDialog(qsTr("Doy you really want to delete post \"<strong>%1</strong>\"?").arg("+window.sppPostTitle+"))
+            onClicked: showDialog(qsTr("Do you really want to delete post \"<strong>%1</strong>\"?").arg(window.sppPostTitle))
         }
     }
 

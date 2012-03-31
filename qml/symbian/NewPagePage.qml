@@ -225,27 +225,61 @@ CPPage {
                 color: window.isThemeInverted?UI.PAGE_HEADER_TITLE_COLOR:UI.PAGE_HEADER_TITLE_COLOR
                 margins: 0
             }
-            Text {
-                id: publishStatus
-                width: parent.width
-                font.pixelSize: window.appGeneralFontSize
-                elide: Text.ElideRight
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: publishStatus.height+4
+                visible: publishStatus.text!=""
                 color: {
-                    if(text == qsTr("Published"))
+                    if(publishStatus.text == qsTr("Published"))
                         return "green";
-                    else if(text == qsTr("Private"))
+                    else if(publishStatus.text == qsTr("Private"))
                         return "lightgreen";
-                    else if(text == qsTr("Scheduled in future"))
+                    else if(publishStatus.text == qsTr("Scheduled in future"))
                         return "#5674b9";
-                    else if(text == qsTr("Pending review"))
+                    else if(publishStatus.text == qsTr("Pending review"))
                         return "yellow";
-                    else if(text == qsTr("Draft")||text == qsTr("Local Draft") || text == qsTr("Busy"))
+                    else if(publishStatus.text == qsTr("Draft")||publishStatus.text == qsTr("Local Draft") || publishStatus.text == qsTr("Busy"))
                         return "orange";
-                    else if(text == qsTr("Trashed")||text == qsTr("Orphaned"))
+                    else if(publishStatus.text == qsTr("Trashed")||publishStatus.text == qsTr("Orphaned"))
                         return "red";
                 }
-                visible: text!=""
+
+                Text {
+                    id: publishStatus
+                    text: window.sppPostPublishStatus;
+                    font.pixelSize: window.appGeneralFontSize-1
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        leftMargin: 10
+                        verticalCenter: parent.verticalCenter
+                    }
+                    elide: Text.ElideRight
+                }
             }
+//            Text {
+//                id: publishStatus
+//                width: parent.width
+//                font.pixelSize: window.appGeneralFontSize
+//                elide: Text.ElideRight
+//                color: {
+//                    if(text == qsTr("Published"))
+//                        return "green";
+//                    else if(text == qsTr("Private"))
+//                        return "lightgreen";
+//                    else if(text == qsTr("Scheduled in future"))
+//                        return "#5674b9";
+//                    else if(text == qsTr("Pending review"))
+//                        return "yellow";
+//                    else if(text == qsTr("Draft")||text == qsTr("Local Draft") || text == qsTr("Busy"))
+//                        return "orange";
+//                    else if(text == qsTr("Trashed")||text == qsTr("Orphaned"))
+//                        return "red";
+//                }
+//                visible: text!=""
+//            }
 
             HeadingText {
                 text: qsTr("Title")

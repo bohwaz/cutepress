@@ -53,6 +53,7 @@ Worker::Worker()
     blogsRoleNames[BlogEntry::UrlRole] = "blogUrl";
     blogsRoleNames[BlogEntry::UsernameRole] = "username";
     blogsRoleNames[BlogEntry::PasswordRole] = "password";
+    blogsRoleNames[BlogEntry::NumberOfPostsRole] = "blogNumberOfPosts";
     blogsRoleNames[BlogEntry::IsWordpressRole] = "isWordpress";
     blogsRoleNames[BlogEntry::PagesCountRole] = "pagesCount";
     blogsRoleNames[BlogEntry::PostsCountRole] = "postsCount";
@@ -278,7 +279,8 @@ Worker::~Worker()
 void Worker::addNewBlog(QString blogUrl,
                         QString username,
                         QString password,
-                        bool resizePhotosCheck)
+                        bool resizePhotosCheck,
+                        int numberOfPosts)
 {
     // build WPNetworkEndpoint for new blog settings
     WPNetworkEndpoint settings;
@@ -286,7 +288,7 @@ void Worker::addNewBlog(QString blogUrl,
     settings.iBlogUrl = blogUrl;     // must be the same for edited blog
     settings.iUsername = username;
     settings.iPassword = password;
-    settings.iNumberOfPosts = QString().number(50);
+    settings.iNumberOfPosts = QString().number(numberOfPosts);
     settings.iResizePhotos = resizePhotosCheck;
     iBlogs->NewBlog(settings);
 
@@ -296,7 +298,8 @@ void Worker::editBlog(QString id,
                       QString blogUrl,
                       QString username,
                       QString password,
-                      bool resizePhotosCheck)
+                      bool resizePhotosCheck,
+                      int numberOfPosts)
 {
     // build WPNetworkEndpoint for new blog settings
     if(iBlogs->GetBlog(id) && iBlogs->GetBlog(id)->iEndpoint.iBlogUrl == blogUrl){
@@ -305,7 +308,7 @@ void Worker::editBlog(QString id,
         settings.iBlogUrl = blogUrl;     // must be the same for edited blog
         settings.iUsername = username;
         settings.iPassword = password;
-        settings.iNumberOfPosts = QString().number(50);
+        settings.iNumberOfPosts = QString().number(numberOfPosts);
         settings.iResizePhotos = resizePhotosCheck;
         iBlogs->EditBlog(iBlogs->GetBlog(id), settings);
     }
@@ -334,6 +337,7 @@ void Worker::updateBlogs(const WPDataUsersBlogs& aUsersBlogs)
         it->setData(blog->iEndpoint.iBlogUrl, BlogEntry::UrlRole);
         it->setData(blog->iEndpoint.iUsername, BlogEntry::UsernameRole);
         it->setData(blog->iEndpoint.iPassword, BlogEntry::PasswordRole);
+        it->setData(blog->iEndpoint.iNumberOfPosts, BlogEntry::NumberOfPostsRole);
         it->setData(blog->isWordpressHosted(), BlogEntry::IsWordpressRole);
         it->setData(blog->LocalId(), BlogEntry::IdRole);
         it->setData("", BlogEntry::PagesCountRole);
@@ -1277,7 +1281,7 @@ void Worker::postAdded(WPPost post)
     }
     postsModel->setSortRole(PostsEntry::SortDateRole);
     postsModel->sort(0, Qt::DescendingOrder);
-    postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
+    postModelStatus = tr("Posts(%1)").arg(QString().number(currentBlogPostsCount));
     postModelState = ProgressEntry::Success;
     emit setPostModelStatus(postModelState, postModelStatus);
 }
@@ -1345,7 +1349,7 @@ void Worker::postChanged(WPPost post)
         }
         postsModel->setSortRole(PostsEntry::SortDateRole);
         postsModel->sort(0, Qt::DescendingOrder);
-        postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
+        postModelStatus = tr("Posts(%1)").arg(QString().number(currentBlogPostsCount));
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }
@@ -1367,7 +1371,7 @@ void Worker::postRemoved(WPPost post)
             blogsModel->item(tempBlogIdHash.value(iBlogs->GetCurrentBlog()->LocalId()))->setData(currentBlogPostsCount, BlogEntry::PostsCountRole);
             emit updateCurrentBlogPostsCount(currentBlogPostsCount);
         }
-        postModelStatus = tr("Posts(%1").arg(QString().number(currentBlogPostsCount));
+        postModelStatus = tr("Posts(%1)").arg(QString().number(currentBlogPostsCount));
         postModelState = ProgressEntry::Success;
         emit setPostModelStatus(postModelState, postModelStatus);
     }

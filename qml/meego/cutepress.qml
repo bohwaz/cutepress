@@ -95,8 +95,8 @@ PageStackWindow {
     }
 
 
-    signal addNewBlog(string url,string usr,string pwd,bool resizecheck)
-    signal editBlog(string id, string url,string usr,string pwd,bool resizecheck)
+    signal addNewBlog(string url,string usr,string pwd,bool resizecheck,int numberOfPosts)
+    signal editBlog(string id, string url,string usr,string pwd,bool resizecheck,int numberOfPosts)
     signal addNewPage(string title, string content, string password, string date, string status)
     signal editPage(string id, string title, string content, string password, string date, string status)
     signal addNewPost(string title, string content, string tags, string date, string pass, string status)
@@ -193,6 +193,7 @@ PageStackWindow {
     property string nbpUrlText: "http://"
     property string nbpUsernameText: ""
     property string nbpPasswordText: ""
+    property int nbpNumberOfPosts: 50
     property bool nbpResizeCheck: false
 
     function smpClear(){
@@ -248,6 +249,7 @@ PageStackWindow {
         nbpUrlText = "http://"
         nbpUsernameText = ""
         nbpPasswordText = ""
+        nbpNumberOfPosts = 50
         nbpResizeCheck = false
     }
 

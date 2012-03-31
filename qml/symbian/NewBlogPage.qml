@@ -45,11 +45,11 @@ CPPage {
                 window.addNewBlogStatus = UI.ProgressState.Processing
                 if(window.nbpIsEditingBlog){
                     window.addNewBlogMsg = qsTr("Editing\.\.\.")
-                    editBlog(window.nbpBlogId,blogUrl.text,blogUsr.text,blogPwd.text,resizeCheck.checked)
+                    editBlog(window.nbpBlogId,blogUrl.text,blogUsr.text,blogPwd.text,false,window.nbpNumberOfPosts)
                 }
                 else{
                     window.addNewBlogMsg = qsTr("Connecting\.\.\.")
-                    addNewBlog(blogUrl.text,blogUsr.text,blogPwd.text,resizeCheck.checked)
+                    addNewBlog(blogUrl.text,blogUsr.text,blogPwd.text,false,window.nbpNumberOfPosts)
                 }
             }
         }
@@ -164,29 +164,53 @@ CPPage {
                     text: window.nbpPasswordText
                 }
             }
-            Row {
+            SelectionListItem {
+                id: blogPostsCount
                 width: parent.width
-                spacing: 10
-                visible: false
-                Column {
-                    width: parent.width - resizeCheck.width - parent.spacing
-                    spacing: 5
+                title: qsTr("Number of posts")
+                subTitle: window.nbpNumberOfPosts
+                onClicked: selectionDialog.open()
 
-                    HeadingText {
-                        text: qsTr("Resize images")
-                        width: parent.width
+                SelectionDialog {
+                    id: selectionDialog
+                    titleText: qsTr("Select one of the options")
+                    selectedIndex: -1
+                    onSelectedIndexChanged: {
+                        window.nbpNumberOfPosts = selectedIndex>= 0?model.get(selectedIndex).name: "50"
                     }
-                    SmallHeadingText {
-                        width: parent.width
-                        text: qsTr("Resizing will result in faster publishing but smaller photos")
-                        wrapMode: Text.Wrap
+
+                    model: ListModel {
+                        ListElement { name: "10" }
+                        ListElement { name: "20" }
+                        ListElement { name: "50" }
+                        ListElement { name: "100" }
+                        ListElement { name: "200" }
                     }
-                }
-                CheckBox {
-                    id: resizeCheck
-                    checked: true
                 }
             }
+//            Row {
+//                width: parent.width
+//                spacing: 10
+//                visible: false
+//                Column {
+//                    width: parent.width - resizeCheck.width - parent.spacing
+//                    spacing: 5
+
+//                    HeadingText {
+//                        text: qsTr("Resize images")
+//                        width: parent.width
+//                    }
+//                    SmallHeadingText {
+//                        width: parent.width
+//                        text: qsTr("Resizing will result in faster publishing but smaller photos")
+//                        wrapMode: Text.Wrap
+//                    }
+//                }
+//                CheckBox {
+//                    id: resizeCheck
+//                    checked: true
+//                }
+//            }
         }
     }
 }
